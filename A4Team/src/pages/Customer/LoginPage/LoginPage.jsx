@@ -16,7 +16,7 @@ function LoginPage() {
         }}>
             <Box id="login" sx={{
                 // maxWidth: {xs: "100%", sm: "50vw"},
-                width: "50vw",
+                width: { xs: "100vw", sm: "50vw" },
                 backgroundColor: "#323232",
                 color: "white",
                 maxHeight: "100vh"
@@ -26,20 +26,31 @@ function LoginPage() {
                     marginLeft: "40px",
                     marginRight: "40px",
                     minHeight: "100vh",
-                    maxWidth: "30vw",
+                    maxWidth: { xs: "65vw", sm: "30vw" },
                     width: "100%",
                     margin: "0 auto"
                 }}>
-                    <Box sx={{
-                        height: "30vh",
-                        textAlign: "top",
-                        position: "relative",
-                        right: "7vw"
-                    }}>
-                        <img
-                            onClick={() => navigate("/")}
-                            style={{ width: "100%", maxWidth: "150px", marginTop: "30px", cursor: "pointer" }}
-                            src="https://www.instant-gaming.com/themes/igv2/images/logos/logo-horizontal.svg" />
+                    <Box>
+                        <Box sx={{
+                            height: "30vh",
+                            textAlign: "top",
+                            position: "relative",
+                            right: "7vw"
+                        }}>
+                            <img
+                                onClick={() => navigate("/")}
+                                style={{ width: "100%", maxWidth: {xs: "100px", sm: "150px"}, marginTop: "30px", cursor: "pointer" }}
+                                src="https://www.instant-gaming.com/themes/igv2/images/logos/logo-horizontal.svg" />
+                        </Box>
+                        <IconButton sx={{
+                            color: "white",
+                            position: "absolute",
+                            right: 10,
+                            top: 10,
+                            zIndex: 1
+                        }}>
+                            <CloseIcon sx={{ fontSize: {xs: "25px", sm: "35px"} }} />
+                        </IconButton>
                     </Box>
 
                     <Container sx={{
@@ -47,7 +58,7 @@ function LoginPage() {
                         alignItems: "center",
                         justifyContent: "space-evenly"
                     }}>
-                        <Typography sx={{ fontSize: { xs: "10px", sm: "20px" } }}> Log in </Typography>
+                        <Typography sx={{ fontSize: { xs: "15px", sm: "20px" } }}> Log in </Typography>
                         <Button sx={{
                             padding: 0,
                             borderRadius: "10px",
@@ -221,14 +232,6 @@ function LoginPage() {
                 backgroundPosition: "center",
                 position: "relative"
             }}>
-                <IconButton sx={{
-                    color: "white",
-                    position: "absolute",
-                    right: 10,
-                    top: 10
-                }}>
-                    <CloseIcon sx={{ fontSize: "35px" }} />
-                </IconButton>
             </Box>
         </Box>
     )
