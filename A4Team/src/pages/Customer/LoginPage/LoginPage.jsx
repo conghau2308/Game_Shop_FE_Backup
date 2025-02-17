@@ -39,7 +39,7 @@ function LoginPage() {
                         }}>
                             <img
                                 onClick={() => navigate("/")}
-                                style={{ width: "100%", maxWidth: {xs: "100px", sm: "150px"}, marginTop: "30px", cursor: "pointer" }}
+                                style={{ width: "100%", maxWidth: "150px", marginTop: "30px", cursor: "pointer" }}
                                 src="https://www.instant-gaming.com/themes/igv2/images/logos/logo-horizontal.svg" />
                         </Box>
                         <IconButton sx={{
