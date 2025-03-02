@@ -22,6 +22,7 @@ const Footer = () => {
                     justifyContent: "center",
                     marginBottom: "20px",
                     flexDirection: "column", // Đảm bảo phần tử con (text) sẽ nằm dưới nhau
+                    fontFamily: "barlow-regular"
                 }}
             >
                 <Typography variant="h6" sx={{ marginBottom: "10px" }}>
@@ -29,7 +30,7 @@ const Footer = () => {
                 </Typography>
 
                 {/* Trustpilot Stars and Rating */}
-                <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Box sx={{ display: "flex", alignItems: "center", fontFamily: "barlow-regular" }}>
                     <Stack spacing={1}>
                         <Rating
                             name="half-rating"
@@ -56,7 +57,7 @@ const Footer = () => {
                     gap: "30px",
                     marginBottom: "20px",
                     flexWrap: "wrap",
-
+                    fontFamily: "barlow-regular"
                 }}
             >
                 <Link href="#" color="inherit" sx={{ textDecoration: "none" }}>
@@ -165,9 +166,10 @@ const Footer = () => {
                         alignItems: "center",
                         flex: "1 1 100%", // Làm cho phần này chiếm hết chiều rộng có sẵn
                         justifyContent: "center",
+
                     }}
                 >
-                    <Typography variant="body2" sx={{ textAlign: "center" }}>
+                    <Typography variant="body2" sx={{ textAlign: "center", fontFamily: "barlow-regular" }}>
                         Copyright © 2025 Instant Gaming - All rights reserved
                     </Typography>
                 </Box>
@@ -181,12 +183,11 @@ const Footer = () => {
                         marginTop: "30px",
                         justifyContent: "center",
                         flex: "1 1 100%", // Làm cho phần này chiếm hết chiều rộng có sẵn
-
                     }}
                 >
-                    <Typography variant="body2">Vietnam</Typography>
-                    <Typography variant="body2">English</Typography>
-                    <Typography variant="body2">EUR</Typography>
+                    <Typography variant="body2" sx={{fontFamily: "barlow-regular"}}>Vietnam</Typography>
+                    <Typography variant="body2" sx={{fontFamily: "barlow-regular"}}>English</Typography>
+                    <Typography variant="body2" sx={{fontFamily: "barlow-regular"}}>EUR</Typography>
                 </Box>
             </Box>
         </Box>

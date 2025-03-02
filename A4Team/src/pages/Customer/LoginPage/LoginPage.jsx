@@ -66,7 +66,6 @@ function LoginPage() {
                             display: "flex",
                             justifyContent: "center",
                             backgroundColor: "white",
-                            borderRadius: "10px"
                         }}>
 
                             <img
