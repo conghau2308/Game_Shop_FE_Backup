@@ -59,7 +59,7 @@ const Header = () => {
                 </Box>
 
                 {/* Navbar Links */}
-                <Box sx={{ display: "flex", gap: "20px" }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Button sx={{ color: "white" }}>PC</Button>
                     <Button sx={{ color: "white" }}>PlayStation</Button>
                     <Button sx={{ color: "white" }}>Xbox</Button>
@@ -77,7 +77,7 @@ const Header = () => {
                             borderRadius: "20px",
                             paddingLeft: "10px",
                             paddingRight: "10px",
-                            width: "200px",
+                            width: {sm: "200px", xs: "150px"},
                             marginLeft: "30px",
                         }}
                         placeholder="Search"

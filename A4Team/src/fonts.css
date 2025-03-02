@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'barlow';
+    src: url(../src/assets/fonts/Barlow/Barlow-Thin.ttf);
+}
+
+@font-face {
+    font-family: 'barlow-regular';
+    src: url(../src/assets/fonts/Barlow/Barlow-Medium.ttf);
+}
