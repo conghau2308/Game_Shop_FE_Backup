@@ -93,7 +93,12 @@ function Trending() {
                 }} gap={20}>
                     {trending.map((product, index) => (
                         <ImageListItem key={index} >
-                            <Card sx={{ borderRadius: "10px", bgcolor: "#3d3d3d", height: "100%", width: "300px" }}>
+                            <Card sx={{ borderRadius: "10px", bgcolor: "#3d3d3d", height: "100%", width: "300px",
+                                transition: "transform 0.3s ease-in-out",
+                                "&:hover": {
+                                    transform: "scale(1.05)"
+                                }
+                             }}>
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
@@ -102,10 +107,6 @@ function Trending() {
                                             width: "100%",
                                             height: "200px",
                                             objectFit: "cover",
-                                            transition: "transform 0.3s ease-in-out",
-                                            "&:hover": {
-                                                transform: "scale(1.1)"
-                                            }
                                         }}
                                     />
                                 </CardActionArea>
@@ -175,7 +176,12 @@ function Trending() {
                         <Grid2 size={{
                             xs: 6, sm: 4, md: 4
                         }} key={index}>
-                            <Card sx={{ borderRadius: "10px", bgcolor: "#3d3d3d" }}>
+                            <Card sx={{ borderRadius: "10px", bgcolor: "#3d3d3d",
+                                transition: "transform 0.3s ease-in-out",
+                                "&:hover": {
+                                    transform: "scale(1.05)"
+                                }
+                             }}>
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
@@ -184,10 +190,6 @@ function Trending() {
                                             width: "100%",
                                             height: { lg: "200px", md: "120px", sm: "100px" },
                                             objectFit: "cover",
-                                            transition: "transform 0.3s ease-in-out",
-                                            "&:hover": {
-                                                transform: "scale(1.1)"
-                                            }
                                         }}
                                     />
                                 </CardActionArea>

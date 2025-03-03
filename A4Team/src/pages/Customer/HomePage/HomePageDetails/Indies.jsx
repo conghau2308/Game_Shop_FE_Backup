@@ -54,7 +54,12 @@ function Indies() {
                     }} gap={20}>
                         {indie.map((product, index) => (
                             <ImageListItem key={index} >
-                                <Card sx={{ borderRadius: "10px", bgcolor: "#3d3d3d", height: "100%", width: "300px" }}>
+                                <Card sx={{ borderRadius: "10px", bgcolor: "#3d3d3d", height: "100%", width: "300px",
+                                    transition: "transform 0.3s ease-in-out",
+                                    "&:hover": {
+                                        transform: "scale(1.05)"
+                                    }
+                                 }}>
                                     <CardActionArea>
                                         <CardMedia
                                             component="img"
@@ -63,10 +68,6 @@ function Indies() {
                                                 width: "100%",
                                                 height: "200px",
                                                 objectFit: "cover",
-                                                transition: "transform 0.3s ease-in-out",
-                                                "&:hover": {
-                                                    transform: "scale(1.1)"
-                                                }
                                             }}
                                         />
                                     </CardActionArea>
@@ -134,7 +135,12 @@ function Indies() {
                         <Grid2 container justifyContent="center" spacing={{ lg: 4, md: 4, sm: 3 }}>
                             {indie.map((game, index) => (
                                 <Grid2 key={index} size={{ lg: 6, md: 6, sm: 6 }}>
-                                    <Card sx={{ borderRadius: "10px", bgcolor: "#3d3d3d", width: "100%", height: "auto" }}>
+                                    <Card sx={{ borderRadius: "10px", bgcolor: "#3d3d3d", width: "100%", height: "auto",
+                                        transition: "transform 0.3s ease-in-out",
+                                        "&:hover": {
+                                            transform: "scale(1.05)"
+                                        }
+                                     }}>
                                         <CardActionArea>
                                             <CardMedia
                                                 component="img"
@@ -144,10 +150,6 @@ function Indies() {
                                                     width: "100%",
                                                     height: { lg: "200px", md: "120px", sm: "100px" },
                                                     objectFit: "cover",
-                                                    transition: "transform 0.3s ease-in-out",
-                                                    "&:hover": {
-                                                        transform: "scale(1.1)"
-                                                    }
                                                 }}
                                             />
                                         </CardActionArea>

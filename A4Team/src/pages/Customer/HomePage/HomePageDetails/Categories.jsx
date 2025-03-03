@@ -193,7 +193,11 @@ function Categories() {
                                         position: "absolute",
                                         right: 0,
                                         maxHeight: {lg: "120%", md: "110%", sm: "90%"},
-                                        objectFit: "contain"
+                                        objectFit: "contain",
+                                        transition: "transform 0.3s ease-in-out",
+                                        "&:hover": {
+                                            transform: "translate(-5px, -5px) scale(1.05, 1.05)",
+                                        }
                                     }}
                                 />
                             </Box>
