@@ -191,9 +191,15 @@ function Categories() {
                                 <Box component="img" src={item.image}
                                     sx={{
                                         position: "absolute",
+                                        display: "flex",
+                                        justifyContent: "right",
                                         right: 0,
                                         maxHeight: {lg: "120%", md: "110%", sm: "90%"},
-                                        objectFit: "contain"
+                                        objectFit: "contain",
+                                        transition: "transform 0.3s ease-in-out",
+                                        "&:hover": {
+                                            transform: "translate(-5px, -5px) scale(1.05, 1.05)",
+                                        }
                                     }}
                                 />
                             </Box>
