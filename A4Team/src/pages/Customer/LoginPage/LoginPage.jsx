@@ -13,6 +13,7 @@ function LoginPage() {
             maxHeight: "100vh",
             alignItems: "center",
             width: "100vw",
+            margin: "-8px"
         }}>
             <Box id="login" sx={{
                 // maxWidth: {xs: "100%", sm: "50vw"},

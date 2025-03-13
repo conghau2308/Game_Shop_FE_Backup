@@ -7,7 +7,8 @@ import Footer from "../../../layouts/Footer";
 function HomePage() {
     return (
         <Box sx={{
-            bgcolor: "#272727"
+            bgcolor: "#272727",
+            margin: "-8px"
         }}>
             <Header />
             <HomePageComponent />
