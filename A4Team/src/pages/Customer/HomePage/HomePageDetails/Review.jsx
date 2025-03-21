@@ -235,7 +235,6 @@ function Review() {
                                         {rev.review}
                                     </Typography>
                                 </CardContent>
-                            </Card>
 
                             <Menu
                                 anchorEl={menuClick}
@@ -255,6 +254,7 @@ function Review() {
                                     <FlagOutlined /> Report
                                 </MenuItem>
                             </Menu>
+                            </Card>
                         </Grid2>
                     ))}
                 </Grid2>

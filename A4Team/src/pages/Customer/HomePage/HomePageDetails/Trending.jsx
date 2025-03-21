@@ -1,14 +1,20 @@
-import { Button, Card, CardActions, CardContent, Typography, Box, CardMedia, Container, Grid2, CardActionArea, useMediaQuery, Stack, ImageList, ImageListItem } from "@mui/material";
+import { Button, Card, CardContent, Typography, Box, CardMedia, Grid2, CardActionArea, useMediaQuery, ImageList, ImageListItem } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useNavigateProductDetail from "../../../../ultils/NavigateProductDetail";
 
 function Trending() {
     const [trending, setTrending] = useState([]);
     const isMobile = useMediaQuery("(max-width:600px)");
     const isMedium = useMediaQuery("(max-width:1200px");
+    const navigate = useNavigate();
+
+    const handleProductDetail = useNavigateProductDetail();
 
     useEffect(() => {
         const fakedata = [
             {
+                id: 1,
                 name: "Microsoft Flight Simulator 2024 (PC / Xbox Ser)",
                 description: "Fly with Purpose Launch your aviation Career wherever you choose in the world. Gain experience, build your reputation, and complete certifications to gain access to authentic aviation",
                 discount: "-39%",
@@ -16,13 +22,15 @@ function Trending() {
                 image: "https://gaming-cdn.com/images/products/17684/616x353/microsoft-flight-simulator-2024-pc-xbox-series-x-s-pc-xbox-series-x-s-game-microsoft-store-cover.jpg?v=1737544631"
             },
             {
-                name: "Microsoft Flight Simulator 2024 (PC / Xbox Ser)",
+                id: 2,
+                name: "Door Kickers 2: Task Force North",
                 description: "Fly with Purpose Launch your aviation Career wherever you choose in the world. Gain experience, build your reputation, and complete certifications to gain access to authentic aviation",
                 discount: "-39%",
                 price: "18.99$",
                 image: "https://gaming-cdn.com/images/products/18312/616x353/miside-pc-game-steam-cover.jpg?v=1734423797"
             },
             {
+                id: 3,
                 name: "Microsoft Flight Simulator 2024 (PC / Xbox Ser)",
                 description: "Fly with Purpose Launch your aviation Career wherever you choose in the world. Gain experience, build your reputation, and complete certifications to gain access to authentic aviation",
                 discount: "-39%",
@@ -30,6 +38,7 @@ function Trending() {
                 image: "https://gaming-cdn.com/images/products/17684/616x353/microsoft-flight-simulator-2024-pc-xbox-series-x-s-pc-xbox-series-x-s-game-microsoft-store-cover.jpg?v=1737544631"
             },
             {
+                id: 4,
                 name: "Microsoft Flight Simulator 2024 (PC / Xbox Ser)",
                 description: "Fly with Purpose Launch your aviation Career wherever you choose in the world. Gain experience, build your reputation, and complete certifications to gain access to authentic aviation",
                 discount: "-39%",
@@ -37,6 +46,7 @@ function Trending() {
                 image: "https://gaming-cdn.com/images/products/17684/616x353/microsoft-flight-simulator-2024-pc-xbox-series-x-s-pc-xbox-series-x-s-game-microsoft-store-cover.jpg?v=1737544631"
             },
             {
+                id: 5,
                 name: "Microsoft Flight Simulator 2024 (PC / Xbox Ser)",
                 description: "Fly with Purpose Launch your aviation Career wherever you choose in the world. Gain experience, build your reputation, and complete certifications to gain access to authentic aviation",
                 discount: "-39%",
@@ -44,6 +54,7 @@ function Trending() {
                 image: "https://gaming-cdn.com/images/products/17684/616x353/microsoft-flight-simulator-2024-pc-xbox-series-x-s-pc-xbox-series-x-s-game-microsoft-store-cover.jpg?v=1737544631"
             },
             {
+                id: 6,
                 name: "Microsoft Flight Simulator 2024 (PC / Xbox Ser)",
                 description: "Fly with Purpose Launch your aviation Career wherever you choose in the world. Gain experience, build your reputation, and complete certifications to gain access to authentic aviation",
                 discount: "-39%",
@@ -51,6 +62,7 @@ function Trending() {
                 image: "https://gaming-cdn.com/images/products/18269/616x353/ready-or-not-lspd-bundle-lspd-bundle-pc-game-steam-cover.jpg?v=1737138348"
             },
             {
+                id: 7,
                 name: "Microsoft Flight Simulator 2024 (PC / Xbox Ser)",
                 description: "Fly with Purpose Launch your aviation Career wherever you choose in the world. Gain experience, build your reputation, and complete certifications to gain access to authentic aviation",
                 discount: "-39%",
@@ -58,6 +70,7 @@ function Trending() {
                 image: "https://gaming-cdn.com/images/products/17684/616x353/microsoft-flight-simulator-2024-pc-xbox-series-x-s-pc-xbox-series-x-s-game-microsoft-store-cover.jpg?v=1737544631"
             },
             {
+                id: 8,
                 name: "Microsoft Flight Simulator 2024 (PC / Xbox Ser)",
                 description: "Fly with Purpose Launch your aviation Career wherever you choose in the world. Gain experience, build your reputation, and complete certifications to gain access to authentic aviation",
                 discount: "-39%",
@@ -93,13 +106,14 @@ function Trending() {
                 }} gap={20}>
                     {trending.map((product, index) => (
                         <ImageListItem key={index} >
-                            <Card sx={{ borderRadius: "10px", bgcolor: "#3d3d3d", height: "100%", width: "300px",
+                            <Card sx={{
+                                borderRadius: "10px", bgcolor: "#3d3d3d", height: "100%", width: "300px",
                                 transition: "transform 0.3s ease-in-out",
                                 "&:hover": {
                                     transform: "scale(1.05)"
                                 }
-                             }}>
-                                <CardActionArea>
+                            }}>
+                                <CardActionArea onClick={() => handleProductDetail(product)}>
                                     <CardMedia
                                         component="img"
                                         image={product.image}
@@ -109,62 +123,62 @@ function Trending() {
                                             objectFit: "cover",
                                         }}
                                     />
-                                </CardActionArea>
 
-                                <CardContent>
-                                    <Typography sx={{
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis",
-                                        whiteSpace: "nowrap",
-                                        color: "white",
-                                        fontSize: 18,
-                                        fontFamily: "barlow-regular"
-                                    }}>
-                                        {product.name}
-                                    </Typography>
-
-                                    <Typography sx={{
-                                        display: "-webkit-box",
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis",
-                                        WebkitBoxOrient: "vertical",
-                                        WebkitLineClamp: 1,
-                                        lineHeight: "1.5rem",
-                                        height: "1.5rem",
-                                        fontSize: 16,
-                                        color: "#999",
-                                        fontFamily: "barlow-regular"
-                                    }}>
-                                        {product.description}
-                                    </Typography>
-
-                                    <Box sx={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center"
-                                    }}>
+                                    <CardContent>
                                         <Typography sx={{
-                                            bgcolor: "#ff5400",
-                                            clipPath: "polygon(0 0, 80% 0, 100% 100%, 0 100%, 0 100%)",
-                                            paddingLeft: 1.5,
-                                            paddingRight: 1.5,
-                                            borderRadius: "5px",
-                                            fontSize: 18,
+                                            overflow: "hidden",
+                                            textOverflow: "ellipsis",
+                                            whiteSpace: "nowrap",
                                             color: "white",
+                                            fontSize: 18,
                                             fontFamily: "barlow-regular"
                                         }}>
-                                            {product.discount}
+                                            {product.name}
                                         </Typography>
 
                                         <Typography sx={{
-                                            fontSize: 21,
-                                            fontFamily: "barlow-regular",
-                                            color: "white"
+                                            display: "-webkit-box",
+                                            overflow: "hidden",
+                                            textOverflow: "ellipsis",
+                                            WebkitBoxOrient: "vertical",
+                                            WebkitLineClamp: 1,
+                                            lineHeight: "1.5rem",
+                                            height: "1.5rem",
+                                            fontSize: 16,
+                                            color: "#999",
+                                            fontFamily: "barlow-regular"
                                         }}>
-                                            {product.price}
+                                            {product.description}
                                         </Typography>
-                                    </Box>
-                                </CardContent>
+
+                                        <Box sx={{
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            alignItems: "center"
+                                        }}>
+                                            <Typography sx={{
+                                                bgcolor: "#ff5400",
+                                                clipPath: "polygon(0 0, 80% 0, 100% 100%, 0 100%, 0 100%)",
+                                                paddingLeft: 1.5,
+                                                paddingRight: 1.5,
+                                                borderRadius: "5px",
+                                                fontSize: 18,
+                                                color: "white",
+                                                fontFamily: "barlow-regular"
+                                            }}>
+                                                {product.discount}
+                                            </Typography>
+
+                                            <Typography sx={{
+                                                fontSize: 21,
+                                                fontFamily: "barlow-regular",
+                                                color: "white"
+                                            }}>
+                                                {product.price}
+                                            </Typography>
+                                        </Box>
+                                    </CardContent>
+                                </CardActionArea>
                             </Card>
                         </ImageListItem>
                     ))}
@@ -176,13 +190,14 @@ function Trending() {
                         <Grid2 size={{
                             xs: 6, sm: 4, md: 4
                         }} key={index}>
-                            <Card sx={{ borderRadius: "10px", bgcolor: "#3d3d3d",
+                            <Card sx={{
+                                borderRadius: "10px", bgcolor: "#3d3d3d",
                                 transition: "transform 0.3s ease-in-out",
                                 "&:hover": {
                                     transform: "scale(1.05)"
                                 }
-                             }}>
-                                <CardActionArea>
+                            }}>
+                                <CardActionArea onClick={() => handleProductDetail(product)}>
                                     <CardMedia
                                         component="img"
                                         image={product.image}

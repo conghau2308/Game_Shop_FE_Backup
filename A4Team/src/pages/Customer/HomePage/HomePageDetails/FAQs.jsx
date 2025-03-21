@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 function FAQs() {
     const [faqs, setFags] = useState([]);
-    const [expanded, setExpanded] = useState([]);
+    const [expanded, setExpanded] = useState(null);
 
     const handleExpand = (index) => {
         setExpanded(expanded === index ? null : index);

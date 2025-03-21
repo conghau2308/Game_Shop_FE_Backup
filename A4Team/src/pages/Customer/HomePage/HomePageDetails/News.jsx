@@ -1,7 +1,7 @@
-import { CardContent, CardMedia, Typography, Box, Card, Grid2 } from "@mui/material";
+import { CardMedia, Typography, Box, Card, Grid2 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-function News() {
+function Newss() {
     const [news, setNews] = useState([]);
 
     useEffect(() => {
@@ -26,11 +26,12 @@ function News() {
             }
         ];
         setNews(fakedata);
-    })
+    }, [])
 
     return (
         <Box sx={{
-            paddingTop: 5
+            paddingTop: 5,
+            bgcolor: "#272727"
         }}>
             <Typography sx={{
                 color: "white",
@@ -48,7 +49,7 @@ function News() {
                         paddingRight: {lg: 15},
                         cursor: "pointer"
                     }}>
-                        <Grid2 size={{xs: 5, sm: 3}}>
+                        <Grid2 size={{xs: 5, sm: 3}} key={index}>
                             <Card sx={{
                                 borderRadius: "5px"
                             }}>
@@ -113,4 +114,4 @@ function News() {
     )
 }
 
-export default News;
+export default Newss;

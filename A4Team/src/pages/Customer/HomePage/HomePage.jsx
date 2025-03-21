@@ -1,4 +1,4 @@
-import { Container, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import HomePageComponent from "./HomePage.component";
 import Header from "../../../layouts/Header";
 import Footer from "../../../layouts/Footer";
