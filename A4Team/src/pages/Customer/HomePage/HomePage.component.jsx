@@ -1,15 +1,15 @@
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import Trending from "./HomePageDetails/Trending";
 import Information from "./HomePageDetails/Information";
 import Content from "./HomePageDetails/Content";
 import Review from "./HomePageDetails/Review";
 import Comment from "./HomePageDetails/Comment";
 import Indies from "./HomePageDetails/Indies";
-import News from "./HomePageDetails/News";
 import Categories from "./HomePageDetails/Categories";
 import FAQs from "./HomePageDetails/FAQs";
 import ActionFooter from "./HomePageDetails/ActionFooter";
 import TopBanner from "./HomePageDetails/TopBanner";
+import Newss from "./HomePageDetails/News";
 
 function HomePageComponent() {
     return (
@@ -30,7 +30,7 @@ function HomePageComponent() {
 
             <Indies />
 
-            <News />
+            <Newss />
 
             <Categories />
 

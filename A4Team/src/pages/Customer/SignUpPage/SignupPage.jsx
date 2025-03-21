@@ -352,6 +352,7 @@ function SignUpPage() {
                                             sx: {
                                                 "& .MuiAutocomplete-listbox": {
                                                     backgroundColor: "rgba(24, 18, 18, 0.8)",
+                                                    maxHeight: "140px",
                                                     fontFamily: "barlow-regular",
                                                     color: "white",
                                                     borderRadius: 0,
@@ -362,7 +363,6 @@ function SignUpPage() {
                                                         background: "#999",
                                                         borderRadius: "10px"
                                                     },
-                                                    height: "140px"
                                                 },
                                                 "& .MuiAutocomplete-option": {
                                                     "&:hover": {

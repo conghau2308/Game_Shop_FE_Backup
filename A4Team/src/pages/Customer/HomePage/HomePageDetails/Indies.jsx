@@ -1,29 +1,35 @@
 import { Grid2, Box, Card, CardMedia, CardContent, Typography, CardActionArea, useMediaQuery, ImageList, ImageListItem } from "@mui/material";
 import { useEffect, useState } from "react";
+import useNavigateProductDetail from "../../../../ultils/NavigateProductDetail";
 
 
 function Indies() {
     const [indie, setIndie] = useState([]);
     const isMobile = useMediaQuery("(max-width:600px)");
+    const handleProductDetail = useNavigateProductDetail();
 
     useEffect(() => {
         const fakedata = [
             {
+                id: 1,
                 name: "Metal Slug Tactics",
                 description: "Metal Slug Tactics offers a fresh perspective on the iconic battles of the METAL SLUG series. Lead your squad to victory through strategic guile and superior firepower in a perfect blend of classic action and tactical depth. Unleash powerful special attacks and shape the outcome of each encounter! Accumulate experience after each battle to unlock new weapons or bonus perks to upgrade your team's firepower and tactical skills. Assemble your team and rewrite the rules in this modern tribute to a cult classic!",
                 image: "https://gaming-cdn.com/img/products/9050/pcover/1400x500/9050.jpg?v=1730910392"
             },
             {
+                id: 2,
                 name: "The Jackbox Survey Scramble",
                 description: "Metal Slug Tactics offers a fresh perspective on the iconic battles of the METAL SLUG series. Lead your squad to victory through strategic guile and superior firepower in a perfect blend of classic action and tactical depth. Unleash powerful special attacks and shape the outcome of each encounter! Accumulate experience after each battle to unlock new weapons or bonus perks to upgrade your team's firepower and tactical skills. Assemble your team and rewrite the rules in this modern tribute to a cult classic!",
                 image: "https://gaming-cdn.com/images/products/17940/616x353/the-jackbox-survey-scramble-pc-mac-game-steam-cover.jpg?v=1730307058"
             },
             {
+                id: 3,
                 name: "Metal Slug Tactics",
                 description: "Metal Slug Tactics offers a fresh perspective on the iconic battles of the METAL SLUG series. Lead your squad to victory through strategic guile and superior firepower in a perfect blend of classic action and tactical depth. Unleash powerful special attacks and shape the outcome of each encounter! Accumulate experience after each battle to unlock new weapons or bonus perks to upgrade your team's firepower and tactical skills. Assemble your team and rewrite the rules in this modern tribute to a cult classic!",
                 image: "https://gaming-cdn.com/img/products/9050/pcover/1400x500/9050.jpg?v=1730910392"
             },
             {
+                id: 4,
                 name: "Metal Slug Tactics",
                 description: "Metal Slug Tactics offers a fresh perspective on the iconic battles of the METAL SLUG series. Lead your squad to victory through strategic guile and superior firepower in a perfect blend of classic action and tactical depth. Unleash powerful special attacks and shape the outcome of each encounter! Accumulate experience after each battle to unlock new weapons or bonus perks to upgrade your team's firepower and tactical skills. Assemble your team and rewrite the rules in this modern tribute to a cult classic!",
                 image: "https://gaming-cdn.com/images/products/17940/616x353/the-jackbox-survey-scramble-pc-mac-game-steam-cover.jpg?v=1730307058"
@@ -54,13 +60,14 @@ function Indies() {
                     }} gap={20}>
                         {indie.map((product, index) => (
                             <ImageListItem key={index} >
-                                <Card sx={{ borderRadius: "10px", bgcolor: "#3d3d3d", height: "100%", width: "300px",
+                                <Card sx={{
+                                    borderRadius: "10px", bgcolor: "#3d3d3d", height: "100%", width: "300px",
                                     transition: "transform 0.3s ease-in-out",
                                     "&:hover": {
                                         transform: "scale(1.05)"
                                     }
-                                 }}>
-                                    <CardActionArea>
+                                }}>
+                                    <CardActionArea onClick={() => handleProductDetail(product)}>
                                         <CardMedia
                                             component="img"
                                             image={product.image}
@@ -70,35 +77,35 @@ function Indies() {
                                                 objectFit: "cover",
                                             }}
                                         />
+
+                                        <CardContent>
+                                            <Typography sx={{
+                                                overflow: "hidden",
+                                                textOverflow: "ellipsis",
+                                                whiteSpace: "nowrap",
+                                                color: "white",
+                                                fontSize: 18,
+                                                fontFamily: "barlow-regular"
+                                            }}>
+                                                {product.name}
+                                            </Typography>
+
+                                            <Typography sx={{
+                                                display: "-webkit-box",
+                                                overflow: "hidden",
+                                                textOverflow: "ellipsis",
+                                                WebkitBoxOrient: "vertical",
+                                                WebkitLineClamp: 1,
+                                                lineHeight: "1.5rem",
+                                                height: "1.5rem",
+                                                fontSize: 16,
+                                                color: "#999",
+                                                fontFamily: "barlow-regular"
+                                            }}>
+                                                {product.description}
+                                            </Typography>
+                                        </CardContent>
                                     </CardActionArea>
-
-                                    <CardContent>
-                                        <Typography sx={{
-                                            overflow: "hidden",
-                                            textOverflow: "ellipsis",
-                                            whiteSpace: "nowrap",
-                                            color: "white",
-                                            fontSize: 18,
-                                            fontFamily: "barlow-regular"
-                                        }}>
-                                            {product.name}
-                                        </Typography>
-
-                                        <Typography sx={{
-                                            display: "-webkit-box",
-                                            overflow: "hidden",
-                                            textOverflow: "ellipsis",
-                                            WebkitBoxOrient: "vertical",
-                                            WebkitLineClamp: 1,
-                                            lineHeight: "1.5rem",
-                                            height: "1.5rem",
-                                            fontSize: 16,
-                                            color: "#999",
-                                            fontFamily: "barlow-regular"
-                                        }}>
-                                            {product.description}
-                                        </Typography>
-                                    </CardContent>
                                 </Card>
                             </ImageListItem>
                         ))}
@@ -135,13 +142,14 @@ function Indies() {
                         <Grid2 container justifyContent="center" spacing={{ lg: 4, md: 4, sm: 3 }}>
                             {indie.map((game, index) => (
                                 <Grid2 key={index} size={{ lg: 6, md: 6, sm: 6 }}>
-                                    <Card sx={{ borderRadius: "10px", bgcolor: "#3d3d3d", width: "100%", height: "auto",
+                                    <Card sx={{
+                                        borderRadius: "10px", bgcolor: "#3d3d3d", width: "100%", height: "auto",
                                         transition: "transform 0.3s ease-in-out",
                                         "&:hover": {
                                             transform: "scale(1.05)"
                                         }
-                                     }}>
-                                        <CardActionArea>
+                                    }}>
+                                        <CardActionArea onClick={() => handleProductDetail(game)}>
                                             <CardMedia
                                                 component="img"
                                                 image={game.image}
@@ -152,35 +160,35 @@ function Indies() {
                                                     objectFit: "cover",
                                                 }}
                                             />
+
+                                            <CardContent>
+                                                <Typography sx={{
+                                                    overflow: "hidden",
+                                                    textOverflow: "ellipsis",
+                                                    whiteSpace: "nowrap",
+                                                    color: "white",
+                                                    fontSize: { sm: 12, md: 14, lg: 18 },
+                                                    fontFamily: "barlow-regular"
+                                                }}>
+                                                    {game.name}
+                                                </Typography>
+
+                                                <Typography sx={{
+                                                    display: "-webkit-box",
+                                                    overflow: "hidden",
+                                                    textOverflow: "ellipsis",
+                                                    WebkitBoxOrient: "vertical",
+                                                    WebkitLineClamp: { sm: 1, md: 2 },
+                                                    lineHeight: "1.5rem",
+                                                    height: { sm: "1.5rem", md: "3rem" },
+                                                    fontSize: { sm: 10, md: 12, lg: 14 },
+                                                    color: "#999",
+                                                    fontFamily: "barlow-regular"
+                                                }}>
+                                                    {game.description}
+                                                </Typography>
+                                            </CardContent>
                                         </CardActionArea>
-
-                                        <CardContent>
-                                            <Typography sx={{
-                                                overflow: "hidden",
-                                                textOverflow: "ellipsis",
-                                                whiteSpace: "nowrap",
-                                                color: "white",
-                                                fontSize: { sm: 12, md: 14, lg: 18 },
-                                                fontFamily: "barlow-regular"
-                                            }}>
-                                                {game.name}
-                                            </Typography>
-
-                                            <Typography sx={{
-                                                display: "-webkit-box",
-                                                overflow: "hidden",
-                                                textOverflow: "ellipsis",
-                                                WebkitBoxOrient: "vertical",
-                                                WebkitLineClamp: { sm: 1, md: 2 },
-                                                lineHeight: "1.5rem",
-                                                height: { sm: "1.5rem", md: "3rem" },
-                                                fontSize: { sm: 10, md: 12, lg: 14 },
-                                                color: "#999",
-                                                fontFamily: "barlow-regular"
-                                            }}>
-                                                {game.description}
-                                            </Typography>
-                                        </CardContent>
                                     </Card>
                                 </Grid2>
                             ))}

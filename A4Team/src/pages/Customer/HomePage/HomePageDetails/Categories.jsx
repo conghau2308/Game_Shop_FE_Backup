@@ -174,6 +174,7 @@ function Categories() {
                                 justifyContent: "space-between",
                                 position: "relative",
                                 borderRadius: "10px",
+                                cursor: "pointer"
                             }}>
                                 <Typography sx={{
                                     position: "absolute",
