@@ -19,7 +19,7 @@ function TopProductDetail() {
     useEffect(() => {
         const fakedata = {
             name: "Assassin’s Creed Shadows Deluxe Edition",
-            "Game console": "PlayStation",
+            "Game console": "Xbox",
             "In Stock": false,
             "Digital Download": true,
             "Release date": null,

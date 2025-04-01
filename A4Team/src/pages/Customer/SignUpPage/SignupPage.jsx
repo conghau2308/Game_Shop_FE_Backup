@@ -366,7 +366,7 @@ function SignUpPage() {
                                                 },
                                                 "& .MuiAutocomplete-option": {
                                                     "&:hover": {
-                                                        bgcolor: "#ff5400",
+                                                        bgcolor: "#ff5400 !important",
                                                     }
                                                 }
                                             }

@@ -17,6 +17,12 @@ import Information from './pages/Customer/HomePage/HomePageDetails/Information'
 import TopBanner from './pages/Customer/HomePage/HomePageDetails/TopBanner'
 import Review from './pages/Customer/HomePage/HomePageDetails/Review'
 import Newss from './pages/Customer/HomePage/HomePageDetails/News'
+import ProductCartPage from './pages/Customer/CartPage/ProductCart/ProductCartPage'
+import SummaryPayment from './components/Customer/CartPage/PaymentPage/SummaryPayment'
+import SelectBankPage from './pages/Customer/CartPage/PaymentPage/SelectBankPage/SelectBankPage'
+import FillPayment from './pages/Customer/CartPage/PaymentPage/PaymentPage/FillPayment'
+import ConfirmPayment from './pages/Customer/CartPage/PaymentPage/ConfirmPayment/ConfirmPayment'
+import GameActivationPage from './pages/Customer/CartPage/GameActivationPage/GameActivationPage'
 // import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
@@ -39,6 +45,15 @@ createRoot(document.getElementById('root')).render(
         </Route>
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/product-detail/buy/:id/:slug" element={<ProductDetailPage />} />
+        <Route path="/cart" element={<ProductCartPage />} />
+
+        <Route path="/make-payment" element={<SummaryPayment />}>
+          <Route path="select-bank" element={<SelectBankPage />}/>
+          <Route path="fill-payment" element={<FillPayment />}/>
+          <Route path="confirm-payment" element={<ConfirmPayment />} />
+        </Route>
+
+        <Route path="/game-activation" element={<GameActivationPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
