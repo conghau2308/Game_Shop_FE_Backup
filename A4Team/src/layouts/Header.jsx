@@ -91,7 +91,9 @@ const Header = () => {
 
                 {/* Icons and User Profile */}
                 <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
-                    <IconButton sx={{ color: "white" }}>
+                    <IconButton sx={{ color: "white" }}
+                        onClick={() => navigate("/cart")}
+                    >
                         <Badge badgeContent={1} color="error">
                             <ShoppingCartIcon />
                         </Badge>

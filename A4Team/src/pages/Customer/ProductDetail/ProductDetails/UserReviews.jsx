@@ -402,13 +402,13 @@ function UserReviews() {
                                                 }} />
                                             }
                                             action={
-                                                    <IconButton sx={{
-                                                        color: "#999"
-                                                    }}
-                                                        onClick={(event) => handleClickRecent(event, index)}
-                                                    >
-                                                        <MoreVert />
-                                                    </IconButton>
+                                                <IconButton sx={{
+                                                    color: "#999"
+                                                }}
+                                                    onClick={(event) => handleClickRecent(event, index)}
+                                                >
+                                                    <MoreVert />
+                                                </IconButton>
                                             }
                                         />
 
@@ -457,31 +457,31 @@ function UserReviews() {
                                                         justifySelf: "center"
                                                     }}
                                                 >
-                                                        {expandedRecent === index ? (
-                                                            <RemoveOutlined sx={{
-                                                                color: "#999",
-                                                                fontSize: 15,
-                                                                border: "1px solid #999",
-                                                                borderRadius: 20,
-                                                                padding: 1,
-                                                                "&:hover": {
-                                                                    color: "#fff",
-                                                                    borderColor: "#fff"
-                                                                }
-                                                            }} />
-                                                        ) : (
-                                                            <AddOutlined sx={{
-                                                                color: "#999",
-                                                                fontSize: 15,
-                                                                border: "1px solid #999",
-                                                                borderRadius: 20,
-                                                                padding: 1,
-                                                                "&:hover": {
-                                                                    color: "#fff",
-                                                                    borderColor: "#fff"
-                                                                }
-                                                            }} />
-                                                        )}
+                                                    {expandedRecent === index ? (
+                                                        <RemoveOutlined sx={{
+                                                            color: "#999",
+                                                            fontSize: 15,
+                                                            border: "1px solid #999",
+                                                            borderRadius: 20,
+                                                            padding: 1,
+                                                            "&:hover": {
+                                                                color: "#fff",
+                                                                borderColor: "#fff"
+                                                            }
+                                                        }} />
+                                                    ) : (
+                                                        <AddOutlined sx={{
+                                                            color: "#999",
+                                                            fontSize: 15,
+                                                            border: "1px solid #999",
+                                                            borderRadius: 20,
+                                                            padding: 1,
+                                                            "&:hover": {
+                                                                color: "#fff",
+                                                                borderColor: "#fff"
+                                                            }
+                                                        }} />
+                                                    )}
                                                 </Box>
                                             )}
                                         </CardContent>
@@ -508,48 +508,48 @@ function UserReviews() {
                                             }}>
 
 
-                                                    <Button sx={{
-                                                        color: "#999",
-                                                        border: "1px solid #999",
-                                                        borderRadius: 20,
-                                                        minWidth: 0,
-                                                        width: 65,
-                                                        height: 35,
-                                                        "&:hover": {
-                                                            color: "#fff",
-                                                            border: "1px solid #fff"
-                                                        }
-                                                    }}>
-                                                        <ThumbUpOutlined sx={{
-                                                            fontSize: 18
-                                                        }} />
+                                                <Button sx={{
+                                                    color: "#999",
+                                                    border: "1px solid #999",
+                                                    borderRadius: 20,
+                                                    minWidth: 0,
+                                                    width: 65,
+                                                    height: 35,
+                                                    "&:hover": {
+                                                        color: "#fff",
+                                                        border: "1px solid #fff"
+                                                    }
+                                                }}>
+                                                    <ThumbUpOutlined sx={{
+                                                        fontSize: 18
+                                                    }} />
 
-                                                        <Typography sx={{
-                                                            fontSize: 13,
-                                                            fontFamily: "barlow-regular",
-                                                            paddingLeft: 1
-                                                        }}>
-                                                            {item.likes}
-                                                        </Typography>
-                                                    </Button>
-
-                                                    <Button sx={{
-                                                        color: "#999",
-                                                        border: "1px solid #999",
-                                                        borderRadius: 20,
-                                                        minWidth: 0,
-                                                        width: 45,
-                                                        height: 35,
-                                                        marginLeft: 1,
-                                                        "&:hover": {
-                                                            color: "#fff",
-                                                            border: "1px solid #fff"
-                                                        }
+                                                    <Typography sx={{
+                                                        fontSize: 13,
+                                                        fontFamily: "barlow-regular",
+                                                        paddingLeft: 1
                                                     }}>
-                                                        <ThumbDownOutlined sx={{
-                                                            fontSize: 18
-                                                        }} />
-                                                    </Button>
+                                                        {item.likes}
+                                                    </Typography>
+                                                </Button>
+
+                                                <Button sx={{
+                                                    color: "#999",
+                                                    border: "1px solid #999",
+                                                    borderRadius: 20,
+                                                    minWidth: 0,
+                                                    width: 45,
+                                                    height: 35,
+                                                    marginLeft: 1,
+                                                    "&:hover": {
+                                                        color: "#fff",
+                                                        border: "1px solid #fff"
+                                                    }
+                                                }}>
+                                                    <ThumbDownOutlined sx={{
+                                                        fontSize: 18
+                                                    }} />
+                                                </Button>
                                             </Box>
                                         </CardContent>
 
@@ -577,7 +577,7 @@ function UserReviews() {
                     </Box>
                 </Box>
             ) : (
-                <Grid2 container spacing={{sm: 3, md: 4}} sx={{
+                <Grid2 container spacing={{ sm: 3, md: 4 }} sx={{
                     bgcolor: "#272727",
                     paddingLeft: { lg: 20, md: 4, sm: 2 },
                     paddingRight: { lg: 20, md: 4, sm: 2 },
@@ -607,14 +607,14 @@ function UserReviews() {
                                     >
                                         <CardHeader
                                             sx={{
-                                                paddingLeft: {sm: 3, md: 4},
+                                                paddingLeft: { sm: 3, md: 4 },
                                                 paddingTop: 3,
-                                                paddingBottom: {sm: 0, md: 1, lg: 2}
+                                                paddingBottom: { sm: 0, md: 1, lg: 2 }
                                             }}
                                             avatar={
                                                 <Avatar src={item.avatar} sx={{
-                                                    height: {sm: 50, md: 70},
-                                                    width: {sm: 50, md: 70},
+                                                    height: { sm: 50, md: 70 },
+                                                    width: { sm: 50, md: 70 },
                                                 }}></Avatar>
                                             }
                                             subheader={
@@ -627,7 +627,7 @@ function UserReviews() {
                                                 }} />
                                             }
                                             action={
-                                                <Fade in={{sm: true, lg: hoveredIndexBest === index}} timeout={200}>
+                                                <Fade in={{ sm: true, lg: hoveredIndexBest === index }} timeout={200}>
                                                     <IconButton sx={{
                                                         color: "#999",
                                                         "&:hover": {
@@ -650,8 +650,8 @@ function UserReviews() {
                                                 position: "relative",
                                                 maxHeight: expanded === index ? "none" : "7.5rem",
                                                 overflow: "hidden",
-                                                paddingLeft: {sm: 0, md: 2},
-                                                paddingRight: {sm: 0, md: 2}
+                                                paddingLeft: { sm: 0, md: 2 },
+                                                paddingRight: { sm: 0, md: 2 }
                                             }}>
                                                 <Typography sx={{
                                                     color: "#999",
@@ -691,7 +691,6 @@ function UserReviews() {
                                                     }}
                                                 >
                                                     <Tooltip title={expanded === index ? "Read Less" : "Read More"}
-                                                        onClick={() => toggleExpand(index)}
                                                         slotProps={{
                                                             popper: {
                                                                 sx: {
@@ -705,31 +704,33 @@ function UserReviews() {
                                                             }
                                                         }}
                                                     >
-                                                        {expanded === index ? (
-                                                            <RemoveOutlined sx={{
-                                                                color: "#999",
-                                                                fontSize: 25,
-                                                                border: "1px solid #999",
-                                                                borderRadius: 20,
-                                                                padding: 1,
-                                                                "&:hover": {
-                                                                    color: "#fff",
-                                                                    borderColor: "#fff"
-                                                                }
-                                                            }} />
-                                                        ) : (
-                                                            <AddOutlined sx={{
-                                                                color: "#999",
-                                                                fontSize: 25,
-                                                                border: "1px solid #999",
-                                                                borderRadius: 20,
-                                                                padding: 1,
-                                                                "&:hover": {
-                                                                    color: "#fff",
-                                                                    borderColor: "#fff"
-                                                                }
-                                                            }} />
-                                                        )}
+                                                        <Box onClick={() => toggleExpand(index)}>
+                                                            {expanded === index ? (
+                                                                <RemoveOutlined sx={{
+                                                                    color: "#999",
+                                                                    fontSize: 25,
+                                                                    border: "1px solid #999",
+                                                                    borderRadius: 20,
+                                                                    padding: 1,
+                                                                    "&:hover": {
+                                                                        color: "#fff",
+                                                                        borderColor: "#fff"
+                                                                    }
+                                                                }} />
+                                                            ) : (
+                                                                <AddOutlined sx={{
+                                                                    color: "#999",
+                                                                    fontSize: 25,
+                                                                    border: "1px solid #999",
+                                                                    borderRadius: 20,
+                                                                    padding: 1,
+                                                                    "&:hover": {
+                                                                        color: "#fff",
+                                                                        borderColor: "#fff"
+                                                                    }
+                                                                }} />
+                                                            )}
+                                                        </Box>
                                                     </Tooltip>
                                                 </Box>
                                             )}
@@ -741,7 +742,7 @@ function UserReviews() {
                                             color: "#999",
                                             alignItems: "center",
                                             paddingTop: 0,
-                                            margin: {sm: 0, md: 2},
+                                            margin: { sm: 0, md: 2 },
                                             paddingBottom: 0
                                         }}>
                                             <Typography sx={{
@@ -761,7 +762,7 @@ function UserReviews() {
                                                     fontFamily: "barlow",
                                                     fontWeight: 500,
                                                     paddingRight: 2,
-                                                    display: {sm: "none", lg: "flex"}
+                                                    display: { sm: "none", lg: "flex" }
                                                 }}>
                                                     Useful?
                                                 </Typography>
@@ -889,14 +890,14 @@ function UserReviews() {
                                     >
                                         <CardHeader
                                             sx={{
-                                                paddingLeft: {sm: 3, md: 4},
+                                                paddingLeft: { sm: 3, md: 4 },
                                                 paddingTop: 3,
-                                                paddingBottom: {sm: 0, md: 1, lg: 2}
+                                                paddingBottom: { sm: 0, md: 1, lg: 2 }
                                             }}
                                             avatar={
                                                 <Avatar src={item.avatar} sx={{
-                                                    height: {sm: 50, md: 55},
-                                                    width: {sm: 50, md: 55},
+                                                    height: { sm: 50, md: 55 },
+                                                    width: { sm: 50, md: 55 },
                                                 }}></Avatar>
                                             }
                                             subheader={
@@ -909,7 +910,7 @@ function UserReviews() {
                                                 }} />
                                             }
                                             action={
-                                                <Fade in={{sm: true, lg: hoveredIndexRecent === index}} timeout={200}>
+                                                <Fade in={{ sm: true, lg: hoveredIndexRecent === index }} timeout={200}>
                                                     <IconButton sx={{
                                                         color: "#999",
                                                         "&:hover": {
@@ -930,8 +931,8 @@ function UserReviews() {
                                                 position: "relative",
                                                 maxHeight: expandedRecent === index ? "none" : "7.5rem",
                                                 overflow: "hidden",
-                                                paddingLeft: {sm: 0, md: 2},
-                                                paddingRight: {sm: 0, md: 2}
+                                                paddingLeft: { sm: 0, md: 2 },
+                                                paddingRight: { sm: 0, md: 2 }
                                             }}>
                                                 <Typography sx={{
                                                     color: "#999",
@@ -971,7 +972,6 @@ function UserReviews() {
                                                     }}
                                                 >
                                                     <Tooltip title={expandedRecent === index ? "Read Less" : "Read More"}
-                                                        onClick={() => toggleExpandRecent(index)}
                                                         slotProps={{
                                                             popper: {
                                                                 sx: {
@@ -985,31 +985,33 @@ function UserReviews() {
                                                             }
                                                         }}
                                                     >
-                                                        {expandedRecent === index ? (
-                                                            <RemoveOutlined sx={{
-                                                                color: "#999",
-                                                                fontSize: 25,
-                                                                border: "1px solid #999",
-                                                                borderRadius: 20,
-                                                                padding: 1,
-                                                                "&:hover": {
-                                                                    color: "#fff",
-                                                                    borderColor: "#fff"
-                                                                }
-                                                            }} />
-                                                        ) : (
-                                                            <AddOutlined sx={{
-                                                                color: "#999",
-                                                                fontSize: 25,
-                                                                border: "1px solid #999",
-                                                                borderRadius: 20,
-                                                                padding: 1,
-                                                                "&:hover": {
-                                                                    color: "#fff",
-                                                                    borderColor: "#fff"
-                                                                }
-                                                            }} />
-                                                        )}
+                                                        <Box onClick={() => toggleExpandRecent(index)}>
+                                                            {expandedRecent === index ? (
+                                                                <RemoveOutlined sx={{
+                                                                    color: "#999",
+                                                                    fontSize: 25,
+                                                                    border: "1px solid #999",
+                                                                    borderRadius: 20,
+                                                                    padding: 1,
+                                                                    "&:hover": {
+                                                                        color: "#fff",
+                                                                        borderColor: "#fff"
+                                                                    }
+                                                                }} />
+                                                            ) : (
+                                                                <AddOutlined sx={{
+                                                                    color: "#999",
+                                                                    fontSize: 25,
+                                                                    border: "1px solid #999",
+                                                                    borderRadius: 20,
+                                                                    padding: 1,
+                                                                    "&:hover": {
+                                                                        color: "#fff",
+                                                                        borderColor: "#fff"
+                                                                    }
+                                                                }} />
+                                                            )}
+                                                        </Box>
                                                     </Tooltip>
                                                 </Box>
                                             )}
@@ -1021,11 +1023,11 @@ function UserReviews() {
                                             color: "#999",
                                             alignItems: "center",
                                             paddingTop: 0,
-                                            margin: {sm: 0, md: 2},
+                                            margin: { sm: 0, md: 2 },
                                             paddingBottom: 0
                                         }}>
                                             <Typography sx={{
-                                                fontSize: {sm: 14, md: 16},
+                                                fontSize: { sm: 14, md: 16 },
                                                 fontFamily: "barlow",
                                                 fontWeight: 500
                                             }}>
@@ -1041,7 +1043,7 @@ function UserReviews() {
                                                     fontFamily: "barlow",
                                                     fontWeight: 500,
                                                     paddingRight: 2,
-                                                    display: {sm: "none", lg: "flex"}
+                                                    display: { sm: "none", lg: "flex" }
                                                 }}>
                                                     Useful?
                                                 </Typography>
@@ -1066,8 +1068,8 @@ function UserReviews() {
                                                         border: "1px solid #999",
                                                         borderRadius: 20,
                                                         minWidth: 0,
-                                                        width: {sm: 65, md: 70},
-                                                        height: {sm: 35, md: 40},
+                                                        width: { sm: 65, md: 70 },
+                                                        height: { sm: 35, md: 40 },
                                                         "&:hover": {
                                                             color: "#fff",
                                                             border: "1px solid #fff"
@@ -1078,7 +1080,7 @@ function UserReviews() {
                                                         }} />
 
                                                         <Typography sx={{
-                                                            fontSize: {sm: 14, md: 15},
+                                                            fontSize: { sm: 14, md: 15 },
                                                             fontFamily: "barlow-regular",
                                                             paddingLeft: 1
                                                         }}>
@@ -1107,8 +1109,8 @@ function UserReviews() {
                                                         border: "1px solid #999",
                                                         borderRadius: 20,
                                                         minWidth: 0,
-                                                        width: {sm: 45, md: 50},
-                                                        height: {sm: 35, md: 40},
+                                                        width: { sm: 45, md: 50 },
+                                                        height: { sm: 35, md: 40 },
                                                         marginLeft: 1,
                                                         "&:hover": {
                                                             color: "#fff",
