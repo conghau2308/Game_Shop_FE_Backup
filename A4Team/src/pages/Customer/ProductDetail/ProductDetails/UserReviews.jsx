@@ -48,46 +48,46 @@ function UserReviews() {
 
     useEffect(() => {
         const fakedata = [
-            // {
-            //     avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-            //     like: true,
-            //     review: "It came with the pre order bonus, and code worked, would recommend. MInecraft is an awesome and popular game so there isn't much i can say that you don't already know. I ended up buying this and didn't receive JAVA, nonetheless that doesn't effect how i love the game!!. got the code immediately, redeemed it on the official Minecraft website, downloaded the launcher and the game itself and was able to play immediately! very nice and fast, much appreciated :). someone help me, the game worked for a few days and suddenly it crashed, it says to try to pay again or log in again. But I bought the game, I didn't subscribe, so what now?",
-            //     time: "6th March 2025",
-            //     likes: 13,
-            //     unlikes: 0
-            // },
-            // {
-            //     avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-            //     like: true,
-            //     review: "It came with the pre order bonus, and code worked, would recommend",
-            //     time: "6th March 2025",
-            //     likes: 13,
-            //     unlikes: 0
-            // },
-            // {
-            //     avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-            //     like: false,
-            //     review: "It came with the pre order bonus, and code worked, would recommend",
-            //     time: "6th March 2025",
-            //     likes: 13,
-            //     unlikes: 0
-            // },
-            // {
-            //     avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-            //     like: true,
-            //     review: "It came with the pre order bonus, and code worked, would recommend",
-            //     time: "6th March 2025",
-            //     likes: 13,
-            //     unlikes: 0
-            // },
-            // {
-            //     avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-            //     like: true,
-            //     review: "It came with the pre order bonus, and code worked, would recommend. MInecraft is an awesome and popular game so there isn't much i can say that you don't already know. I ended up buying this and didn't receive JAVA, nonetheless that doesn't effect how i love the game!!. got the code immediately, redeemed it on the official Minecraft website, downloaded the launcher and the game itself and was able to play immediately! very nice and fast, much appreciated :). someone help me, the game worked for a few days and suddenly it crashed, it says to try to pay again or log in again. But I bought the game, I didn't subscribe, so what now?",
-            //     time: "6th March 2025",
-            //     likes: 13,
-            //     unlikes: 0
-            // }
+            {
+                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
+                like: true,
+                review: "It came with the pre order bonus, and code worked, would recommend. MInecraft is an awesome and popular game so there isn't much i can say that you don't already know. I ended up buying this and didn't receive JAVA, nonetheless that doesn't effect how i love the game!!. got the code immediately, redeemed it on the official Minecraft website, downloaded the launcher and the game itself and was able to play immediately! very nice and fast, much appreciated :). someone help me, the game worked for a few days and suddenly it crashed, it says to try to pay again or log in again. But I bought the game, I didn't subscribe, so what now?",
+                time: "6th March 2025",
+                likes: 13,
+                unlikes: 0
+            },
+            {
+                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
+                like: true,
+                review: "It came with the pre order bonus, and code worked, would recommend",
+                time: "6th March 2025",
+                likes: 13,
+                unlikes: 0
+            },
+            {
+                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
+                like: false,
+                review: "It came with the pre order bonus, and code worked, would recommend",
+                time: "6th March 2025",
+                likes: 13,
+                unlikes: 0
+            },
+            {
+                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
+                like: true,
+                review: "It came with the pre order bonus, and code worked, would recommend",
+                time: "6th March 2025",
+                likes: 13,
+                unlikes: 0
+            },
+            {
+                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
+                like: true,
+                review: "It came with the pre order bonus, and code worked, would recommend. MInecraft is an awesome and popular game so there isn't much i can say that you don't already know. I ended up buying this and didn't receive JAVA, nonetheless that doesn't effect how i love the game!!. got the code immediately, redeemed it on the official Minecraft website, downloaded the launcher and the game itself and was able to play immediately! very nice and fast, much appreciated :). someone help me, the game worked for a few days and suddenly it crashed, it says to try to pay again or log in again. But I bought the game, I didn't subscribe, so what now?",
+                time: "6th March 2025",
+                likes: 13,
+                unlikes: 0
+            }
         ];
         setBestReview(fakedata)
     }, [])
@@ -194,7 +194,7 @@ function UserReviews() {
                                         />
 
                                         <CardContent sx={{
-                                            height: "9.1rem"
+                                            minHeight: "9.1rem"
                                         }}>
                                             <Box sx={{
                                                 position: "relative",
@@ -238,6 +238,7 @@ function UserReviews() {
                                                         display: "flex",
                                                         justifySelf: "center"
                                                     }}
+                                                    onClick={() => toggleExpand(index)}
                                                 >
                                                     {expanded === index ? (
                                                         <RemoveOutlined sx={{
@@ -413,7 +414,7 @@ function UserReviews() {
                                         />
 
                                         <CardContent sx={{
-                                            height: "9.1rem"
+                                            minHeight: "9.1rem"
                                         }}>
                                             <Box sx={{
                                                 position: "relative",
@@ -456,6 +457,7 @@ function UserReviews() {
                                                         display: "flex",
                                                         justifySelf: "center"
                                                     }}
+                                                    onClick={() => toggleExpandRecent(index)}
                                                 >
                                                     {expandedRecent === index ? (
                                                         <RemoveOutlined sx={{
