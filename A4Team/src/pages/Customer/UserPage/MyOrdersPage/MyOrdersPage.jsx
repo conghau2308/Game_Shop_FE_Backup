@@ -283,10 +283,11 @@ function MyOrdersPage() {
                                 justifySelf: 'center',
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'space-between'
+                                justifyContent: 'space-between',
+                                flexDirection: {xs: 'column', sm: 'row'}
                             }}>
                                 <Box sx={{
-                                    width: '85%'
+                                    width: {xs: '100%', sm: '85%'}
                                 }}>
                                 <TextField
                                     type="text"
@@ -338,11 +339,12 @@ function MyOrdersPage() {
                                     background: 'linear-gradient(10deg, #ff8000, transparent) #ff4020',
                                     height: '60%',
                                     padding: 1,
-                                    width: '12%'
+                                    minWidth: {sm: '10%', md: '12%'},
+                                    marginTop: {xs: 2, sm: 0}
                                 }}>
                                     <Typography sx={{
                                         fontFamily: 'barlow-regular',
-                                        fontSize: 16,
+                                        fontSize: {xs: 13, sm: 14, md: 16},
                                         color: '#fff'
                                     }}>
                                         Submit

@@ -1,8 +1,9 @@
 import { Block, CancelOutlined } from "@mui/icons-material";
 import { Alert, Autocomplete, Box, Grid2, TextField, Typography, Snackbar, AlertTitle, IconButton, Checkbox, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
+import { RegisterServiceSubmit } from "../../../api/auth/registerService";
 
 
 function SignUpPage() {
@@ -11,46 +12,94 @@ function SignUpPage() {
     const countryList = nation.map((option) => option.name);
     const [openAlert, setOpenAlert] = useState(false);
     const [isfullinfor, setIsfullinfor] = useState(false);
+    const [isChecked, setIsCkecked] = useState(false);
 
-    const [email, setEmail] = useState(null);
-    const [password, SetPassword] = useState(null);
-    const [firstname, setFirstname] = useState(null);
-    const [lastname, setLastname] = useState(null);
-    const [birthdate, setBirthdate] = useState(null);
-    const [country, setCountry] = useState(null);
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState("");
+    const [password, SetPassword] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [birthdate, setBirthdate] = useState("");
+    const [country, setCountry] = useState(0);
 
     useEffect(() => {
         const data = [
             {
-                name: "Vietnam"
+                name: "Vietnam",
+                id: 0
             },
             {
-                name: "United States"
+                name: "United States",
+                id: 1
             },
             {
-                name: "Japan"
+                name: "Japan",
+                id: 2
             },
             {
-                name: "Thailand"
+                name: "Thailand",
+                id: 3
             },
             {
-                name: "India"
+                name: "India",
+                id: 4
             },
             {
-                name: "China"
+                name: "China",
+                id: 5
             },
             {
-                name: "France"
+                name: "France",
+                id: 6
             },
             {
-                name: "Laos"
+                name: "Laos",
+                id: 7
             },
             {
-                name: "Peru"
+                name: "Peru",
+                id: 8
             },
         ];
         setNation(data);
     }, []);
+
+
+    const handleRegister = async () => {
+        if (!email || !password || !firstname || !lastname || !birthdate) {
+            console.log("fill full")
+            return;
+        }
+        // setIsfullinfor(true);
+
+        const formData = {
+            firstName: firstname,
+            lastName: lastname,
+            email,
+            password,
+            birthDate: birthdate,
+            country_id: country
+        };
+
+        console.log("Form data: ", formData);
+
+        try {
+            const response = await RegisterServiceSubmit(formData);
+
+            console.log("Response: ", response);
+
+            if (response.statusCode === 200) {
+                navigate("/login");
+            }
+            else {
+                console.log("Failed: ", response.message);
+            }
+        }
+        catch (error) {
+            console.log("Error: ", error)
+        }
+    }
 
     return (
         <Box sx={{
@@ -67,7 +116,7 @@ function SignUpPage() {
                 <CloseIcon sx={{
                     color: "white",
                     fontSize: 30
-                }}/>
+                }} />
             </IconButton>
 
             <Grid2 container sx={{
@@ -121,6 +170,7 @@ function SignUpPage() {
                                     id="outlined-basic"
                                     label="Your Email"
                                     type="email"
+                                    onChange={(e) => setEmail(e.target.value)}
                                     fullWidth
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
@@ -156,6 +206,7 @@ function SignUpPage() {
                                     id="outlined-basic"
                                     label="Your Password"
                                     type="password"
+                                    onChange={(e) => SetPassword(e.target.value)}
                                     fullWidth
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
@@ -191,6 +242,7 @@ function SignUpPage() {
                                     id="outlined-basic"
                                     label="First Name"
                                     type="text"
+                                    onChange={(e) => setFirstname(e.target.value)}
                                     fullWidth
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
@@ -226,6 +278,7 @@ function SignUpPage() {
                                     id="outlined-basic"
                                     label="Last Name"
                                     type="text"
+                                    onChange={(e) => setLastname(e.target.value)}
                                     fullWidth
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
@@ -261,6 +314,7 @@ function SignUpPage() {
                                     id="outlined-basic"
                                     label="Birthdate"
                                     type="date"
+                                    onChange={(e) => setBirthdate(e.target.value)}
                                     fullWidth
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
@@ -300,14 +354,24 @@ function SignUpPage() {
 
                             <Grid2 size={{ xs: 12, sm: 6 }}>
                                 <Autocomplete
-                                    options={countryList}
-                                    value={country}
+                                    options={nation}
+                                    value={nation.find((option) => option.id === country) || null}
                                     inputValue={inputValue}
+                                    getOptionLabel={(option) => option.name}
                                     freeSolo={false}
-                                    onChange={(event, newValue) => setCountry(newValue)}
+                                    onChange={(event, newValue) => {
+                                        if (newValue) {
+                                            setCountry(newValue.id)
+                                            setInputValue(newValue.name)
+                                        }
+                                        else {
+                                            setCountry(null)
+                                            setInputValue("Underfined")
+                                        }
+                                    }}
                                     onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
                                     onBlur={() => {
-                                        if (!countryList.includes(inputValue)) {
+                                        if (!nation.some((option) => option.name === inputValue)) {
                                             setInputValue("");
                                             setCountry(null);
                                             setOpenAlert(true);
@@ -383,11 +447,14 @@ function SignUpPage() {
                             paddingLeft: 5,
                             paddingBottom: 3,
                         }}>
-                            <Checkbox defaultChecked sx={{
+                            <Checkbox sx={{
                                 "&.Mui-checked": {
                                     color: "#ff5400"
                                 }
-                            }} />
+                            }}
+                                checked={isChecked}
+                                onChange={(e) => setIsCkecked(e.target.checked)}
+                            />
 
                             <Box sx={{
                                 display: "flex",
@@ -442,8 +509,11 @@ function SignUpPage() {
                             background: "linear-gradient(10deg, #ff8000, transparent) #ff4020",
                             fontSize: { xs: 15, sm: 20 },
                             width: "70%",
-                            opacity: isfullinfor === true ? 1 : 0.3
-                        }}>
+                            // opacity: isfullinfor === true ? 1 : 0.3
+                        }}
+                            // disabled={isfullinfor}
+                            onClick={handleRegister}
+                        >
                             Submit
                         </Button>
                     </Box>

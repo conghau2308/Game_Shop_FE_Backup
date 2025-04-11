@@ -1,9 +1,10 @@
 import { Telegram } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
+import { useAuthStore } from "../../../../hooks/User";
 
 
 function ActionFooter() {
-    const isLogin = false;
+    const { isLogin } = useAuthStore();
 
     return (
         <Box sx={{
