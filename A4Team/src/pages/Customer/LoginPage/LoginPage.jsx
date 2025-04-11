@@ -1,9 +1,48 @@
 import { Box, Button, Container, IconButton, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
+import { useState } from "react";
+import { handleFormSubmitService } from "../../../api/auth/loginService";
+import { useAuthStore } from "../../../hooks/User";
+import { getProfile } from "../../../api/profile";
 
 function LoginPage() {
     const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const { setToken } = useAuthStore();
+
+    const handleFormSubmit = async () => {
+        try {
+            const data = await handleFormSubmitService({ email, password });
+            console.log("Form gửi đi: ", { email, password })
+            if (data && data.data && data.data.token) {
+                await callApiProfile(data.data.token)
+            }
+            else {
+                console.log("login failed: ", data)
+            }
+        }
+        catch (error) {
+            console.log("Error: ", error)
+        }
+    };
+
+    const callApiProfile = async (token) => {
+        try {
+            const data = await getProfile(token, setToken);
+            if (data) {
+                navigate("/homepage");
+            }
+            else {
+                console.log("Failed ", data)
+            }
+        }
+        catch (error) {
+            console.log("Error: ", error)
+        }
+    };
 
     return (
         <Box id="wrap" sx={{
@@ -49,7 +88,9 @@ function LoginPage() {
                             right: 10,
                             top: 10,
                             zIndex: 1
-                        }}>
+                        }}
+                            onClick={() => navigate("/homepage")}
+                        >
                             <CloseIcon sx={{ fontSize: {xs: "25px", sm: "35px"} }} />
                         </IconButton>
                     </Box>
@@ -109,6 +150,8 @@ function LoginPage() {
                             id="outlined-basic"
                             label="Email"
                             type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             InputLabelProps={{
                                 sx: {
                                     color: "white",
@@ -139,6 +182,8 @@ function LoginPage() {
                             id="outlined-basic"
                             label="Password"
                             type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             InputLabelProps={{
                                 sx: {
                                     color: "white",
@@ -181,7 +226,9 @@ function LoginPage() {
                             "&hover": {
                                 background: "linear-gradient(190deg, #ff2020, #ff8000)"
                             }
-                        }}>
+                        }}
+                            onClick={handleFormSubmit}
+                        >
                             Log in
                         </Button>
                     </Box>
