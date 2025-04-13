@@ -2,14 +2,15 @@ import { CheckOutlined, ClearOutlined, LocalOfferOutlined, ShoppingCartOutlined 
 import { Typography, Box, Grid2, Button, CardMedia, Card, Container, TextField, Autocomplete, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { getGamesWithPlatformByGameIdService } from "../../../../api/gameListService";
 
 
 function TopProductDetail() {
     const { id } = useParams();
     const [product, setProduct] = useState({});
+    const [platformsData, setPlatformsData] = useState([]);
     const [edition, setEdition] = useState([]);
-    const [device, setDevice] = useState([]);
-    const deviceList = device.map((option) => option.device);
+
     const editionList = edition.map((option) => option.edition);
     const [deviceValue, setDeviceValue] = useState(null);
     const [editionValue, setEditionValue] = useState(null);
@@ -17,73 +18,58 @@ function TopProductDetail() {
     const isMobile = useMediaQuery("(max-width:600px)");
 
     useEffect(() => {
-        const fakedata = {
-            name: "Assassin’s Creed Shadows Deluxe Edition",
-            "Game console": "Xbox",
-            "In Stock": false,
-            "Digital Download": true,
-            "Release date": null,
-            price: 30,
-            discount: -52,
-            price_sale: 14.29,
-            background: "https://gaming-cdn.com/img/products/442/pcover/1920x620/442.jpg?v=1716387513",
-            image: "https://gaming-cdn.com/images/products/442/616x353/minecraft-java-and-bedrock-edition-java-and-bedrock-edition-pc-game-cover.jpg?v=1716387513"
-        };
-        setProduct(fakedata);
+        const fetchGameWithPlatform = async () => {
+            const res = await getGamesWithPlatformByGameIdService(id);
+            if (res.statusCode === 200) {
+                setPlatformsData(res.data);
+                console.log("Data game platform: ", res.data);
+
+                if (res.data.length > 0) {
+                    setProduct(res.data[0]);
+                    setDeviceValue(res.data[0].platformName);
+                }
+            }
+            else {
+                console.log("Error fetching game with platform: ", res.errors);
+            }
+        }
+        fetchGameWithPlatform();
     }, []);
 
-    useEffect(() => {
-        const fakedata = [
-            {
-                device: "Xbox One"
-            },
-            {
-                device: "PC"
-            }
-        ];
-        setDevice(fakedata);
-    }, []);
+    const deviceList = [...new Set(platformsData.map((p) => p.platformName))];
 
     useEffect(() => {
         const fakedata = [
             {
                 edition: "Standard Edition"
-            },
-            {
-                edition: "Deluxe Edition"
             }
         ];
         setEdition(fakedata);
+        setEditionValue(fakedata[0].edition);
     }, []);
 
     const IconDevice = {
         PC: "https://www.instant-gaming.com/themes/igv2/images/icons/platforms/icon-pc.svg",
         PlayStation: "https://www.instant-gaming.com/themes/igv2/images/icons/platforms/icon-play.svg",
         Xbox: "https://www.instant-gaming.com/themes/igv2/images/icons/platforms/icon-xbx.svg",
-        Nitendo: "https://www.instant-gaming.com/themes/igv2/images/icons/platforms/icon-swt.svg"
+        Nintendo: "https://www.instant-gaming.com/themes/igv2/images/icons/platforms/icon-swt.svg"
     };
 
     const ColorDevice = {
         PC: "rgb(218, 242, 65)",
         PlayStation: "rgb(103, 165, 252)",
         Xbox: "rgb(74, 225, 89)",
-        Nitendo: "rgb(227, 61, 61)"
+        Nintendo: "rgb(227, 61, 61)"
     }
 
-    const [deviceGame, setDeviceGame] = useState({});
-    const [editionGame, setEditionGame] = useState({});
+    const isFutureRelease = (releaseDate) => {
+        if (!releaseDate) return false;
 
-    useEffect(() => {
-        if (device.length > 0) {
-            setDeviceGame(device[0].device);
-        }
-    }, [device]);
+        const today = new Date();
+        const releaseDateGame = new Date(releaseDate);
 
-    useEffect(() => {
-        if (edition.length > 0) {
-            setEditionGame(edition[0].edition);
-        }
-    }, [edition]);
+        return releaseDateGame >= today;
+    }
 
 
     return (
@@ -128,10 +114,11 @@ function TopProductDetail() {
                             <Container sx={{
                                 display: "flex",
                                 borderRight: "1px solid #999",
-                                alignItems: "center"
+                                alignItems: "center",
+                                justifyContent: "center"
                             }}>
                                 <Box sx={{
-                                    bgcolor: `${ColorDevice[product["Game console"]]}`,
+                                    bgcolor: `${ColorDevice[product.platformName]}`,
                                     display: "flex",
                                     alignItems: "center",
                                     borderRadius: "50px",
@@ -139,7 +126,7 @@ function TopProductDetail() {
                                 }}>
                                     <Box
                                         component="img"
-                                        src={IconDevice[product["Game console"]]}
+                                        src={IconDevice[product.platformName]}
                                         sx={{
                                             width: 15,
                                             height: 15,
@@ -152,15 +139,16 @@ function TopProductDetail() {
                                     fontSize: 10,
                                     fontFamily: "barlow-regular"
                                 }}>
-                                    {product["Game console"]}
+                                    {product.platformName}
                                 </Typography>
                             </Container>
 
                             <Container sx={{
-                                display: "flex",
-                                alignItems: "center"
+                                display: isFutureRelease(product.releaseDate) ? "none" : "flex",
+                                alignItems: "center",
+                                justifyContent: 'center'
                             }}>
-                                {product["In Stock"] ?
+                                {product.isInStock ?
                                     <Box sx={{
                                         display: "flex"
                                     }}>
@@ -182,9 +170,10 @@ function TopProductDetail() {
                             </Container>
 
                             <Container sx={{
-                                display: product["Digital Download"] ? "flex" : "none",
+                                display: product.isInStock ? "flex" : "none",
                                 borderLeft: "1px solid #999",
-                                alignItems: "center"
+                                alignItems: "center",
+                                justifyContent: 'center'
                             }}>
                                 <CheckOutlined sx={{
                                     color: "rgba(0, 255, 0, 1)",
@@ -202,16 +191,17 @@ function TopProductDetail() {
                             </Container>
 
                             <Container sx={{
-                                display: product["Release date"] ? "flex" : "none",
+                                display: isFutureRelease(product.releaseDate) ? "flex" : "none",
                                 borderLeft: "1px solid #999",
-                                alignItems: "center"
+                                alignItems: "center",
+                                justifyContent: 'center'
                             }}>
                                 <Typography sx={{
                                     fontSize: 10,
                                     fontFamily: "barlow-regular",
                                     whiteSpace: "nowrap"
                                 }}>
-                                    Release date: {product["Release date"]}
+                                    Release date: {product.releaseDate}
                                 </Typography>
                             </Container>
                         </Box>
@@ -229,7 +219,11 @@ function TopProductDetail() {
                                     fullWidth
                                     disableClearable
                                     freeSolo={false}
-                                    onChange={(event, newValue) => setDeviceValue(newValue)}
+                                    onChange={(event, newValue) => {
+                                        setDeviceValue(newValue);
+                                        const selected = platformsData.find(p => p.platformName === newValue);
+                                        if (selected) setProduct(selected);
+                                    }}
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
@@ -416,7 +410,7 @@ function TopProductDetail() {
                                 fontWeight: 600,
                                 alignContent: "flex-end"
                             }}>
-                                {product.price}$
+                                {product.original_price}$
                             </Typography>
 
                             <Typography sx={{
@@ -427,7 +421,7 @@ function TopProductDetail() {
                                 alignContent: "flex-end",
                                 marginBottom: "-3px"
                             }}>
-                                {product.discount}%
+                                {product.discount_percent}%
                             </Typography>
 
                             <Typography sx={{
@@ -438,7 +432,7 @@ function TopProductDetail() {
                                 alignSelf: "flex-end",
                                 margin: "-8px"
                             }}>
-                                {product.price_sale}$
+                                {product.finalPrice}$
                             </Typography>
                         </Box>
 
@@ -451,19 +445,18 @@ function TopProductDetail() {
                                 textTransform: "none",
                                 background: "linear-gradient(10deg, #ff8000, transparent) #ff4020",
                                 padding: 1.5,
-                                width: "70vw",
+                                width: "80vw",
                                 color: "#fff",
                                 borderRadius: "5px",
+                                height: '6vh'
                             }} fullWidth>
-                                <ShoppingCartOutlined sx={{
-                                    fontSize: 20
-                                }} />
+                                {!isFutureRelease(product.releaseDate) && (<ShoppingCartOutlined />)}
 
                                 <Typography sx={{
-                                    fontSize: 15,
+                                    fontSize: isFutureRelease(product.releaseDate) ? 14 : 20,
                                     paddingLeft: 1
                                 }}>
-                                    Add to cart
+                                    {isFutureRelease(product.releaseDate) ? "Get notified by e-mail on stock availability" : "Add to cart"}
                                 </Typography>
                             </Button>
                         </Box>
@@ -549,7 +542,7 @@ function TopProductDetail() {
                                     alignItems: "center"
                                 }}>
                                     <Box sx={{
-                                        bgcolor: `${ColorDevice[product["Game console"]]}`,
+                                        bgcolor: `${ColorDevice[product.platformName]}`,
                                         display: "flex",
                                         alignItems: "center",
                                         borderRadius: "50px",
@@ -557,7 +550,7 @@ function TopProductDetail() {
                                     }}>
                                         <Box
                                             component="img"
-                                            src={IconDevice[product["Game console"]]}
+                                            src={IconDevice[product.platformName]}
                                             sx={{
                                                 width: { xs: 10, sm: 20, md: 15 },
                                                 height: { xs: 10, sm: 20, md: 15 },
@@ -570,15 +563,15 @@ function TopProductDetail() {
                                         fontSize: { lg: 13, md: 10, sm: 12 },
                                         fontFamily: "barlow-regular"
                                     }}>
-                                        {product["Game console"]}
+                                        {product.platformName}
                                     </Typography>
                                 </Container>
 
                                 <Container sx={{
-                                    display: "flex",
+                                    display: isFutureRelease(product.releaseDate) ? "none" : "flex",
                                     alignItems: "center"
                                 }}>
-                                    {product["In Stock"] ?
+                                    {product.isInStock ?
                                         <Box sx={{
                                             display: "flex"
                                         }}>
@@ -600,7 +593,7 @@ function TopProductDetail() {
                                 </Container>
 
                                 <Container sx={{
-                                    display: product["Digital Download"] ? "flex" : "none",
+                                    display: product.isInStock ? "flex" : "none",
                                     borderLeft: "1px solid #999",
                                     alignItems: "center"
                                 }}>
@@ -620,7 +613,7 @@ function TopProductDetail() {
                                 </Container>
 
                                 <Container sx={{
-                                    display: product["Release date"] ? "flex" : "none",
+                                    display: isFutureRelease(product.releaseDate) ? "flex" : "none",
                                     borderLeft: "1px solid #999",
                                     alignItems: "center"
                                 }}>
@@ -629,7 +622,7 @@ function TopProductDetail() {
                                         fontFamily: "barlow-regular",
                                         whiteSpace: "nowrap"
                                     }}>
-                                        Release date: {product["Release date"]}
+                                        Release date: {product.releaseDate}
                                     </Typography>
                                 </Container>
                             </Box>
@@ -647,7 +640,11 @@ function TopProductDetail() {
                                         fullWidth
                                         disableClearable
                                         freeSolo={false}
-                                        onChange={(event, newValue) => setDeviceValue(newValue)}
+                                        onChange={(event, newValue) => {
+                                            setDeviceValue(newValue);
+                                            const selected = platformsData.find(p => p.platformName === newValue);
+                                            if (selected) setProduct(selected);
+                                        }}
                                         renderInput={(params) => (
                                             <TextField
                                                 {...params}
@@ -831,7 +828,7 @@ function TopProductDetail() {
                                     fontFamily: "barlow",
                                     fontWeight: 600,
                                 }}>
-                                    {product.price}$
+                                    {product.original_price}$
                                 </Typography>
 
                                 <Typography sx={{
@@ -839,7 +836,7 @@ function TopProductDetail() {
                                     color: "#ff5400",
                                     fontFamily: "barlow-regular"
                                 }}>
-                                    {product.discount}%
+                                    {product.discount_percent}%
                                 </Typography>
 
                                 <Typography sx={{
@@ -850,7 +847,7 @@ function TopProductDetail() {
                                     alignSelf: "flex-end",
                                     margin: "-8px"
                                 }}>
-                                    {product.price_sale}$
+                                    {product.finalPrice}$
                                 </Typography>
                             </Box>
 
@@ -858,18 +855,19 @@ function TopProductDetail() {
                                 textTransform: "none",
                                 background: "linear-gradient(10deg, #ff8000, transparent) #ff4020",
                                 padding: 1.5,
-                                width: { sm: "40vw", md: "30vw" },
+                                width: '30vw',
                                 color: "#fff",
                                 marginBottom: 5,
-                                borderRadius: "5px"
+                                borderRadius: "5px",
+                                height: '8vh'
                             }} fullWidth>
-                                <ShoppingCartOutlined />
+                                {!isFutureRelease(product.releaseDate) && (<ShoppingCartOutlined />)}
 
                                 <Typography sx={{
-                                    fontSize: 20,
+                                    fontSize: isFutureRelease(product.releaseDate) ? 17 : 20,
                                     paddingLeft: 1
                                 }}>
-                                    Add to cart
+                                    {isFutureRelease(product.releaseDate) ? "Get notified by e-mail on stock availability" : "Add to cart"}
                                 </Typography>
                             </Button>
                         </Grid2>

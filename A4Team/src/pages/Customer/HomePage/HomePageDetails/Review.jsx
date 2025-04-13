@@ -1,6 +1,7 @@
 import { FlagOutlined, MoreVert, ThumbDownOutlined, ThumbUpOutlined } from "@mui/icons-material";
 import { CardMedia, Box, CardHeader, Avatar, Card, Typography, CardContent, Menu, MenuItem, IconButton, useMediaQuery, ImageList, Grid2, Container, ImageListItem } from "@mui/material";
 import { useEffect, useState } from "react";
+import { getLimitedReviewsService } from "../../../../api/reviewsService";
 
 function Review() {
     const [reviews, setReviews] = useState([]);
@@ -22,33 +23,17 @@ function Review() {
     };
 
     useEffect(() => {
-        const fakedata = [
-            {
-                image: "https://gaming-cdn.com/images/products/6512/616x353/metro-exodus-gold-edition-gold-edition-pc-game-steam-cover.jpg?v=1651160153",
-                avatar: "https://gaming-cdn.com/images/avatars/26638165-1737153089.jpg",
-                status: "like",
-                review: "Most reviews on this game are about Instant Gamings fast and reliable code giving, but not the game itself. The Game is a disappointment to the entire Civ franchise and Sid Meiers himself. I played the game, only to realize that"
-            },
-            {
-                image: "https://gaming-cdn.com/images/products/6512/616x353/metro-exodus-gold-edition-gold-edition-pc-game-steam-cover.jpg?v=1651160153",
-                avatar: "https://gaming-cdn.com/images/avatars/26638165-1737153089.jpg",
-                status: "dislike",
-                review: "Most reviews on this game are about Instant Gamings fast and reliable code giving, but not the game itself. The Game is a disappointment to the entire Civ franchise and Sid Meiers himself. I played the game, only to realize that"
-            },
-            {
-                image: "https://gaming-cdn.com/images/products/6512/616x353/metro-exodus-gold-edition-gold-edition-pc-game-steam-cover.jpg?v=1651160153",
-                avatar: "https://gaming-cdn.com/images/avatars/26638165-1737153089.jpg",
-                status: "like",
-                review: "Most reviews on this game are about Instant Gamings fast and reliable code giving, but not the game itself. The Game is a disappointment to the entire Civ franchise and Sid Meiers himself. I played the game, only to realize that"
-            },
-            {
-                image: "https://gaming-cdn.com/images/products/6512/616x353/metro-exodus-gold-edition-gold-edition-pc-game-steam-cover.jpg?v=1651160153",
-                avatar: "https://gaming-cdn.com/images/avatars/26638165-1737153089.jpg",
-                status: "like",
-                review: "Most reviews on this game are about Instant Gamings fast and reliable code giving, but not the game itself. The Game is a disappointment to the entire Civ franchise and Sid Meiers himself. I played the game, only to realize that"
+        const fetchReviews = async () => {
+            const res = await getLimitedReviewsService(4);
+            if (res.statusCode === 200) {
+                console.log("Reviews data: ", res.data);
+                setReviews(res.data);
             }
-        ];
-        setReviews(fakedata);
+            else {
+                console.log("Error fetching reviews: ", res.errors)
+            }
+        }
+        fetchReviews();
     }, []);
 
     return (
@@ -86,7 +71,7 @@ function Review() {
                             }}>
                                 <CardMedia
                                     component="img"
-                                    image={rev.image}
+                                    image={rev.game.image}
                                     sx={{
                                         width: "100%",
                                         height: "auto",
@@ -99,7 +84,7 @@ function Review() {
                                     alignItems: "center",
                                     justifySelf: "center"
                                 }}>
-                                    <Avatar src={rev.avatar} sx={{
+                                    <Avatar src={rev.user.avatar} sx={{
                                         width: { lg: 60 },
                                         height: { lg: 60 }
                                     }}></Avatar>
@@ -138,7 +123,7 @@ function Review() {
                                         color: "#999",
                                         fontFamily: "barlow-regular"
                                     }}>
-                                        {rev.review}
+                                        {rev.comment}
                                     </Typography>
                                 </CardContent>
                             </Card>
@@ -178,7 +163,7 @@ function Review() {
                             >
                                 <CardMedia
                                     component="img"
-                                    image={rev.image}
+                                    image={rev.game.image}
                                     sx={{
                                         width: "100%",
                                         height: "auto",
@@ -191,7 +176,7 @@ function Review() {
                                     alignItems: "center",
                                     justifySelf: "center"
                                 }}>
-                                    <Avatar src={rev.avatar} sx={{
+                                    <Avatar src={rev.user.avatar} sx={{
                                         width: { lg: 50 },
                                         height: { lg: 50 }
                                     }}></Avatar>
@@ -232,7 +217,7 @@ function Review() {
                                         color: "#999",
                                         fontFamily: "barlow-regular"
                                     }}>
-                                        {rev.review}
+                                        {rev.comment}
                                     </Typography>
                                 </CardContent>
 
