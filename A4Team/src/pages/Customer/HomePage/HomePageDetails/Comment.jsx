@@ -2,6 +2,10 @@ import { FlagOutlined, MoreVert } from "@mui/icons-material";
 import { Avatar, Card, CardHeader, IconButton, Box, Rating, Typography, CardContent, Menu, MenuItem, Grid2, CardActionArea, useMediaQuery, ImageList, ImageListItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import StarIcon from '@mui/icons-material/Star';
+import { getLimitedCommentsService } from "../../../../api/commentsService";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 function Comment() {
     const [menuClick, setMenuClick] = useState(null);
@@ -24,66 +28,21 @@ function Comment() {
     };
 
     useEffect(() => {
-        const fakedata = [
-            {
-                avatar: "https://gaming-cdn.com/images/avatars/26903707-1739149903.jpg",
-                rate: 3.7,
-                namegame: "Kingdom Hearts Integrum Masterpiece",
-                cmt: "Worked instantly. Downloading it now Quick, as always ! Quick, as always !",
-                time: "7 hours ago"
-            },
-            {
-                avatar: "https://gaming-cdn.com/images/avatars/26903707-1739149903.jpg",
-                rate: 4,
-                namegame: "Kingdom Hearts Integrum Masterpiece",
-                cmt: "Worked instantly. Downloading it now",
-                time: "7 hours ago"
-            },
-            {
-                avatar: "https://gaming-cdn.com/images/avatars/26903707-1739149903.jpg",
-                rate: 5,
-                namegame: "Kingdom Hearts Integrum Masterpiece",
-                cmt: "Worked instantly. Downloading it now",
-                time: "7 hours ago"
-            },
-            {
-                avatar: "https://gaming-cdn.com/images/avatars/26903707-1739149903.jpg",
-                rate: 5,
-                namegame: "Kingdom Hearts Integrum Masterpiece",
-                cmt: "Worked instantly. Downloading it now",
-                time: "7 hours ago"
-            },
-            {
-                avatar: "https://gaming-cdn.com/images/avatars/26903707-1739149903.jpg",
-                rate: 5,
-                namegame: "Kingdom Hearts Integrum Masterpiece",
-                cmt: "Worked instantly. Downloading it now",
-                time: "7 hours ago"
-            },
-            {
-                avatar: "https://gaming-cdn.com/images/avatars/26903707-1739149903.jpg",
-                rate: 5,
-                namegame: "Kingdom Hearts Integrum Masterpiece",
-                cmt: "Worked instantly. Downloading it now",
-                time: "7 hours ago"
-            },
-            {
-                avatar: "https://gaming-cdn.com/images/avatars/26903707-1739149903.jpg",
-                rate: 5,
-                namegame: "Kingdom Hearts Integrum Masterpiece",
-                cmt: "Worked instantly. Downloading it now",
-                time: "7 hours ago"
-            },
-            {
-                avatar: "https://gaming-cdn.com/images/avatars/26903707-1739149903.jpg",
-                rate: 5,
-                namegame: "Kingdom Hearts Integrum Masterpiece",
-                cmt: "Worked instantly. Downloading it now",
-                time: "7 hours ago"
+        const fetchComments = async () => {
+            const response = await getLimitedCommentsService(8);
+            if (response.statusCode === 200) {
+                setCmt(response.data);
             }
-        ]
-        setCmt(fakedata);
+            else {
+                console.log("Error fetching comments: ", response.errors)
+            }
+        }
+        fetchComments();
     }, [])
+
+    const timeAgo = (date) => {
+        return dayjs(date).fromNow();
+    }
 
     return (
         <Box sx={{
@@ -140,14 +99,14 @@ function Comment() {
                                         flexDirection: "column",
                                         alignItems: "center",
                                     }}>
-                                        <Avatar src={com.avatar} sx={{
+                                        <Avatar src={com.user.avatar} sx={{
                                             height: 50,
                                             width: 50,
                                             justifySelf: "center"
                                         }}></Avatar>
 
                                         <Rating
-                                            value={com.rate}
+                                            value={com.rating}
                                             readOnly
                                             precision={0.5}
                                             emptyIcon={<StarIcon sx={{ color: "white" }} />}
@@ -160,7 +119,7 @@ function Comment() {
                                             color: "white",
                                             width: "90%"
                                         }}>
-                                            {com.namegame}
+                                            {com.game.name}
                                         </Typography>
                                     </Box>
                                 </CardContent>
@@ -179,7 +138,7 @@ function Comment() {
                                         fontFamily: "barlow",
                                         fontWeight: "bold"
                                     }}>
-                                        {com.cmt}
+                                        {com.comment}
                                     </Typography>
                                 </CardContent>
 
@@ -190,7 +149,7 @@ function Comment() {
                                         fontFamily: "barlow",
                                         fontWeight: "bold"
                                     }}>
-                                        {com.time}
+                                        {timeAgo(com.createdAt)}
                                     </Typography>
                                 </CardContent>
                             </Card>
@@ -230,7 +189,7 @@ function Comment() {
                         >
                             <CardHeader
                                 avatar={
-                                    <Avatar src={com.avatar} sx={{
+                                    <Avatar src={com.user.avatar} sx={{
                                         width: { lg: 50 },
                                         height: { lg: 50 }
                                     }}></Avatar>
@@ -241,7 +200,7 @@ function Comment() {
                                         width: {lg: "50%", md: "30%", sm: "30%"}
                                     }}>
                                         <Rating
-                                            value={com.rate}
+                                            value={com.rating}
                                             readOnly
                                             precision={0.5}
                                             icon={<StarIcon sx={{ fontSize: {lg: 20, md: 13, sm: 13}}} />}
@@ -257,7 +216,7 @@ function Comment() {
                                             fontFamily: "barlow",
                                             fontWeight: "bold"
                                         }}>
-                                            {com.namegame}
+                                            {com.game.name}
                                         </Typography>
                                     </Box>
                                 }
@@ -295,7 +254,7 @@ function Comment() {
                                     fontFamily: "barlow",
                                     fontWeight: "bold"
                                 }}>
-                                    {com.cmt}
+                                    {com.comment}
                                 </Typography>
                             </CardContent>
 
@@ -306,7 +265,7 @@ function Comment() {
                                     fontFamily: "barlow",
                                     fontWeight: "bold"
                                 }}>
-                                    {com.time}
+                                    {timeAgo(com.createdAt)}
                                 </Typography>
                             </CardContent>
 

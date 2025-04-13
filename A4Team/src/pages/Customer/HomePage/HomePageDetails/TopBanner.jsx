@@ -3,45 +3,59 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { Typography, Box } from "@mui/material";
+import { getLimitedGameService } from "../../../../api/gameListService";
+import { getLimitedGameWithPriceService } from "../../../../api/gameWithPriceService";
 
 
 function TopBanner() {
     const [banner, setBanner] = useState([]);
 
     useEffect(() => {
-        const fakedata = [
-            {
-                name: "Monster Hunter Wilds",
-                image: "https://gaming-cdn.com/img/products/16526/hcover/1920x620/16526.jpg?v=1740755480",
-                discount: "-21%",
-                price: "63.19"
-            },
-            {
-                name: "Warhammer 40,000: Space Marine 2",
-                image: "https://gaming-cdn.com/img/products/10140/pcover/1920x620/10140.jpg?v=1725274116",
-                discount: "-37%",
-                price: "37.19"
-            },
-            {
-                name: "Monster Hunter Wilds Premium Deluxe Edition",
-                image: "https://gaming-cdn.com/img/products/7930/pcover/1920x620/7930.jpg?v=1740755533",
-                discount: "-37%",
-                price: "37.19"
-            },
-            {
-                name: "Life is Strange: Double Exposure",
-                image: "https://gaming-cdn.com/img/products/6829/pcover/1920x620/6829.jpg?v=1730219640",
-                discount: "-37%",
-                price: "37.19"
-            },
-            {
-                name: "Dragon Quest III HD-2D Remake",
-                image: "https://gaming-cdn.com/img/products/17212/pcover/1920x620/17212.jpg?v=1731919790",
-                discount: "-37%",
-                price: "37.19"
+        // const fakedata = [
+        //     {
+        //         name: "Monster Hunter Wilds",
+        //         image: "https://gaming-cdn.com/img/products/16526/hcover/1920x620/16526.jpg?v=1740755480",
+        //         discount: "-21%",
+        //         price: "63.19"
+        //     },
+        //     {
+        //         name: "Warhammer 40,000: Space Marine 2",
+        //         image: "https://gaming-cdn.com/img/products/10140/pcover/1920x620/10140.jpg?v=1725274116",
+        //         discount: "-37%",
+        //         price: "37.19"
+        //     },
+        //     {
+        //         name: "Monster Hunter Wilds Premium Deluxe Edition",
+        //         image: "https://gaming-cdn.com/img/products/7930/pcover/1920x620/7930.jpg?v=1740755533",
+        //         discount: "-37%",
+        //         price: "37.19"
+        //     },
+        //     {
+        //         name: "Life is Strange: Double Exposure",
+        //         image: "https://gaming-cdn.com/img/products/6829/pcover/1920x620/6829.jpg?v=1730219640",
+        //         discount: "-37%",
+        //         price: "37.19"
+        //     },
+        //     {
+        //         name: "Dragon Quest III HD-2D Remake",
+        //         image: "https://gaming-cdn.com/img/products/17212/pcover/1920x620/17212.jpg?v=1731919790",
+        //         discount: "-37%",
+        //         price: "37.19"
+        //     }
+        // ];
+        // setBanner(fakedata);
+
+        const fetchBanner = async () => {
+            const res = await getLimitedGameWithPriceService(5);
+            if (res.statusCode === 200) {
+                setBanner(res.data);
+                console.log("Data banner: ", res.data)
             }
-        ];
-        setBanner(fakedata);
+            else {
+                console.log("Error fetching games for banner: ", res.errors)
+            }
+        }
+        fetchBanner();
     }, []);
 
     const settings = {
@@ -79,12 +93,12 @@ function TopBanner() {
             <Slider {...settings}>
                 {banner.map((item, index) => (
                     <Box key={index} sx={{
-                        backgroundImage: `url(${item.image})`,
+                        backgroundImage: `url(${item.background})`,
                         height: {md: "500px", sm: "350px"},
                         width: "auto",
                         backgroundPosition: "center",
                         backgroundRepeat: "no-repeat",
-                        objectFit: "contain",
+                        objectFit: "cover",
                         backgroundSize: "cover",
                         clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 89%)",
                         display: "flex",
@@ -126,7 +140,7 @@ function TopBanner() {
                                     paddingRight: 1.5,
                                     alignContent: "center"
                                 }}>
-                                    {item.discount}
+                                    -{item.discount_percent}%
                                 </Typography>
 
                                 <Typography sx={{
@@ -134,7 +148,7 @@ function TopBanner() {
                                     fontSize: {md: 30, sm: 25, xs: 15},
                                     fontFamily: "barlow-regular"
                                 }}>
-                                    {item.price} $
+                                    {item.final_price} $
                                 </Typography>
                             </Box>
                         </Box>
