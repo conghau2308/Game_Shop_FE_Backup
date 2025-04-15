@@ -1,6 +1,7 @@
 import { AddAPhotoOutlined } from "@mui/icons-material";
 import { Avatar, Box, Button, Grid2, TextField, Tooltip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useAuthStore } from "../../../../../hooks/User";
 
 
 function AvatarPage() {
@@ -8,28 +9,21 @@ function AvatarPage() {
     const [avatar, setAvatar] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
-    const [country, setCountry] = useState("");
+    const [country, setCountry] = useState(1);
     const [birthdate, setBirthdate] = useState("");
     const [resgistration, setRegistration] = useState("");
     const [openTooltip, setOpenTooltip] = useState(false);
 
+    const { profile } = useAuthStore();
+
     useEffect(() => {
-        const fakedata = {
-            nickname: "gamer-2969060",
-            avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-            firstname: "Loid",
-            lastname: "Forger",
-            country: "Vietnam",
-            birthdate: "2013-01-01",
-            resgistration: "February 7, 2025 at 5:44 PM"
-        };
-        setNickname(fakedata.nickname);
-        setAvatar(fakedata.avatar);
-        setFirstname(fakedata.firstname);
-        setLastname(fakedata.lastname);
-        setCountry(fakedata.country);
-        setBirthdate(fakedata.birthdate);
-        setRegistration(fakedata.resgistration);
+        setNickname(profile.data.nickname);
+        setAvatar(profile.data.avatar);
+        setFirstname(profile.data.firstName);
+        setLastname(profile.data.lastName);
+        setCountry(1);
+        setBirthdate(profile.data.birthDate);
+        setRegistration(profile.data.createdAt);
     }, [])
 
     return (

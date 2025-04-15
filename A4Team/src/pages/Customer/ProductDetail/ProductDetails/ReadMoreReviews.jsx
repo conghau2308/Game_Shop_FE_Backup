@@ -357,7 +357,7 @@ function ReadMoreReviews() {
             </Grid2>
 
             <Grid2 size={12} display="flex" justifyContent="center" sx={{
-                display: review.length > 0 ? "flex" : "none"
+                display: review.length > 0 && !showmore ? "flex" : "none"
             }}>
                 <Button sx={{
                     textTransform: "none",

@@ -38,9 +38,9 @@ const Header = () => {
 
     const isTablet = useMediaQuery("(max-width:900px)");
 
-    const [avatar, setAvatar] = useState("https://gaming-cdn.com/themes/igv2/images/avatar2.svg");
+    // const [avatar, setAvatar] = useState("https://gaming-cdn.com/themes/igv2/images/avatar2.svg");
 
-    const { profile, isLogin } = useAuthStore();
+    const { profile, isLogin, removeToken } = useAuthStore();
 
     return (
         <AppBar
@@ -241,7 +241,9 @@ const Header = () => {
                                         </Typography>
                                     </MenuItem>
 
-                                    <MenuItem>
+                                    <MenuItem
+                                        onClick={() => removeToken()}
+                                    >
                                         <Typography sx={{
                                             color: '#fff',
                                             fontFamily: 'barlow-regular',

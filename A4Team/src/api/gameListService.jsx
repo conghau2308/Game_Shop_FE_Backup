@@ -95,3 +95,24 @@ export const getGamesWithPlatformByGameIdService = async (gameId) => {
         return handleError(error);
     }
 }
+
+
+export const getGameWithDetailByGameIdService = async (gameId) => {
+    try {
+        const response = await axios.request({
+            method: "GET",
+            url: `${port}/api/games/${gameId}/detail`,
+            headers: {
+                // ...headerAxios
+            },
+            params: {
+                gameId,
+            }
+        })
+
+        return response.data
+    }
+    catch (error) {
+        return handleError(error);
+    }
+}

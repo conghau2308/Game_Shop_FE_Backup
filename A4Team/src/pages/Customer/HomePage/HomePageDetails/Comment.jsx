@@ -32,6 +32,7 @@ function Comment() {
             const response = await getLimitedCommentsService(8);
             if (response.statusCode === 200) {
                 setCmt(response.data);
+                console.log("Comment Data: ", response.data);
             }
             else {
                 console.log("Error fetching comments: ", response.errors)

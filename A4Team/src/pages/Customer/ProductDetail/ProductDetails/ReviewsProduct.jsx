@@ -1,20 +1,13 @@
 import { BorderColor, BorderColorOutlined } from "@mui/icons-material";
 import { CircularProgress, Grid2, Typography, Box, Button, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useGame } from "../../../../contexts/GameContext";
 
 
 function ReviewProduct() {
-    const [product, setProduct] = useState({});
+    const { product } = useGame();
 
     const isMobile = useMediaQuery("(max-width:600px)");
-
-    useEffect(() => {
-        const fakedata = {
-            review_number: 1000,
-            rating: 9
-        };
-        setProduct(fakedata)
-    }, []);
 
     return (
         <Box sx={{
@@ -39,12 +32,12 @@ function ReviewProduct() {
                 paddingRight: {xs: 2, sm: 8, md: 10, lg: 10}
             }}>
                 <Grid2 container justifyContent="center" spacing={{ xs: 2, sm: 1, md: 3, lg: 8 }}>
-                    <Grid2 size={{ xs: 12, sm: product.review_number === 0 ? 6 : 8, md: product.review_number === 0 ? 6 : 7 }} sx={{
+                    <Grid2 size={{ xs: 12, sm: product.reviews === 0 ? 6 : 8, md: product.reviews === 0 ? 6 : 7 }} sx={{
                         display: "flex",
                         justifyContent: "flex-end",
                         alignItems: "center"
                     }}>
-                        {product.review_number > 0 ? (
+                        {product.reviews > 0 ? (
                             <Box sx={{
                                 display: "flex",
                                 alignItems: "center",
@@ -57,7 +50,7 @@ function ReviewProduct() {
                                     }}>
                                         <CircularProgress
                                             variant="determinate"
-                                            value={product.rating * 10}
+                                            value={product.ratingPoint * 10}
                                             size={50}
                                             thickness={2.5}
                                             style={{
@@ -71,9 +64,9 @@ function ReviewProduct() {
                                             fontSize: 23,
                                             fontFamily: "barlow-regular",
                                             top: 7,
-                                            left: product.rating === 10 ? 14 : 20
+                                            left: product.ratingPoint === 10 ? 14 : 20
                                         }}>
-                                            {product.rating}
+                                            {product.ratingPoint}
                                         </Typography>
                                     </Box>
                                 ) : (
@@ -83,7 +76,7 @@ function ReviewProduct() {
                                     }}>
                                         <CircularProgress
                                             variant="determinate"
-                                            value={product.rating * 10}
+                                            value={product.ratingPoint * 10}
                                             size={65}
                                             thickness={2.5}
                                             style={{
@@ -97,9 +90,9 @@ function ReviewProduct() {
                                             fontSize: 30,
                                             fontFamily: "barlow-regular",
                                             top: 10,
-                                            left: product.rating === 10 ? 18 : 25
+                                            left: product.ratingPoint === 10 ? 18 : 25
                                         }}>
-                                            {product.rating}
+                                            {product.ratingPoint}
                                         </Typography>
                                     </Box>
                                 )}
@@ -133,7 +126,7 @@ function ReviewProduct() {
                                             fontSize: { xs: 13, sm: 15, md: 17 },
                                             fontWeight: 600,
                                         }}>
-                                            {product.review_number}
+                                            {product.reviews}
                                         </Typography>
 
                                         <Typography sx={{
@@ -161,7 +154,7 @@ function ReviewProduct() {
                         )}
                     </Grid2>
 
-                    <Grid2 size={{ xs: 12, sm: product.review_number === 0 ? 6 : 4, md: product.review_number === 0 ? 6 : 5 }} sx={{
+                    <Grid2 size={{ xs: 12, sm: product.reviews === 0 ? 6 : 4, md: product.reviews === 0 ? 6 : 5 }} sx={{
                         justifyContent: {xs: "center", sm: "flex-start"},
                         display: "flex",
                         alignItems: "center"

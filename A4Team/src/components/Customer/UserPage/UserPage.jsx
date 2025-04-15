@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Header from "../../../layouts/Header";
 import Footer from "../../../layouts/Footer";
+import { useAuthStore } from "../../../hooks/User";
+import dayjs from "dayjs";
 
 
 function UserPage() {
@@ -11,15 +13,7 @@ function UserPage() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fakedata = {
-            avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-            name: "gamer-2969060",
-            member_since: "Feb 7, 2025"
-        }
-
-        setUserinfor(fakedata);
-    }, []);
+    const {profile} = useAuthStore();
 
     const getValue = (path) => {
         if (path.includes('my-orders')) return 0;
@@ -30,6 +24,10 @@ function UserPage() {
     }
 
     const tabValue = getValue(location.pathname);
+
+    const formatted = (date) => {
+        return dayjs(date).format("MMM D, YYYY");
+    }
 
     return (
         <Box sx={{
@@ -47,7 +45,7 @@ function UserPage() {
                 paddingTop: {xs: 5, sm: 10}
             }}>
                 <Avatar
-                    src={userinfor.avatar}
+                    src={profile.data.avatar}
                     sx={{
                         height: {xs: 90, sm: 120},
                         width: {xs: 90, sm: 120}
@@ -60,7 +58,7 @@ function UserPage() {
                     fontSize: {xs: 23, sm: 30},
                     paddingTop: 1
                 }}>
-                    {userinfor.name}
+                    {profile.data.nickname}
                 </Typography>
 
                 <Typography sx={{
@@ -69,7 +67,7 @@ function UserPage() {
                     fontWeight: 600,
                     fontSize: {xs: 13, sm: 15}
                 }}>
-                    Member since: {userinfor.member_since}
+                    Member since: {formatted(profile.data.createdAt)}
                 </Typography>
             </Box>
 

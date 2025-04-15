@@ -1,29 +1,17 @@
 import { Grid2, Typography, Box, CircularProgress, Button } from "@mui/material";
 import { useEffect, useState } from "react";
+import { getGameWithDetailByGameIdService } from "../../../../api/gameListService";
+import { useParams } from "react-router-dom";
+import { useGame } from "../../../../contexts/GameContext";
 
 
 function AboutProduct() {
-    const [product, setProduct] = useState([]);
+    const { product } = useGame();
     const [expanded, setExpanded] = useState(false);
-
-    useEffect(() => {
-        const fakedata = [
-            {
-                description: "Embrace mind-blowing moments as you’re pulled deep into the many worlds of Split Fiction, a boundary-pushing co-op action adventure from the studio behind 2021 Game of the Year Winner, It Takes Two. Mio and Zoe are contrasting writers – one writes sci-fi and the other writes fantasy – who become trapped in their own stories after being hooked up to a machine designed to steal their creative ideas. They’ll have to rely on each other to break free with their memories in-tact, working together to master a variety of abilities and overcome diverse challenges while jumping between sci-fi and fantasy worlds in this unexpected tale of friendship. Split Fiction is a unique action-adventure experience that keeps you on the edge of your couch with unexpected moments. One minute you’re taming adorable dragons and the next you’re fighting as cyber ninjas, escaping terrifying trolls, or dodging hover cars thrown by a robotic parking attendant. It’s weird, it’s wild, and it’s designed to be shared. Grab your co-op partner and get ready to overcome any obstacle thrown your way.",
-                Developer: "Hazelight Studios",
-                Publisher: "Electronic Arts",
-                Genre: "Action, Adventure, RPG",
-                "Release date": "6 March 2025",
-                reviews: 79,
-                rating: 9
-            }
-        ];
-        setProduct(fakedata);
-    }, []);
 
     return (
         <Box>
-            {product.map((product) => (
+            {product && (
                 <Grid2 container justifyContent="center" spacing={{lg: 12, md: 5, sm: 3, xs: 2}} sx={{
                     bgcolor: "#272727",
                     paddingLeft: {lg: 20, md: 4, sm: 2, xs: 2},
@@ -56,10 +44,10 @@ function AboutProduct() {
                                 transition: "all 0.3s ease-in-out",
                                 lineHeight: {xs: "1.3rem", sm: "1.5rem"}
                             }}>
-                                {product.description}
+                                {product.gameDescription}
                             </Typography>
 
-                            {!expanded && product.description.length > 300 && (
+                            {!expanded && product.gameDescription?.length > 300 && (
                                 <Box
                                     sx={{
                                         width: "100%",
@@ -73,7 +61,7 @@ function AboutProduct() {
                             )}
                         </Box>
 
-                        {product.description.length > 300 && (
+                        {product.gameDescription?.length > 300 && (
                             <Button onClick={() => setExpanded(!expanded)} sx={{
                                 textTransform: "none",
                                 minWidth: 0,
@@ -109,7 +97,7 @@ function AboutProduct() {
                             }}>
                                 <CircularProgress
                                     variant="determinate"
-                                    value={product.rating * 10}
+                                    value={product.ratingPoint * 10}
                                     size={43}
                                     thickness={2.5}
                                     style={{
@@ -120,12 +108,12 @@ function AboutProduct() {
                                 <Typography sx={{
                                     color: "rgba(0, 255, 0, 1)",
                                     position: "absolute",
-                                    left: product.rating === 10 ? 13 : 17,
+                                    left: product.ratingPoint === 10 ? 13 : 17,
                                     top: 8,
                                     fontSize: 18,
                                     fontFamily: "barlow-regular"
                                 }}>
-                                    {product.rating}
+                                    {product.ratingPoint}
                                 </Typography>
                             </Box>
 
@@ -175,11 +163,11 @@ function AboutProduct() {
                                 color: "#fff"
                             }}>
                                 <Typography sx={{ fontSize: {xs: 13, sm: 15}, fontFamily: "barlow-regular" }}>
-                                    {product.Developer}
+                                    {product.developerName}
                                 </Typography>
 
                                 <Typography sx={{ fontSize: {xs: 13, sm: 15}, fontFamily: "barlow-regular" }}>
-                                    {product.Publisher}
+                                    {product.publisherName}
                                 </Typography>
 
                                 <Typography sx={{
@@ -187,17 +175,17 @@ function AboutProduct() {
                                     fontSize: {xs: 13, sm: 15},
                                     fontFamily: "barlow-regular"
                                 }}>
-                                    {product["Release date"]}
+                                    {product.releaseDate}
                                 </Typography>
 
                                 <Typography sx={{ fontSize: {xs: 13, sm: 15}, fontFamily: "barlow-regular" }}>
-                                    {product.Genre}
+                                    {product.genreNames}
                                 </Typography>
                             </Grid2>
                         </Grid2>
                     </Grid2>
                 </Grid2>
-            ))}
+            )}
         </Box>
     )
 };

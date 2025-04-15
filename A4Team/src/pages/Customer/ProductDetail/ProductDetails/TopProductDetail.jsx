@@ -449,12 +449,13 @@ function TopProductDetail() {
                                 color: "#fff",
                                 borderRadius: "5px",
                                 height: '6vh'
-                            }} fullWidth>
+                            }} fullWidth disabled={isFutureRelease(product.releaseDate)}>
                                 {!isFutureRelease(product.releaseDate) && (<ShoppingCartOutlined />)}
 
                                 <Typography sx={{
                                     fontSize: isFutureRelease(product.releaseDate) ? 14 : 20,
-                                    paddingLeft: 1
+                                    paddingLeft: 1,
+                                    color: '#fff'
                                 }}>
                                     {isFutureRelease(product.releaseDate) ? "Get notified by e-mail on stock availability" : "Add to cart"}
                                 </Typography>
@@ -860,12 +861,13 @@ function TopProductDetail() {
                                 marginBottom: 5,
                                 borderRadius: "5px",
                                 height: '8vh'
-                            }} fullWidth>
+                            }} fullWidth disabled={isFutureRelease(product.releaseDate)}>
                                 {!isFutureRelease(product.releaseDate) && (<ShoppingCartOutlined />)}
 
                                 <Typography sx={{
                                     fontSize: isFutureRelease(product.releaseDate) ? 17 : 20,
-                                    paddingLeft: 1
+                                    paddingLeft: 1,
+                                    color: '#fff'
                                 }}>
                                     {isFutureRelease(product.releaseDate) ? "Get notified by e-mail on stock availability" : "Add to cart"}
                                 </Typography>
