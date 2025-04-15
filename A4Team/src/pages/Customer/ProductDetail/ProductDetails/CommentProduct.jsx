@@ -2,6 +2,11 @@ import { FlagOutlined, MoreVert, NavigateBefore, NavigateNext } from "@mui/icons
 import { Avatar, Card, CardHeader, CardMedia, Grid2, IconButton, Rating, Typography, Box, MenuItem, Menu, useMediaQuery, ImageList, ImageListItem, CardContent } from "@mui/material";
 import StarIcon from '@mui/icons-material/Star';
 import { useEffect, useState } from "react";
+import { getListCommentsByGameIdService } from "../../../../api/commentsService";
+import { useParams } from "react-router-dom";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 
 function CommentProduct() {
@@ -11,47 +16,21 @@ function CommentProduct() {
 
     const [hoveredIndex, setHoveredIndex] = useState(null);
 
+    const { id } = useParams();
+
     const isMobile = useMediaQuery("(max-width:600px)");
     useEffect(() => {
-        const fakedata = [
-            {
-                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-                rating: 5,
-                comment: "Estoy teniendo fallos con el juego llevo 3 horas de juego y siempre al llegar a un sitio en concreto me sale “fatal error” y se cierra",
-                time: "12 days ago"
-            },
-            {
-                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-                rating: 5,
-                comment: "got the key fast this morning been playing all day i love this website",
-                time: "12 days ago"
-            },
-            {
-                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-                rating: 5,
-                comment: "Very good website to buy cheaper games",
-                time: "12 days ago"
-            },
-            {
-                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-                rating: 4.7,
-                comment: "Love how games are cheaper on here",
-                time: "12 days ago"
-            },
-            {
-                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-                rating: 5,
-                comment: "Love how games are cheaper on here",
-                time: "12 days ago"
-            },
-            {
-                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-                rating: 5,
-                comment: "Love how games are cheaper on here",
-                time: "12 days ago"
+        const fetchComments = async () => {
+            const res = await getListCommentsByGameIdService(id);
+            if (res.statusCode === 200) {
+                setComment(res.data);
+                console.log("Fetching commnent by game Id: ", res.data);
             }
-        ];
-        setComment(fakedata);
+            else {
+                console.log("Error fetching comment: ", res.errors)
+            }
+        }
+        fetchComments();
     }, []);
 
     const handleClick = (event, index) => {
@@ -63,6 +42,10 @@ function CommentProduct() {
         setMenuClick(null);
         setSelectedIndex(null);
     };
+
+    const timeAgo = (date) => {
+            return dayjs(date).fromNow();
+    }
 
     return (
         <Box>
@@ -123,7 +106,7 @@ function CommentProduct() {
                         {comment.map((item, index) => (
                             <ImageListItem sx={{
                                 width: "180px"
-                            }}>
+                            }} key={index}>
                                 <Card sx={{
                                     height: "100%",
                                     bgcolor: "#323232",
@@ -155,7 +138,7 @@ function CommentProduct() {
                                             alignItems: "center",
                                             marginBottom: 1
                                         }}>
-                                            <Avatar src={item.avatar} sx={{
+                                            <Avatar src={item.user.avatar} sx={{
                                                 height: 50,
                                                 width: 50,
                                                 justifySelf: "center",
@@ -200,7 +183,7 @@ function CommentProduct() {
                                             fontFamily: "barlow-regular",
                                             padding: 2
                                         }}>
-                                            {item.time}
+                                            {timeAgo(item.createAt)}
                                         </Typography>
                                     </CardMedia>
 
@@ -289,7 +272,7 @@ function CommentProduct() {
                                 >
                                     <CardHeader
                                         avatar={
-                                            <Avatar src={item.avatar} sx={{
+                                            <Avatar src={item.user.avatar} sx={{
                                                 height: 50,
                                                 width: 50
                                             }}></Avatar>
@@ -346,7 +329,7 @@ function CommentProduct() {
                                             fontFamily: "barlow-regular",
                                             padding: 2
                                         }}>
-                                            {item.time}
+                                            {timeAgo(item.createAt)}
                                         </Typography>
                                     </CardMedia>
 

@@ -1,11 +1,15 @@
 import { AddOutlined, MoreVert, RemoveOutlined, ThumbDownOutlined, ThumbUpOutlined, FlagOutlined } from "@mui/icons-material";
 import { CardHeader, Grid2, Card, Avatar, CardContent, Typography, Box, Button, IconButton, Fade, Tooltip, Menu, MenuItem, useMediaQuery, ImageList, ImageListItem } from "@mui/material";
 import { useEffect, useState } from "react";
+import { getListReviewsByGameIdService } from "../../../../api/reviewsService";
+import { useParams } from "react-router-dom";
 
 
 function UserReviews() {
     const [bestReview, setBestReview] = useState([]);
     const [recentReview, setRecentReview] = useState([]);
+
+    const { id } = useParams();
 
     const isMobile = useMediaQuery("(max-width:600px)");
 
@@ -47,85 +51,39 @@ function UserReviews() {
     };
 
     useEffect(() => {
-        const fakedata = [
-            {
-                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-                like: true,
-                review: "It came with the pre order bonus, and code worked, would recommend. MInecraft is an awesome and popular game so there isn't much i can say that you don't already know. I ended up buying this and didn't receive JAVA, nonetheless that doesn't effect how i love the game!!. got the code immediately, redeemed it on the official Minecraft website, downloaded the launcher and the game itself and was able to play immediately! very nice and fast, much appreciated :). someone help me, the game worked for a few days and suddenly it crashed, it says to try to pay again or log in again. But I bought the game, I didn't subscribe, so what now?",
-                time: "6th March 2025",
-                likes: 13,
-                unlikes: 0
-            },
-            {
-                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-                like: true,
-                review: "It came with the pre order bonus, and code worked, would recommend",
-                time: "6th March 2025",
-                likes: 13,
-                unlikes: 0
-            },
-            {
-                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-                like: false,
-                review: "It came with the pre order bonus, and code worked, would recommend",
-                time: "6th March 2025",
-                likes: 13,
-                unlikes: 0
-            },
-            {
-                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-                like: true,
-                review: "It came with the pre order bonus, and code worked, would recommend",
-                time: "6th March 2025",
-                likes: 13,
-                unlikes: 0
-            },
-            {
-                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-                like: true,
-                review: "It came with the pre order bonus, and code worked, would recommend. MInecraft is an awesome and popular game so there isn't much i can say that you don't already know. I ended up buying this and didn't receive JAVA, nonetheless that doesn't effect how i love the game!!. got the code immediately, redeemed it on the official Minecraft website, downloaded the launcher and the game itself and was able to play immediately! very nice and fast, much appreciated :). someone help me, the game worked for a few days and suddenly it crashed, it says to try to pay again or log in again. But I bought the game, I didn't subscribe, so what now?",
-                time: "6th March 2025",
-                likes: 13,
-                unlikes: 0
+        const fetchBestReviews = async () => {
+            const res = await getListReviewsByGameIdService(id, 1);
+            if (res.statusCode === 200) {
+                setBestReview(res.data);
+                console.log("Best Reviews data: ", res.data);
             }
-        ];
-        setBestReview(fakedata)
-    }, [])
+            else {
+                console.log("Error fetching best reviews: ", res.errors)
+            }
+        }
+
+        fetchBestReviews();
+    }, [id])
 
 
     useEffect(() => {
-        const fakedata = [
-            {
-                avatar: "https://gaming-cdn.com/themes/igv2/images/avatar2.svg",
-                like: true,
-                review: "It came with the pre order bonus, and code worked, would recommend. MInecraft is an awesome and popular game so there isn't much i can say that you don't already know. I ended up buying this and didn't receive JAVA, nonetheless that doesn't effect how i love the game!!. got the code immediately, redeemed it on the official Minecraft website, downloaded the launcher and the game itself and was able to play immediately! very nice and fast, much appreciated :). someone help me, the game worked for a few days and suddenly it crashed, it says to try to pay again or log in again. But I bought the game, I didn't subscribe, so what now?",
-                time: "6th March 2025",
-                likes: 0,
-                unlikes: 0
-            },
-            {
-                avatar: "https://gaming-cdn.com/images/avatars/27301280-1742232965.jpg",
-                like: true,
-                review: "It came with the pre order bonus, and code worked, would recommend. MInecraft is an awesome and popular game so there isn't much i can say that you don't already know. I ended up buying this and didn't receive JAVA, nonetheless that doesn't effect how i love the game!!. got the code immediately, redeemed it on the official Minecraft website, downloaded the launcher and the game itself and was able to play immediately! very nice and fast, much appreciated :). someone help me, the game worked for a few days and suddenly it crashed, it says to try to pay again or log in again. But I bought the game, I didn't subscribe, so what now?",
-                time: "6th March 2025",
-                likes: 0,
-                unlikes: 0
-            },
-            {
-                avatar: "https://gaming-cdn.com/images/avatars/27301280-1742232965.jpg",
-                like: true,
-                review: "Sandbox, all time, almost anything is possible through mods.",
-                time: "6th March 2025",
-                likes: 0,
-                unlikes: 0
+        const fetchRecentReviews = async () => {
+            const res = await getListReviewsByGameIdService(id, 0);
+            if (res.statusCode === 200) {
+                setRecentReview(res.data);
+                console.log("Recent reviews data: ", res.data);
             }
-        ];
-        setRecentReview(fakedata);
-    }, []);
+            else {
+                console.log("Error fetching recent reviews: ", res.errors);
+            }
+        }
+
+        fetchRecentReviews();
+    }, [id]);
 
     return (
         <Box sx={{
-            display: recentReview.length ? "block" : "none"
+            display: recentReview?.length ? "block" : "none"
         }}>
             {isMobile ? (
                 <Box sx={{
@@ -134,7 +92,7 @@ function UserReviews() {
                     paddingBottom: 10
                 }}>
                     <Box sx={{
-                        display: bestReview.length ? "block" : "none"
+                        display: bestReview?.length ? "block" : "none"
                     }}>
                         <Typography sx={{
                             color: "#fff",
@@ -168,13 +126,13 @@ function UserReviews() {
                                                 paddingBottom: 0
                                             }}
                                             avatar={
-                                                <Avatar src={item.avatar} sx={{
+                                                <Avatar src={item.user.avatar} sx={{
                                                     height: 50,
                                                     width: 50,
                                                 }}></Avatar>
                                             }
                                             subheader={
-                                                item.like ? <ThumbUpOutlined sx={{
+                                                item.status === "like" ? <ThumbUpOutlined sx={{
                                                     color: "rgb(0, 149, 0)",
                                                     fontSize: 30
                                                 }} /> : <ThumbDownOutlined sx={{
@@ -213,10 +171,10 @@ function UserReviews() {
                                                     transition: "all 0.3s ease-in-out",
                                                     lineHeight: "1.3rem"
                                                 }}>
-                                                    {item.review}
+                                                    {item.comment}
                                                 </Typography>
 
-                                                {!(expanded === index) && item.review.length > 300 && (
+                                                {!(expanded === index) && item.comment.length > 300 && (
                                                     <Box
                                                         sx={{
                                                             width: "100%",
@@ -230,7 +188,7 @@ function UserReviews() {
                                                 )}
                                             </Box>
 
-                                            {item.review.length > 300 && (
+                                            {item.comment.length > 300 && (
                                                 <Box
                                                     sx={{
                                                         color: "#fff",
@@ -282,7 +240,7 @@ function UserReviews() {
                                                 fontFamily: "barlow",
                                                 fontWeight: 500
                                             }}>
-                                                {item.time}
+                                                {item.createdAt}
                                             </Typography>
 
                                             <Box sx={{
@@ -306,7 +264,7 @@ function UserReviews() {
                                                         fontFamily: "barlow-regular",
                                                         paddingLeft: 1
                                                     }}>
-                                                        {item.likes}
+                                                        {item.useFul}
                                                     </Typography>
                                                 </Button>
 
@@ -388,13 +346,13 @@ function UserReviews() {
                                                 paddingBottom: 0
                                             }}
                                             avatar={
-                                                <Avatar src={item.avatar} sx={{
+                                                <Avatar src={item.user.avatar} sx={{
                                                     height: 50,
                                                     width: 50,
                                                 }}></Avatar>
                                             }
                                             subheader={
-                                                item.like ? <ThumbUpOutlined sx={{
+                                                item.status === "like" ? <ThumbUpOutlined sx={{
                                                     color: "rgb(0, 149, 0)",
                                                     fontSize: 30
                                                 }} /> : <ThumbDownOutlined sx={{
@@ -432,10 +390,10 @@ function UserReviews() {
                                                     transition: "all 0.3s ease-in-out",
                                                     lineHeight: "1.3rem"
                                                 }}>
-                                                    {item.review}
+                                                    {item.comment}
                                                 </Typography>
 
-                                                {!(expandedRecent === index) && item.review.length > 300 && (
+                                                {!(expandedRecent === index) && item.comment.length > 300 && (
                                                     <Box
                                                         sx={{
                                                             width: "100%",
@@ -449,7 +407,7 @@ function UserReviews() {
                                                 )}
                                             </Box>
 
-                                            {item.review.length > 300 && (
+                                            {item.comment.length > 300 && (
                                                 <Box
                                                     sx={{
                                                         color: "#fff",
@@ -501,7 +459,7 @@ function UserReviews() {
                                                 fontFamily: "barlow",
                                                 fontWeight: 500
                                             }}>
-                                                {item.time}
+                                                {item.createdAt}
                                             </Typography>
 
                                             <Box sx={{
@@ -531,7 +489,7 @@ function UserReviews() {
                                                         fontFamily: "barlow-regular",
                                                         paddingLeft: 1
                                                     }}>
-                                                        {item.likes}
+                                                        {item.useFul}
                                                     </Typography>
                                                 </Button>
 
@@ -614,13 +572,13 @@ function UserReviews() {
                                                 paddingBottom: { sm: 0, md: 1, lg: 2 }
                                             }}
                                             avatar={
-                                                <Avatar src={item.avatar} sx={{
+                                                <Avatar src={item.user.avatar} sx={{
                                                     height: { sm: 50, md: 70 },
                                                     width: { sm: 50, md: 70 },
                                                 }}></Avatar>
                                             }
                                             subheader={
-                                                item.like ? <ThumbUpOutlined sx={{
+                                                item.status === "like" ? <ThumbUpOutlined sx={{
                                                     color: "rgb(0, 149, 0)",
                                                     fontSize: 35
                                                 }} /> : <ThumbDownOutlined sx={{
@@ -666,10 +624,10 @@ function UserReviews() {
                                                     transition: "all 0.3s ease-in-out",
                                                     lineHeight: "1.5rem"
                                                 }}>
-                                                    {item.review}
+                                                    {item.comment}
                                                 </Typography>
 
-                                                {!(expanded === index) && item.review.length > 300 && (
+                                                {!(expanded === index) && item.comment.length > 300 && (
                                                     <Box
                                                         sx={{
                                                             width: "100%",
@@ -683,7 +641,7 @@ function UserReviews() {
                                                 )}
                                             </Box>
 
-                                            {item.review.length > 300 && (
+                                            {item.comment.length > 300 && (
                                                 <Box
                                                     sx={{
                                                         color: "#fff",
@@ -752,7 +710,7 @@ function UserReviews() {
                                                 fontFamily: "barlow",
                                                 fontWeight: 500
                                             }}>
-                                                {item.time}
+                                                {item.createdAt}
                                             </Typography>
 
                                             <Box sx={{
@@ -805,7 +763,7 @@ function UserReviews() {
                                                             fontFamily: "barlow-regular",
                                                             paddingLeft: 1
                                                         }}>
-                                                            {item.likes}
+                                                            {item.useFul}
                                                         </Typography>
                                                     </Button>
                                                 </Tooltip>
@@ -897,13 +855,13 @@ function UserReviews() {
                                                 paddingBottom: { sm: 0, md: 1, lg: 2 }
                                             }}
                                             avatar={
-                                                <Avatar src={item.avatar} sx={{
+                                                <Avatar src={item.user.avatar} sx={{
                                                     height: { sm: 50, md: 55 },
                                                     width: { sm: 50, md: 55 },
                                                 }}></Avatar>
                                             }
                                             subheader={
-                                                item.like ? <ThumbUpOutlined sx={{
+                                                item.status === "like" ? <ThumbUpOutlined sx={{
                                                     color: "rgb(0, 149, 0)",
                                                     fontSize: 35
                                                 }} /> : <ThumbDownOutlined sx={{
@@ -947,10 +905,10 @@ function UserReviews() {
                                                     transition: "all 0.3s ease-in-out",
                                                     lineHeight: "1.5rem"
                                                 }}>
-                                                    {item.review}
+                                                    {item.comment}
                                                 </Typography>
 
-                                                {!(expandedRecent === index) && item.review.length > 300 && (
+                                                {!(expandedRecent === index) && item.comment.length > 300 && (
                                                     <Box
                                                         sx={{
                                                             width: "100%",
@@ -964,7 +922,7 @@ function UserReviews() {
                                                 )}
                                             </Box>
 
-                                            {item.review.length > 300 && (
+                                            {item.comment.length > 300 && (
                                                 <Box
                                                     sx={{
                                                         color: "#fff",
@@ -1033,7 +991,7 @@ function UserReviews() {
                                                 fontFamily: "barlow",
                                                 fontWeight: 500
                                             }}>
-                                                {item.time}
+                                                {item.createdAt}
                                             </Typography>
 
                                             <Box sx={{
@@ -1086,7 +1044,7 @@ function UserReviews() {
                                                             fontFamily: "barlow-regular",
                                                             paddingLeft: 1
                                                         }}>
-                                                            {item.likes}
+                                                            {item.useFul}
                                                         </Typography>
                                                     </Button>
                                                 </Tooltip>

@@ -1,46 +1,38 @@
 import { InfoOutlined, MedicalInformationOutlined, ThumbDownOutlined, ThumbUpOutlined } from "@mui/icons-material";
 import { Box, Button, Card, CardMedia, TextField, Typography, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useAuthStore } from "../../../../hooks/User";
+import { getOrdersByUserId } from "../../../../api/orderService";
+import { ReviewGameServiceSubmit } from "../../../../api/reviewsService";
+import { useStoreAlert } from "../../../../hooks/alert";
 
 
 function MyOrdersPage() {
     const [order, setOrder] = useState([]);
     const [reveal, setReveal] = useState(false);
     const [islike, setIslike] = useState({});
+    const [comment, setComment] = useState({});
+
+    const { profile } = useAuthStore();
+    const {callAlert, callErrorAlert, callWarningAlert} = useStoreAlert();
 
     const isTablet = useMediaQuery("(max-width:900px");
 
     useEffect(() => {
-        const fakedata = [
-            {
-                image: "https://gaming-cdn.com/images/products/17862/616x353/atomfall-pc-game-steam-cover.jpg?v=1743085850",
-                name: "Atomfall",
-                active: false,
-                code: "FF-645-HHH-NS",
-                time_purchase: "Feb 7, 2025",
-                order_id: 99999
-            },
-            {
-                image: "https://gaming-cdn.com/images/products/17862/616x353/atomfall-pc-game-steam-cover.jpg?v=1743085850",
-                name: "Atomfall",
-                active: false,
-                code: "FF-645-HHH-NS",
-                time_purchase: "Feb 7, 2025",
-                order_id: 99997
-            },
-            {
-                image: "https://gaming-cdn.com/images/products/17862/616x353/atomfall-pc-game-steam-cover.jpg?v=1743085850",
-                name: "Atomfall",
-                active: false,
-                code: "FF-645-HHH-NS",
-                time_purchase: "Feb 7, 2025",
-                order_id: 99998
+        const fetchOrders = async () => {
+            const res = await getOrdersByUserId(profile.data.id);
+            if (res.statusCode === 200) {
+                setOrder(res.data);
+                console.log("Orders data: ", res.data);
             }
-        ]
-        setOrder(fakedata)
+            else {
+                console.log("Error fetching orders by userId: ", res.errors);
+            }
+        }
+        fetchOrders();
     }, [])
 
-    const handleLike = (orderID) => {
+    const handleLike = (orderID, value) => {
         setIslike((prev) => ({
             ...prev,
             [orderID]: prev[orderID] === value ? null : value
@@ -53,6 +45,42 @@ function MyOrdersPage() {
             [orderId]: true
         }));
     };
+
+    const handleReview = async (data) => {
+        const currentComment = comment[data.orderId];
+        const currentStatus = islike[data.orderId];
+
+        if (!currentComment || currentComment.trim() === "" || !currentStatus) {
+            callWarningAlert("Please select Like or Dislike and provide a comment before submitting.");
+            return;
+        };
+
+        const formData = {
+            userId: profile.data.id,
+            gameId: data.gameId,
+            // createdAt: new Date(),
+            status: currentStatus,
+            useFul: 0,
+            comment: currentComment
+        };
+
+        try {
+            const response = await ReviewGameServiceSubmit(formData);
+
+            if (response.statusCode === 200) {
+                console.log("Review game success");
+                callAlert("Thank you for your feedback! Your review has been submitted successfully.");
+            }
+            else {
+                console.log("Review failed", response.message);
+                callErrorAlert("Sorry, something went wrong while submitting your review.");
+            }
+        }
+        catch (error) {
+            console.log("Error: ", error);
+            callErrorAlert("An unexpected error occurred. Please try again later.");
+        }
+    }
 
     return (
         <Box>
@@ -96,7 +124,7 @@ function MyOrdersPage() {
                         }}>
                             <CardMedia
                                 component="img"
-                                image={item.image}
+                                image={item.gameImage}
                                 sx={{
                                     width: "100%",
                                     height: "auto",
@@ -110,7 +138,7 @@ function MyOrdersPage() {
                             fontFamily: 'barlow-regular',
                             fontSize: 20
                         }}>
-                            {item.name}
+                            {item.gameName}
                         </Typography>
 
                         <Typography sx={{
@@ -139,7 +167,7 @@ function MyOrdersPage() {
                                 filter: reveal[item.order_id] ? "none" : "blur(6px)",
                                 transition: "filter 0.3s ease-in-out"
                             }}>
-                                {item.code}
+                                {item.gameKey}
                             </Typography>
 
                             {!reveal[item.order_id] && (
@@ -174,7 +202,7 @@ function MyOrdersPage() {
                     <Box sx={{
                         display: 'flex',
                         color: '#999',
-                        width: { xs: '70%', sm: '40%', md: '30%', lg: "23%" },
+                        width: { xs: '75%', sm: '45%', md: '35%', lg: "25%" },
                         justifyContent: 'space-between',
                         marginTop: 1,
                         marginBottom: 1
@@ -184,7 +212,7 @@ function MyOrdersPage() {
                             fontWeight: 600,
                             fontSize: { xs: 13, sm: 15 }
                         }}>
-                            Order: #{item.order_id}
+                            Order: #{item.orderId}
                         </Typography>
 
                         <Typography sx={{
@@ -192,7 +220,7 @@ function MyOrdersPage() {
                             fontWeight: 600,
                             fontSize: { xs: 13, sm: 15 }
                         }}>
-                            Paypal: {item.time_purchase}
+                            Paypal: {item.purchaseDate}
                         </Typography>
                     </Box>
 
@@ -251,10 +279,10 @@ function MyOrdersPage() {
                                         borderRadius: 100,
                                         height: { xs: 30, md: 40 },
                                         minWidth: { xs: 50, md: 60 },
-                                        border: islike[item.order_id] === "like" ? '1px solid #fff' : '1px solid rgb(0, 149, 0)',
+                                        border: islike[item.orderId] === "like" ? '1px solid #fff' : '1px solid rgb(0, 149, 0)',
                                         marginRight: { xs: 1, md: 3 },
                                     }}
-                                        onClick={() => handleLike(item.order_id, "like")}
+                                        onClick={() => handleLike(item.orderId, "like")}
                                     >
                                         <ThumbUpOutlined sx={{
                                             color: 'rgb(0, 149, 0)',
@@ -266,9 +294,9 @@ function MyOrdersPage() {
                                         borderRadius: 100,
                                         height: { xs: 30, md: 40 },
                                         minWidth: { xs: 50, md: 60 },
-                                        border: islike[item.order_id] === "unlike" ? '1px solid #fff' : '1px solid rgb(215, 23, 23)'
+                                        border: islike[item.orderId] === "unlike" ? '1px solid #fff' : '1px solid rgb(215, 23, 23)'
                                     }}
-                                        onClick={() => handleLike(item.order_id, "unlike")}
+                                        onClick={() => handleLike(item.orderId, "dislike")}
                                     >
                                         <ThumbDownOutlined sx={{
                                             color: 'rgb(215, 23, 23)',
@@ -293,6 +321,13 @@ function MyOrdersPage() {
                                     type="text"
                                     variant="outlined"
                                     multiline
+                                    value={comment[item.orderId] || ""}
+                                    onChange={(e) =>
+                                        setComment((prev) => ({
+                                            ...prev,
+                                            [item.orderId]: e.target.value,
+                                        }))
+                                    }
                                     minRows={isTablet ? 2 : 3}
                                     maxRows={isTablet ? 3 : 5}
                                     fullWidth
@@ -341,7 +376,9 @@ function MyOrdersPage() {
                                     padding: 1,
                                     minWidth: {sm: '10%', md: '12%'},
                                     marginTop: {xs: 2, sm: 0}
-                                }}>
+                                }}
+                                    onClick={() => handleReview(item)}
+                                >
                                     <Typography sx={{
                                         fontFamily: 'barlow-regular',
                                         fontSize: {xs: 13, sm: 14, md: 16},

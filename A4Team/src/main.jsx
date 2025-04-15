@@ -29,6 +29,7 @@ import MyReviewsPage from './pages/Customer/UserPage/MyReviewsPage/MyReviewsPage
 import SettingsPage from './components/Customer/UserPage/SettingsPage/SettingsPage'
 import SecurityPage from './pages/Customer/UserPage/SettingsPage/SecurityPage/SecurityPage'
 import AvatarPage from './pages/Customer/UserPage/SettingsPage/AvatarPage/AvatarPage'
+import GlobalAlert from './components/GlobalAlert'
 // import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
@@ -49,7 +50,7 @@ createRoot(document.getElementById('root')).render(
           <Route element={<Review />} />
           <Route element={<Newss />} />
         </Route>
-        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/create-an-account" element={<SignUpPage />} />
         <Route path="/product-detail/buy/:id/:slug" element={<ProductDetailPage />} />
         <Route path="/cart" element={<ProductCartPage />} />
 
@@ -70,6 +71,8 @@ createRoot(document.getElementById('root')).render(
           </Route>
         </Route>
       </Routes>
+
+      <GlobalAlert />
     </BrowserRouter>
   </StrictMode>,
 )

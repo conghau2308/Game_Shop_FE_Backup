@@ -40,16 +40,17 @@ export const getLimitedReviewsService = async (limit) => {
     }
 }
 
-export const getListReviewsByGameIdService = async (gameId) => {
+export const getListReviewsByGameIdService = async (gameId, useFul = null) => {
     try {
         const response = await axios.request({
             method: "GET",
-            url: `${port}/api/comments/by-game`,
+            url: `${port}/api/reviews/by-game`,
             headers: {
                 // ...headerAxios
             },
             params: {
-                gameId
+                gameId,
+                ...(useFul !== null && { useFul })
             }
         });
 
@@ -73,6 +74,31 @@ export const getListReviewsByUserIdService = async (userId) => {
             }
         });
 
+        return response.data;
+    }
+    catch (error) {
+        return handleError(error);
+    }
+}
+
+
+export const ReviewGameServiceSubmit = async (data) => {
+    try {
+        const response = await axios.request({
+            method: "POST",
+            url: `${port}/api/reviews/review-game`,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data: {
+                userId: data.userId,
+                gameId: data.gameId,
+                createdAt: data.createdAt,
+                status: data.status,
+                useFul: data.useFul,
+                comment: data.comment
+            },
+        });
         return response.data;
     }
     catch (error) {

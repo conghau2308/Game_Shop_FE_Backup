@@ -7,10 +7,14 @@ import ReviewProduct from "./ProductDetails/ReviewsProduct";
 import UserReviews from "./ProductDetails/UserReviews";
 import ActionFooter from "../HomePage/HomePageDetails/ActionFooter";
 import ReadMoreReviews from "./ProductDetails/ReadMoreReviews";
+import { GameProvider } from "../../../contexts/GameContext";
+import { useParams } from "react-router-dom";
 
 
 function ProductDetailComponent() {
     const isMobile = useMediaQuery("(max-width:600px)");
+
+    const { id } = useParams();
 
     return (
         <Box sx={{
@@ -18,13 +22,17 @@ function ProductDetailComponent() {
         }}>
             <TopProductDetail />
 
-            <AboutProduct />
+            <GameProvider gameId={id}>
+                <AboutProduct />
+            </GameProvider>
 
             <Newss />
 
             <CommentProduct />
 
-            <ReviewProduct />
+            <GameProvider gameId={id}>
+                <ReviewProduct />
+            </GameProvider>
 
             <UserReviews />
 

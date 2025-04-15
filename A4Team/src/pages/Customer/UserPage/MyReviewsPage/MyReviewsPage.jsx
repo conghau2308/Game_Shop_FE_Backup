@@ -1,6 +1,9 @@
 import { AddOutlined, RemoveOutlined, ThumbDownOutlined, ThumbUpOutlined, InfoOutlined } from "@mui/icons-material";
 import { Box, Card, CardContent, CardMedia, Grid2, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { getListReviewsByUserIdService } from "../../../../api/reviewsService";
+import { useAuthStore } from "../../../../hooks/User";
+import { useStoreAlert } from "../../../../hooks/alert";
 
 
 function MyReviewsPage() {
@@ -8,38 +11,22 @@ function MyReviewsPage() {
 
     const [expanded, setExpanded] = useState({});
 
+    const { profile } = useAuthStore();
+    const { callErrorAlert } = useStoreAlert();
+
     useEffect(() => {
-        const fakedata = [
-            {
-                name: "Age of Empires IV: Knights of Cross and Rose ",
-                image: "https://gaming-cdn.com/images/products/18964/616x353/age-of-empires-iv-knights-of-cross-and-rose-pc-game-steam-cover.jpg?v=1743502176",
-                like: true,
-                review: "This game might just be the best Assassin's Creed we've had in 10 years, the game is not perfect, but it looks astonishing and the story is very well done, this is a must play game. I'm very happy Ubisoft did what they've done with this game, I hope that they manage to make stuff like this again in the future, I hope that they'll keep cooking like this.",
-                time: "27th March 2025"
-            },
-            {
-                name: "Age of Empires IV: Knights of Cross and Rose ",
-                image: "https://gaming-cdn.com/images/products/18964/616x353/age-of-empires-iv-knights-of-cross-and-rose-pc-game-steam-cover.jpg?v=1743502176",
-                like: true,
-                review: "This game might just be the best Assassin's Creed we've had in 10 years, the game is not perfect, but it looks astonishing and the story is very well done, this is a must play game. I'm very happy Ubisoft did what they've done with this game, I hope that they manage to make stuff like this again in the future, I hope that they'll keep cooking like this.",
-                time: "27th March 2025"
-            },
-            {
-                name: "Age of Empires IV: Knights of Cross and Rose ",
-                image: "https://gaming-cdn.com/images/products/18964/616x353/age-of-empires-iv-knights-of-cross-and-rose-pc-game-steam-cover.jpg?v=1743502176",
-                like: true,
-                review: "This game might just be the best Assassin's Creed we've had in 10 years, the game is not perfect, but it looks astonishing and the story is very well done, this is a must play game. I'm very happy Ubisoft did what they've done with this game, I hope that they manage to make stuff like this again in the future, I hope that they'll keep cooking like this.",
-                time: "27th March 2025"
-            },
-            {
-                name: "Age of Empires IV: Knights of Cross and Rose ",
-                image: "https://gaming-cdn.com/images/products/18964/616x353/age-of-empires-iv-knights-of-cross-and-rose-pc-game-steam-cover.jpg?v=1743502176",
-                like: true,
-                review: "This game might just be the best Assassin's Creed we've had in 10 years, the game is not perfect, but it looks astonishing and the story is very well done, this is a must play game. I'm very happy Ubisoft did what they've done with this game, I hope that they manage to make stuff like this again in the future, I hope that they'll keep cooking like this.",
-                time: "27th March 2025"
+        const fetchMyReviews = async () => {
+            const response = await getListReviewsByUserIdService(profile.data.id);
+            if (response.statusCode === 200) {
+                setReviews(response.data);
+                console.log("My reviews data: ", response.data);
             }
-        ];
-        setReviews(fakedata)
+            else {
+                console.log("Error fetching my reviews: ", response.errors);
+                callErrorAlert("Failed to load your orders. Please try again later.");
+            }
+        }
+        fetchMyReviews();
     }, [])
 
     const toggleExpand = (index) => {
@@ -73,7 +60,7 @@ function MyReviewsPage() {
                             }}>
                                 <CardMedia
                                     component="img"
-                                    image={item.image}
+                                    image={item.game.image}
                                     sx={{
                                         width: "100%",
                                         height: { xs: '150px', sm: '130px', md: '150px', lg: '200px' },
@@ -90,7 +77,7 @@ function MyReviewsPage() {
                                         fontSize: { xs: 15, md: 18 },
                                         textAlign: 'center'
                                     }}>
-                                        {item.name}
+                                        {item.game.name}
                                     </Typography>
                                 </CardContent>
 
@@ -110,10 +97,10 @@ function MyReviewsPage() {
                                         transition: "all 0.3s ease-in-out",
                                         lineHeight: { xs: '1.3rem', md: '1.5rem' }
                                     }}>
-                                        {item.review}
+                                        {item.comment}
                                     </Typography>
 
-                                    {item.review.length > 50 && !expanded[index] && (
+                                    {item.comment.length > 50 && !expanded[index] && (
                                         <Box
                                             sx={{
                                                 width: '100%',
@@ -127,7 +114,7 @@ function MyReviewsPage() {
                                     )}
                                 </CardContent>
 
-                                {item.review.length > 50 && (
+                                {item.comment.length > 50 && (
                                     <Box
                                         sx={{
                                             color: "#fff",
@@ -177,15 +164,15 @@ function MyReviewsPage() {
                                         fontWeight: 600,
                                         fontSize: { xs: 12, md: 14 }
                                     }}>
-                                        {item.time}
+                                        {item.createdAt}
                                     </Typography>
 
                                     <Box sx={{
-                                        border: item.like ? '1px solid rgb(0, 149, 0)' : '1px solid rgb(215, 23, 23)',
+                                        border: item.status === "like" ? '1px solid rgb(0, 149, 0)' : '1px solid rgb(215, 23, 23)',
                                         padding: 1,
                                         borderRadius: 50
                                     }}>
-                                        {item.like ? <ThumbUpOutlined sx={{
+                                        {item.status === "like" ? <ThumbUpOutlined sx={{
                                             color: 'rgb(0, 149, 0)',
                                             fontSize: { xs: 20, md: 28 }
                                         }} /> : <ThumbDownOutlined sx={{
