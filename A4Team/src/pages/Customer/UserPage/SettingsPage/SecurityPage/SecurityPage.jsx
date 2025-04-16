@@ -1,10 +1,14 @@
 import { Box, Grid2, Typography, TextField, Button } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useAuthStore } from "../../../../../hooks/User";
+import { changeEmailUser, changePasswordUser, getProfile } from "../../../../../api/profile";
+import { useStoreAlert } from "../../../../../hooks/alert";
+import { useNavigate } from "react-router-dom";
 
 
 function SecurityPage() {
     const [email, setEmail] = useState("");
-    const [password, SetPassword] = useState("");
+    const navigate = useNavigate();
 
     const [newEmail, setNewEmail] = useState("");
     const [confirmEmail, setConfirmEmail] = useState("");
@@ -14,15 +18,86 @@ function SecurityPage() {
     const [confirmPass, setConfirmPass] = useState("");
     const [currentPassforPass, setCurrentPassforPass] = useState("");
 
+    const { token, profile, setToken } = useAuthStore();
 
-    useEffect(() => {
-        const data = {
-            email: "voconghau509@gmail.com",
-            password: "12345"
-        };
-        setEmail(data.email);
-        SetPassword(data.password);
-    }, [])
+    const { callAlert, callErrorAlert, callWarningAlert } = useStoreAlert();
+
+    const handleChangeEmail = async () => {
+        if (newEmail !== confirmEmail) {
+            callWarningAlert("The confirmation email must be identical to the email you entered. Please try again.");
+            return;
+        }
+
+        const formData = {
+            currentPassword: currentPassforEmail,
+            newEmail: newEmail
+        }
+
+        try {
+            const res = await changeEmailUser(token, formData);
+            if (res.statusCode === 200) {
+                const updatedEmail = await getProfile(res.token, setToken);
+                callAlert("Your email has been changed successfully.")
+            }
+            else {
+                if (res.errors && res.errors.some(err => err.message === "Token expired")) {
+                    callErrorAlert("Your session has expired. Please log in again.");
+                    navigate("/login")
+                }
+                else {
+                    callErrorAlert("Failed to change your email. Please try again.")
+                    console.log("Failed to change email: ", res.errors)
+                }
+            }
+        }
+        catch (error) {
+            if (error?.response?.status === 401 || error?.message?.includes("expired")) {
+                callErrorAlert("Your session has expired. Please log in again.");
+                navigate("/login")
+            }
+            console.log("Errors: ", error);
+            callErrorAlert("An unexpected error occurred. Please try again later.")
+        }
+    }
+
+
+    const handleChangePassword = async () => {
+        if (newPassword !== confirmPass) {
+            callWarningAlert("The confirmation password must be identical to the password you entered. Please try again.");
+            return;
+        }
+
+        const formData = {
+            currentPassword: currentPassforPass,
+            newPassword: newPassword
+        }
+
+        try {
+            const res = await changePasswordUser(token, formData);
+            if (res.statusCode === 200) {
+                const updatedPassword = await getProfile(res.token, setToken);
+                callAlert("Your password has been changed successfully.")
+            }
+            else {
+                if (res.errors && res.errors.some(err => err.message === "Token expired")) {
+                    callErrorAlert("Your session has expired. Please log in again.");
+                    navigate("/login")
+                }
+                else {
+                    callErrorAlert("Failed to change your password. Please try again.")
+                    console.log("Failed to change password: ", res.errors)
+                }
+            }
+        }
+        catch (error) {
+            if (error?.response?.status === 401 || error?.message?.includes("expired")) {
+                callErrorAlert("Your session has expired. Please log in again.");
+                navigate("/login")
+            }
+            console.log("Errors: ", error);
+            callErrorAlert("An unexpected error occurred. Please try again later.")
+        }
+    }
 
     return (
         <Box sx={{
@@ -42,7 +117,7 @@ function SecurityPage() {
                     fontFamily: 'barlow',
                     fontWeight: 600,
                     color: '#999',
-                    fontSize: {xs: 13, sm: 16}
+                    fontSize: { xs: 13, sm: 16 }
                 }}>
                     {email}
                 </Typography>
@@ -65,7 +140,7 @@ function SecurityPage() {
                         <Grid2 size={{ xs: 12, sm: 11 }}>
                             <TextField
                                 variant="outlined"
-                                type="text"
+                                type="email"
                                 fullWidth
                                 placeholder="New Email"
                                 value={newEmail}
@@ -109,7 +184,7 @@ function SecurityPage() {
                         <Grid2 size={{ xs: 12, sm: 11 }}>
                             <TextField
                                 variant="outlined"
-                                type="text"
+                                type="email"
                                 fullWidth
                                 placeholder="Confirm your new Email"
                                 value={confirmEmail}
@@ -153,7 +228,7 @@ function SecurityPage() {
                         <Grid2 size={{ xs: 12, sm: 11 }}>
                             <TextField
                                 variant="outlined"
-                                type="text"
+                                type="email"
                                 fullWidth
                                 placeholder="Your current password"
                                 value={currentPassforEmail}
@@ -204,7 +279,9 @@ function SecurityPage() {
                                 width: { xs: '25%', sm: '40%' },
                                 padding: 1.5,
                                 borderRadius: '5px'
-                            }}>
+                            }}
+                                onClick={() => handleChangeEmail()}
+                            >
                                 <Typography sx={{
                                     fontFamily: 'barlow-regular',
                                     fontSize: { xs: 15, md: 17 },
@@ -232,7 +309,7 @@ function SecurityPage() {
                         <Grid2 size={{ xs: 12, sm: 11 }}>
                             <TextField
                                 variant="outlined"
-                                type="text"
+                                type="password"
                                 fullWidth
                                 placeholder="Your current password"
                                 value={currentPassforPass}
@@ -276,7 +353,7 @@ function SecurityPage() {
                         <Grid2 size={{ xs: 12, sm: 11 }}>
                             <TextField
                                 variant="outlined"
-                                type="text"
+                                type="password"
                                 fullWidth
                                 placeholder="New Password"
                                 value={newPassword}
@@ -320,7 +397,7 @@ function SecurityPage() {
                         <Grid2 size={{ xs: 12, sm: 11 }}>
                             <TextField
                                 variant="outlined"
-                                type="text"
+                                type="password"
                                 fullWidth
                                 placeholder="Corfirm your new Password"
                                 value={confirmPass}
@@ -371,7 +448,9 @@ function SecurityPage() {
                                 width: { xs: '25%', sm: '40%' },
                                 padding: 1.5,
                                 borderRadius: '5px'
-                            }}>
+                            }}
+                                onClick={() => handleChangePassword()}
+                            >
                                 <Typography sx={{
                                     fontFamily: 'barlow-regular',
                                     fontSize: { xs: 15, md: 17 },

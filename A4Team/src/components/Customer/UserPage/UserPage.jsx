@@ -5,7 +5,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Header from "../../../layouts/Header";
 import Footer from "../../../layouts/Footer";
 import { useAuthStore } from "../../../hooks/User";
-import dayjs from "dayjs";
+import { formattedDate } from "../../../ultils/time";
 
 
 function UserPage() {
@@ -13,7 +13,7 @@ function UserPage() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const {profile} = useAuthStore();
+    const { profile } = useAuthStore();
 
     const getValue = (path) => {
         if (path.includes('my-orders')) return 0;
@@ -24,10 +24,6 @@ function UserPage() {
     }
 
     const tabValue = getValue(location.pathname);
-
-    const formatted = (date) => {
-        return dayjs(date).format("MMM D, YYYY");
-    }
 
     return (
         <Box sx={{
@@ -42,20 +38,20 @@ function UserPage() {
             <Box sx={{
                 width: '100%',
                 justifyItems: 'center',
-                paddingTop: {xs: 5, sm: 10}
+                paddingTop: { xs: 5, sm: 10 }
             }}>
                 <Avatar
                     src={profile.data.avatar}
                     sx={{
-                        height: {xs: 90, sm: 120},
-                        width: {xs: 90, sm: 120}
+                        height: { xs: 90, sm: 120 },
+                        width: { xs: 90, sm: 120 }
                     }}
                 />
 
                 <Typography sx={{
                     color: '#fff',
                     fontFamily: 'barlow-regular',
-                    fontSize: {xs: 23, sm: 30},
+                    fontSize: { xs: 23, sm: 30 },
                     paddingTop: 1
                 }}>
                     {profile.data.nickname}
@@ -65,9 +61,9 @@ function UserPage() {
                     color: '#999',
                     fontFamily: 'barlow',
                     fontWeight: 600,
-                    fontSize: {xs: 13, sm: 15}
+                    fontSize: { xs: 13, sm: 15 }
                 }}>
-                    Member since: {formatted(profile.data.createdAt)}
+                    Member since: {formattedDate(profile.data.createdAt)}
                 </Typography>
             </Box>
 
@@ -80,7 +76,7 @@ function UserPage() {
                     variant="scrollable"
                     scrollButtons='auto'
                     sx={{
-                        width: {xs: '95%', sm: '90%', lg: '80%'},
+                        width: { xs: '95%', sm: '90%', lg: '80%' },
                         '& 	.MuiTabs-indicator': {
                             bgcolor: '#ff5400',
                             height: '3px',
@@ -91,7 +87,7 @@ function UserPage() {
                     <Tab label="My orders" disableRipple sx={{
                         textTransform: 'none',
                         fontFamily: 'barlow-regular',
-                        fontSize: {xs: 13, sm: 17},
+                        fontSize: { xs: 13, sm: 17 },
                         color: tabValue === 0 ? '#ff5400 !important' : '#fff',
                         borderBottom: '1px solid #999',
                         ':hover': {
@@ -104,7 +100,7 @@ function UserPage() {
                     <Tab label="Reviews" disableRipple sx={{
                         textTransform: 'none',
                         fontFamily: 'barlow-regular',
-                        fontSize: {xs: 13, sm: 17},
+                        fontSize: { xs: 13, sm: 17 },
                         color: tabValue === 1 ? "#ff5400 !important" : '#fff',
                         borderBottom: '1px solid #999',
                         ':hover': {
@@ -119,11 +115,11 @@ function UserPage() {
 
                     <Tab label="Settings" disableRipple icon={<SettingsOutlined sx={{
                         color: '#ff5400',
-                        fontSize: {xs: 20, sm: 30}
+                        fontSize: { xs: 20, sm: 30 }
                     }} />} iconPosition="start" sx={{
                         textTransform: 'none',
                         fontFamily: 'barlow-regular',
-                        fontSize: {xs: 13, sm: 17},
+                        fontSize: { xs: 13, sm: 17 },
                         color: tabValue === 3 ? '#ff5400 !important' : '#fff',
                         borderBottom: '1px solid #999',
                         ':hover': {
@@ -141,7 +137,7 @@ function UserPage() {
                 flexGrow: 1
             }}>
                 <Box sx={{
-                    width: {xs: '95%', sm: '90%', lg: "80%"},
+                    width: { xs: '95%', sm: '90%', lg: "80%" },
                     marginTop: 3
                 }}>
                     <Outlet />

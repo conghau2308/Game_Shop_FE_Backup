@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { RegisterServiceSubmit } from "../../../api/auth/registerService";
+import { useStoreAlert } from "../../../hooks/alert";
 
 
 function SignUpPage() {
@@ -22,6 +23,8 @@ function SignUpPage() {
     const [lastname, setLastname] = useState("");
     const [birthdate, setBirthdate] = useState("");
     const [country, setCountry] = useState(0);
+
+    const { callWarningAlert } = useStoreAlert();
 
     useEffect(() => {
         const data = [
@@ -68,10 +71,14 @@ function SignUpPage() {
 
     const handleRegister = async () => {
         if (!email || !password || !firstname || !lastname || !birthdate) {
-            console.log("fill full")
+            callWarningAlert("Please fill in all the fields.");
             return;
         }
-        // setIsfullinfor(true);
+
+        if (!isChecked) {
+            callWarningAlert("Please agree to the terms and privacy policy to complete the registration.");
+            return;
+        }
 
         const formData = {
             firstName: firstname,
@@ -332,7 +339,7 @@ function SignUpPage() {
                                         "& .MuiInputBase-input": {
                                             color: "white",
                                             fontFamily: "barlow-regular",
-                                            opacity: 0,
+                                            opacity: birthdate === "" ? 0 : 1,
                                             "&:focus": {
                                                 opacity: 1
                                             },

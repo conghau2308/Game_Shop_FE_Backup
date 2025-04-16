@@ -2,6 +2,8 @@ import { AddAPhotoOutlined } from "@mui/icons-material";
 import { Avatar, Box, Button, Grid2, TextField, Tooltip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../../../../../hooks/User";
+import { getProfile, updateUserProfile } from "../../../../../api/profile";
+import { useStoreAlert } from "../../../../../hooks/alert";
 
 
 function AvatarPage() {
@@ -14,7 +16,9 @@ function AvatarPage() {
     const [resgistration, setRegistration] = useState("");
     const [openTooltip, setOpenTooltip] = useState(false);
 
-    const { profile } = useAuthStore();
+    const { token, profile, setToken } = useAuthStore();
+
+    const { callAlert, callErrorAlert } = useStoreAlert();
 
     useEffect(() => {
         setNickname(profile.data.nickname);
@@ -24,7 +28,65 @@ function AvatarPage() {
         setCountry(1);
         setBirthdate(profile.data.birthDate);
         setRegistration(profile.data.createdAt);
-    }, [])
+    }, [profile])
+
+    const handleUpdate = async () => {
+        const formData = {
+            firstName: firstname,
+            lastName: lastname,
+            birthDate: birthdate,
+            nickName: profile.data.nickname
+        }
+
+        try {
+            const res = await updateUserProfile(token, formData);
+            if (res.statusCode === 200) {
+                const updatedProfile = await getProfile(res.token, setToken);
+                callAlert("Your information has been updated successfully.")
+            }
+            else {
+                callErrorAlert("Failed to update your information. Please try again.");
+                console.log("Fail to update: ", res.errors)
+            }
+        }
+        catch (error) {
+            if (error?.response?.status === 401 || error?.message?.includes("expired")) {
+                callErrorAlert("Your session has expired. Please log in again.")
+                return
+            }
+            console.log("Errors: ", error);
+            callErrorAlert("An unexpected error occurred. Please try again later.")
+        }
+    }
+
+    const handleUpdateNickName = async () => {
+        const formData = {
+            firstName: profile.data.firstName,
+            lastName: profile.data.lastName,
+            birthDate: profile.data.birthDate,
+            nickName: nickname
+        }
+
+        try {
+            const res = await updateUserProfile(token, formData);
+            if (res.statusCode === 200) {
+                const updatedProfile = await getProfile(res.token, setToken);
+                callAlert("Your nickname has been updated successfully.")
+            }
+            else {
+                callErrorAlert("Failed to update your nickname. Please try again.");
+                console.log("Fail to update: ", res.errors)
+            }
+        }
+        catch (error) {
+            if (error?.response?.status === 401 || error?.message?.includes("expired")) {
+                callErrorAlert("Your session has expired. Please log in again.")
+                return
+            }
+            console.log("Errors: ", error);
+            callErrorAlert("An unexpected error occurred. Please try again later.")
+        }
+    }
 
     return (
         <Box>
@@ -130,7 +192,9 @@ function AvatarPage() {
                             width: 120,
                             marginLeft: 2,
                             borderRadius: '5px'
-                        }}>
+                        }}
+                            onClick={() => handleUpdateNickName()}
+                        >
                             <Typography sx={{
                                 fontFamily: 'barlow-regular',
                                 fontSize: {xs: 15, md: 17},
@@ -377,7 +441,9 @@ function AvatarPage() {
                             width: "100%",
                             borderRadius: '5px',
                             padding: 2
-                        }}>
+                        }}
+                            onClick={() => handleUpdate()}
+                        >
                             <Typography sx={{
                                 fontFamily: 'barlow-regular',
                                 fontSize: {xs: 15, md: 17},
