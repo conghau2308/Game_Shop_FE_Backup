@@ -242,7 +242,10 @@ const Header = () => {
                                     </MenuItem>
 
                                     <MenuItem
-                                        onClick={() => removeToken()}
+                                        onClick={() => {
+                                            removeToken();
+                                            navigate("/homepage");
+                                        }}
                                     >
                                         <Typography sx={{
                                             color: '#fff',

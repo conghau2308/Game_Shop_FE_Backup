@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getListReviewsByUserIdService } from "../../../../api/reviewsService";
 import { useAuthStore } from "../../../../hooks/User";
 import { useStoreAlert } from "../../../../hooks/alert";
+import { formattedDateTime  } from "../../../../ultils/time";
 
 
 function MyReviewsPage() {
@@ -164,7 +165,7 @@ function MyReviewsPage() {
                                         fontWeight: 600,
                                         fontSize: { xs: 12, md: 14 }
                                     }}>
-                                        {item.createdAt}
+                                        {formattedDateTime(item.createdAt)}
                                     </Typography>
 
                                     <Box sx={{

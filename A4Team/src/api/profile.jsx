@@ -27,3 +27,74 @@ export const getProfile = async (
         return handleError(error)
     }
 };
+
+
+export const updateUserProfile = async (token, data) => {
+    try {
+        const response = await axios.request({
+            method: "PUT",
+            url: `${port}/api/user/update`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            data: {
+                firstName: data.firstName,
+                lastName: data.lastName,
+                birthDate: data.birthDate,
+                nickName: data.nickName
+            }
+        });
+
+        return response.data;
+    }
+    catch (error) {
+        return handleError(error);
+    }
+}
+
+
+export const changeEmailUser = async (token, data) => {
+    try {
+        const response = await axios.request({
+            method: "PUT",
+            url: `${port}/api/user/change-email`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            data: {
+                currentPassword: data.currentPassword,
+                newEmail: data.newEmail
+            }
+        });
+
+        return response.data;
+    }
+    catch (error) {
+        return handleError(error);
+    }
+}
+
+
+export const changePasswordUser = async (token, data) => {
+    try {
+        const response = await axios.request({
+            method: "PUT",
+            url: `${port}/api/user/change-password`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            data: {
+                oldPassword: data.currentPassword,
+                newPassword: data.newPassword
+            }
+        });
+
+        return response.data;
+    }
+    catch (error) {
+        return handleError(error);
+    }
+}
