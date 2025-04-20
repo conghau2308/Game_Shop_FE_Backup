@@ -24,13 +24,11 @@ function ProductDetailComponent() {
 
             <GameProvider gameId={id}>
                 <AboutProduct />
-            </GameProvider>
 
-            <Newss />
+                <Newss />
 
-            <CommentProduct />
+                <CommentProduct />
 
-            <GameProvider gameId={id}>
                 <ReviewProduct />
             </GameProvider>
 
