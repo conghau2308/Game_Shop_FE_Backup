@@ -22,6 +22,7 @@ function CartFooter() {
 
             <Rating
                 value={4.7}
+                readOnly
                 precision={0.5}
                 icon={<StarIcon sx={{ color: "rgb(29, 159, 22)", fontSize: {xs: 20, sm: 23}}} />}
                 emptyIcon={<StarIcon sx={{ color: "#fff", fontSize: {xs: 20, sm: 23} }} />}

@@ -164,13 +164,13 @@ function MyOrdersPage() {
                                 color: '#fff',
                                 fontFamily: 'barlow-regular',
                                 fontSize: { xs: 20, sm: 23, lg: 25 },
-                                filter: reveal[item.order_id] ? "none" : "blur(6px)",
+                                filter: reveal[item.orderId] ? "none" : "blur(6px)",
                                 transition: "filter 0.3s ease-in-out"
                             }}>
                                 {item.gameKey}
                             </Typography>
 
-                            {!reveal[item.order_id] && (
+                            {!reveal[item.orderId] && (
                                 <Box sx={{
                                     position: 'absolute',
                                     left: { xs: '20%', sm: '32.5%', md: "30%" },
@@ -185,7 +185,7 @@ function MyOrdersPage() {
                                         height: "50%",
                                         width: { xs: '60%', sm: '35%', md: "40%" }
                                     }}
-                                        onClick={() => handleReveal(item.order_id)}
+                                        onClick={() => handleReveal(item.orderId)}
                                     >
                                         <Typography sx={{
                                             fontFamily: 'barlow-regular',

@@ -1,6 +1,10 @@
 import { ArrowUpward } from "@mui/icons-material";
 import { Box, Card, CardMedia, Grid2, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { getLimitedGameWithPriceService } from "../../../../../api/gameWithPriceService";
+import { getGamesWithPlatformByGameIdService } from "../../../../../api/gameListService";
+import { useStoreAlert } from "../../../../../hooks/alert";
+import useStoreCart from "../../../../../hooks/cart";
 
 
 function Recommend() {
@@ -8,29 +12,42 @@ function Recommend() {
 
     const [hoverArrow, setHoverArrow] = useState(null);
 
+    const { addCartBuy } = useStoreCart();
+    const { callErrorAlert, callAlert } = useStoreAlert();
+
     useEffect(() => {
-        const fakedata = [
-            {
-                image: "https://gaming-cdn.com/images/products/6866/616x353/human-fall-flat-xbox-one-xbox-series-x-s-game-microsoft-store-europe-cover.jpg?v=1736958653",
-                name: "Human: Fall Flat",
-                "Game console": "PlayStation",
-                price_sale: 30.1
-            },
-            {
-                image: "https://gaming-cdn.com/images/products/6866/616x353/human-fall-flat-xbox-one-xbox-series-x-s-game-microsoft-store-europe-cover.jpg?v=1736958653",
-                name: "Human: Fall Flat",
-                "Game console": "PlayStation",
-                price_sale: 30.1
-            },
-            {
-                image: "https://gaming-cdn.com/images/products/6866/616x353/human-fall-flat-xbox-one-xbox-series-x-s-game-microsoft-store-europe-cover.jpg?v=1736958653",
-                name: "Human: Fall Flat",
-                "Game console": "PlayStation",
-                price_sale: 30.1
+        const fetchProduct = async () => {
+            try {
+                const res = await getLimitedGameWithPriceService(3);
+                if (res.statusCode === 200) {
+                    setProduct(res.data);
+                    console.log(res.data)
+                }
+                else {
+                    console.log("Failed to fetching Game Recommend", res.errors);
+                }
             }
-        ];
-        setProduct(fakedata);
+            catch (error) {
+                console.log("Errors: ", error)
+            }
+        }
+        fetchProduct();
     }, [])
+
+    const handleMoveToCart = async (productId) => {
+        try {
+            const item = await getGamesWithPlatformByGameIdService(productId);
+            if (item.statusCode === 200) {
+                addCartBuy(item.data[0]);
+                callAlert("This game has been added to the cart successfully")
+            } else {
+                callErrorAlert("Failed to add to cart. Please try again.");
+            }
+        } catch (error) {
+            console.log("Error: ", error);
+            callErrorAlert("Failed to add to cart. Please try again.");
+        }
+    }
 
     return (
         <Box>
@@ -89,21 +106,21 @@ function Recommend() {
                             {item.name}
                         </Typography>
 
-                        <Typography sx={{
+                        {/* <Typography sx={{
                             fontFamily: "barlow",
                             fontWeight: 600,
                             fontSize: { xs: 12, md: 13 },
                             color: "#999"
                         }}>
                             {item["Game console"]}
-                        </Typography>
+                        </Typography> */}
 
                         <Typography sx={{
                             fontSize: { xs: 14, md: 16 },
                             fontFamily: "barlow-regular",
                             paddingTop: { xs: 0, sm: 1 }
                         }}>
-                            {item.price_sale} $
+                            {item.final_price} $
                         </Typography>
                     </Grid2>
 
@@ -123,6 +140,7 @@ function Recommend() {
                         }}
                             onMouseEnter={() => setHoverArrow(index)}
                             onMouseLeave={() => setHoverArrow(null)}
+                            onClick={() => handleMoveToCart(item.gameId)}
                         >
                             <Typography sx={{
                                 fontSize: { xs: 12, md: 13 },
