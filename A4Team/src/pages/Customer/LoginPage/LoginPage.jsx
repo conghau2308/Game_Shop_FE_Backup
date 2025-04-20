@@ -5,6 +5,7 @@ import { useState } from "react";
 import { handleFormSubmitService } from "../../../api/auth/loginService";
 import { useAuthStore } from "../../../hooks/User";
 import { getProfile } from "../../../api/profile";
+import { useStoreAlert } from "../../../hooks/alert";
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -12,16 +13,28 @@ function LoginPage() {
     const [password, setPassword] = useState("");
 
     const { setToken } = useAuthStore();
+    const {callAlert, callErrorAlert} = useStoreAlert();
 
     const handleFormSubmit = async () => {
         try {
             const data = await handleFormSubmitService({ email, password });
-            console.log("Form gửi đi: ", { email, password })
-            if (data && data.data && data.data.token) {
-                await callApiProfile(data.data.token)
+            // console.log("Form gửi đi: ", { email, password })
+            console.log("data: ", data.message)
+            if (data.message === "Invalid password") {
+                callErrorAlert("Invalid password. Please try again.");
+                return;
+            }
+
+            if (data.message === "Invalid email or password") {
+                callErrorAlert("Invalid email or password. Please try again.");
+                return;
+            }
+            if (data.message === "Login successfully" && data.data.token) {
+                await callApiProfile(data.data.token);
+                callAlert("Login successfully.")
             }
             else {
-                console.log("login failed: ", data)
+                callErrorAlert("Something went wrong. Please try again.")
             }
         }
         catch (error) {
@@ -253,7 +266,7 @@ function LoginPage() {
                         </Typography>
 
                         <Typography
-                            onClick={() => navigate("/lost-password")}
+                            // onClick={() => navigate("/lost-password")}
                             component={"a"}
                             sx={{
                                 cursor: "pointer",

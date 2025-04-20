@@ -7,7 +7,7 @@ function useNavigateProductDetail() {
         if(!product || !product.id) return;
 
         const slug = product.name.trim().toLowerCase().replace(/[^\w\s-]/g,"").replace(/\s+/g, "-");
-        const id = product.id;
+        const id = product.gameId;
 
         navigate(`/product-detail/buy/${id}/${slug}`);
     }

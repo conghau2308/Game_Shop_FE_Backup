@@ -33,53 +33,15 @@ import GlobalAlert from './components/GlobalAlert'
 import CheckPayment from './pages/Customer/CartPage/PaymentPage/CheckPayment/CheckPayment'
 import PaymentFailure from './pages/Customer/CartPage/PaymentPage/PaymentStatus/PaymentFailure'
 import SelectMethod from './pages/Customer/CartPage/PaymentPage/PaymentMethod/SelectMethod'
+import GamePlatformPCPage from './pages/Customer/GamePlatformPage/GamePlatformPCPage'
+import GamePlatformPlayStationPage from './pages/Customer/GamePlatformPage/GamePlatformPlayStationPage'
+import GamePlatformXboxPage from './pages/Customer/GamePlatformPage/GamePlatformXboxPage'
+import GamePlatformNintendoPage from './pages/Customer/GamePlatformPage/GamePlatformNintendoPage'
+import App from './App'
 // import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   // <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/homepage" element={<HomePage />}>
-          <Route element={<Trending />} />
-          <Route element={<ActionFooter />} />
-          <Route element={<Categories />} />
-          <Route element={<Comment />} />
-          <Route element={<Content />} />
-          <Route element={<FAQs />} />
-          <Route element={<Information />} />
-          <Route element={<TopBanner />} />
-          <Route element={<Indies />} />
-          <Route element={<Review />} />
-          <Route element={<Newss />} />
-        </Route>
-        <Route path="/create-an-account" element={<SignUpPage />} />
-        <Route path="/product-detail/buy/:id/:slug" element={<ProductDetailPage />} />
-        <Route path="/cart" element={<ProductCartPage />} />
-
-        <Route path="/make-payment" element={<SummaryPayment />}>
-          {/* <Route path="select-bank" element={<SelectBankPage />}/>
-          <Route path="fill-payment" element={<FillPayment />}/>
-          <Route path="confirm-payment" element={<ConfirmPayment />} /> */}
-          <Route path="select-method" element={<SelectMethod />} />
-        </Route>
-
-        <Route path="/game-activation" element={<GameActivationPage />} />
-        <Route path="/user" element={<UserPage />}>
-          <Route path="my-orders" element={<MyOrdersPage />} />
-          <Route path="my-reviews" element={<MyReviewsPage />} />
-          <Route path="settings" element={<SettingsPage />}>
-            <Route index element={<Navigate to="user-profile-settings-avatar" replace/>} />
-            <Route path="user-profile-settings-security" element={<SecurityPage />} />
-            <Route path="user-profile-settings-avatar" element={<AvatarPage />} />
-          </Route>
-        </Route>
-
-        <Route path="/checkPayment" element={<CheckPayment />} />
-        <Route path="/payment-failed" element={<PaymentFailure />} />
-      </Routes>
-
-      <GlobalAlert />
-    </BrowserRouter>
+    <App />
   // </StrictMode>,
 )

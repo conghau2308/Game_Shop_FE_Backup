@@ -119,10 +119,12 @@ function SignUpPage() {
             <IconButton sx={{
                 position: "absolute",
                 top: 10, right: 10,
-            }}>
+            }}
+                onClick={() => navigate("/login")}
+            >
                 <CloseIcon sx={{
                     color: "white",
-                    fontSize: 30
+                    fontSize: 35
                 }} />
             </IconButton>
 
@@ -147,7 +149,7 @@ function SignUpPage() {
                         justifyContent: "center",
                         width: "100%",
                     }}>
-                        <Box>
+                        <Box onClick={() => navigate("/homepage")}>
                             <img src="https://www.instant-gaming.com/themes/igv2/images/logos/logo-horizontal.svg"
                                 style={{
                                     height: "auto", maxWidth: "150px", cursor: "pointer",

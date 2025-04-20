@@ -26,7 +26,7 @@ export const getLimitedGameService = async (limit) => {
             method: "GET",
             url: `${port}/api/games/limit`,
             headers: {
-                // ... headerAxios
+                // ...headerAxios
             },
             params: {
                 limit,
@@ -111,6 +111,28 @@ export const getGameWithDetailByGameIdService = async (gameId) => {
         })
 
         return response.data
+    }
+    catch (error) {
+        return handleError(error);
+    }
+}
+
+
+export const getLimitedGameWithPlatformService = async (platform, limit) => {
+    try {
+        const response = await axios.request({
+            method: "GET",
+            url: `${port}/api/games/by-platform`,
+            headers: {
+                // ...headerAxios
+            },
+            params: {
+                platform,
+                limit
+            }
+        });
+
+        return response.data;
     }
     catch (error) {
         return handleError(error);

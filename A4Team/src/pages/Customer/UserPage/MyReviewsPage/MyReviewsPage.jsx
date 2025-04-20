@@ -20,11 +20,11 @@ function MyReviewsPage() {
             const response = await getListReviewsByUserIdService(profile.data.id);
             if (response.statusCode === 200) {
                 setReviews(response.data);
-                console.log("My reviews data: ", response.data);
+                // console.log("My reviews data: ", response.data);
             }
             else {
                 console.log("Error fetching my reviews: ", response.errors);
-                callErrorAlert("Failed to load your orders. Please try again later.");
+                callErrorAlert("Failed to load your reviews. Please try again later.");
             }
         }
         fetchMyReviews();
