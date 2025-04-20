@@ -10,13 +10,16 @@ import { useStoreAlert } from "../../../../hooks/alert";
 function Trending() {
     const [trending, setTrending] = useState([]);
     const {callErrorAlert} = useStoreAlert();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchGames = async () => {
+            setLoading(true);
             const res = await getLimitedGameWithPriceService(8);
             if (res?.statusCode === 200) {
                 setTrending(res.data);
                 // console.log("trending: ", res.data)
+                setLoading(false)
             }
             else {
                 console.log("Error fetching games:", res.errors);
@@ -27,7 +30,7 @@ function Trending() {
     }, []);
 
     return (
-        <TrendingGames trending={trending}/>
+        <TrendingGames trending={trending} loadding={loading}/>
     )
 }
 
