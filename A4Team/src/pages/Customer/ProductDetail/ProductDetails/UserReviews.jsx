@@ -3,6 +3,7 @@ import { CardHeader, Grid2, Card, Avatar, CardContent, Typography, Box, Button, 
 import { useEffect, useState } from "react";
 import { getListReviewsByGameIdService } from "../../../../api/reviewsService";
 import { useParams } from "react-router-dom";
+import { formattedDateMonthYear } from "../../../../ultils/time";
 
 
 function UserReviews() {
@@ -240,7 +241,7 @@ function UserReviews() {
                                                 fontFamily: "barlow",
                                                 fontWeight: 500
                                             }}>
-                                                {item.createdAt}
+                                                {formattedDateMonthYear(item.createdAt)}
                                             </Typography>
 
                                             <Box sx={{
@@ -459,7 +460,7 @@ function UserReviews() {
                                                 fontFamily: "barlow",
                                                 fontWeight: 500
                                             }}>
-                                                {item.createdAt}
+                                                {formattedDateMonthYear(item.createdAt)}
                                             </Typography>
 
                                             <Box sx={{
@@ -710,7 +711,7 @@ function UserReviews() {
                                                 fontFamily: "barlow",
                                                 fontWeight: 500
                                             }}>
-                                                {item.createdAt}
+                                                {formattedDateMonthYear(item.createdAt)}
                                             </Typography>
 
                                             <Box sx={{
@@ -991,7 +992,7 @@ function UserReviews() {
                                                 fontFamily: "barlow",
                                                 fontWeight: 500
                                             }}>
-                                                {item.createdAt}
+                                                {formattedDateMonthYear(item.createdAt)}
                                             </Typography>
 
                                             <Box sx={{

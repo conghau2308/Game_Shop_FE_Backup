@@ -13,3 +13,7 @@ export function timeAgo (dateTime) {
 export function formattedDate (date) {
     return dayjs(date).format("MMM D, YYYY");
 }
+
+export function formattedDateMonthYear (dateTime) {
+    return dayjs(dateTime).format("D MMMM YYYY");
+}
