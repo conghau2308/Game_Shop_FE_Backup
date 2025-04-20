@@ -4,7 +4,7 @@ import MobileSkeleton from "../Skeleton/mobile";
 import NotMobileSkeleton from "../Skeleton/notMobile";
 
 
-const TrendingGames = ({ trending }) => {
+const TrendingGames = ({ trending, loadding }) => {
     const isMobile = useMediaQuery("(max-width:600px)");
     const isMedium = useMediaQuery("(max-width:1200px");
     const handleProductDetail = useNavigateProductDetail();
@@ -28,7 +28,7 @@ const TrendingGames = ({ trending }) => {
             </Typography>
 
             {isMobile ? (
-                games.length > 0 ? (
+                games.length > 0 && !loadding ? (
                     <ImageList sx={{
                         flexWrap: "nowrap",
                         overflowX: "scroll",
@@ -118,7 +118,7 @@ const TrendingGames = ({ trending }) => {
                     <MobileSkeleton />
                 )
             ) : (
-                games.length > 0 ? (
+                games.length > 0 && !loadding ? (
                     <Grid2 container spacing={4} justifyContent="center">
                         {(isMedium ? games.slice(0, 6) : games).map((product) => (
                             <Grid2 size={{

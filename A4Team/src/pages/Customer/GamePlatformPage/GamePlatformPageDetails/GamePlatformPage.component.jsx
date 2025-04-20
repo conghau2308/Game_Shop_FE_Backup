@@ -7,6 +7,7 @@ import { getLimitedGameWithPlatformService } from "../../../../api/gameListServi
 
 function GamePlatFormComponent({ plafformName }) {
     const [trending, setTrending] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchGames = async () => {
@@ -14,7 +15,8 @@ function GamePlatFormComponent({ plafformName }) {
                 const res = await getLimitedGameWithPlatformService(plafformName, 9);
                 if (res.statusCode === 200) {
                     setTrending(res.data);
-                    console.log(res.data)
+                    // console.log(res.data);
+                    setLoading(false);
                 }
                 else {
                     console.log("Error fetching games: ", res.errors)
