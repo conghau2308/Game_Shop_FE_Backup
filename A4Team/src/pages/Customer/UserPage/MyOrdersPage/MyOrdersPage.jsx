@@ -11,8 +11,9 @@ import ReviewTheGame from "../../../../components/Customer/Review/ReviewGame";
 function MyOrdersPage() {
     const [order, setOrder] = useState([]);
     const [reveal, setReveal] = useState(false);
-    
+
     const { profile } = useAuthStore();
+    const {callErrorAlert } = useStoreAlert();
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -23,6 +24,7 @@ function MyOrdersPage() {
             }
             else {
                 console.log("Error fetching orders by userId: ", res.errors);
+                callErrorAlert("Failed to load your orders. Please try again later.");
             }
         }
         fetchOrders();

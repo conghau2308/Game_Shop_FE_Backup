@@ -6,17 +6,24 @@ import useStoreCart from "../../../../../hooks/cart";
 import { useAuthStore } from "../../../../../hooks/User";
 import { makePaymentService } from "../../../../../api/paymentService";
 import axios from "axios";
+import { useStoreAlert } from "../../../../../hooks/alert";
 
 
 function Summary({ activate }) {
     const navigate = useNavigate();
+    const {callWarningAlert} = useStoreAlert();
 
     const Gotopayment = () => {
+        if (cart.buy.length === 0) {
+            callWarningAlert("Your cart is empty. Add some products before you proceed to payment.");
+            return;
+        }
+        
         activate(1);
         navigate("/make-payment/select-method")
     }
 
-    const { totalOriginalPrice, totalDiscountPrice, totalFinalPrice } = useStoreCart();
+    const { totalOriginalPrice, totalDiscountPrice, totalFinalPrice, cart } = useStoreCart();
 
     return (
         <Box>

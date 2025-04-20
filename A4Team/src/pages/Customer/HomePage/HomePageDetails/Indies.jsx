@@ -1,6 +1,6 @@
 import { Grid2, Box, Card, CardMedia, CardContent, Typography, CardActionArea, useMediaQuery, ImageList, ImageListItem } from "@mui/material";
 import { useEffect, useState } from "react";
-import useNavigateProductDetail from "../../../../ultils/NavigateProductDetail";
+import useNavigateProductDetail from "../../../../ultils/navigate";
 
 
 function Indies() {

@@ -45,6 +45,13 @@ const Header = () => {
 
     const { cart } = useStoreCart();
 
+    const IconDevice = {
+        PC: "https://www.instant-gaming.com/themes/igv2/images/icons/platforms/icon-pc.svg",
+        PlayStation: "https://www.instant-gaming.com/themes/igv2/images/icons/platforms/icon-play.svg",
+        Xbox: "https://www.instant-gaming.com/themes/igv2/images/icons/platforms/icon-xbx.svg",
+        Nintendo: "https://www.instant-gaming.com/themes/igv2/images/icons/platforms/icon-swt.svg"
+    };
+
     return (
         <AppBar
             position="sticky"
@@ -87,11 +94,138 @@ const Header = () => {
                 </Box>
 
                 {/* Navbar Links */}
-                <Box sx={{ display: { xs: 'none', md: "flex" }, justifyContent: "space-between" }}>
-                    <Button sx={{ color: "white" }}>PC</Button>
-                    <Button sx={{ color: "white" }}>PlayStation</Button>
-                    <Button sx={{ color: "white" }}>Xbox</Button>
-                    <Button sx={{ color: "white" }}>Nintendo</Button>
+                <Box sx={{
+                    display: { xs: 'none', md: "flex" }, justifyContent: "space-between",
+                    bgcolor: "#323232",
+                    padding: 1,
+                    paddingLeft: 3,
+                    paddingRight: 3,
+                    borderRadius: 50,
+                    width: { md: '40%', lg: '30%' }
+                }}>
+                    <Button sx={{
+                        color: "white",
+                        textTransform: "none",
+                        borderRadius: 50,
+                        width: '18%',
+                        ':hover': {
+                            bgcolor: '#6d6d6d'
+                        },
+                        ':focus': {
+                            bgcolor: '#ff5400'
+                        }
+                    }} onClick={() => navigate("/platform/platform=pc")}>
+                        <Box
+                            component="img"
+                            src={IconDevice.PC}
+                            sx={{
+                                height: 15,
+                                width: 15,
+                                filter: 'invert(1)',
+                                marginRight: 1.5
+                            }}
+                        />
+                        <Typography sx={{
+                            fontFamily: 'barlow',
+                            fontWeight: 600,
+                            fontSize: 15
+                        }}>
+                            PC
+                        </Typography>
+                    </Button>
+
+                    <Button sx={{
+                        color: "white",
+                        textTransform: "none",
+                        borderRadius: 50,
+                        width: '30%',
+                        ':hover': {
+                            bgcolor: '#6d6d6d'
+                        },
+                        ':focus': {
+                            bgcolor: 'rgb(103, 165, 252)'
+                        }
+                    }} onClick={() => navigate("/platform/platform=playstation")}>
+                        <Box
+                            component="img"
+                            src={IconDevice.PlayStation}
+                            sx={{
+                                height: 15,
+                                width: 15,
+                                filter: 'invert(1)',
+                                marginRight: 1.5
+                            }}
+                        />
+                        <Typography sx={{
+                            fontFamily: 'barlow',
+                            fontWeight: 600,
+                            fontSize: 15
+                        }}>
+                            PlayStation
+                        </Typography>
+                    </Button>
+
+                    <Button sx={{
+                        color: "white",
+                        textTransform: "none",
+                        borderRadius: 50,
+                        width: '20%',
+                        ':hover': {
+                            bgcolor: '#6d6d6d'
+                        },
+                        ':focus': {
+                            bgcolor: 'rgb(74, 225, 89)'
+                        }
+                    }} onClick={() => navigate("/platform/platform=xbox")}>
+                        <Box
+                            component="img"
+                            src={IconDevice.Xbox}
+                            sx={{
+                                height: 15,
+                                width: 15,
+                                filter: 'invert(1)',
+                                marginRight: 1.5
+                            }}
+                        />
+                        <Typography sx={{
+                            fontFamily: 'barlow',
+                            fontWeight: 600,
+                            fontSize: 15
+                        }}>
+                            Xbox
+                        </Typography>
+                    </Button>
+
+                    <Button sx={{
+                        color: "white",
+                        textTransform: "none",
+                        borderRadius: 50,
+                        width: '28%',
+                        ':hover': {
+                            bgcolor: '#6d6d6d'
+                        },
+                        ':focus': {
+                            bgcolor: 'rgb(227, 61, 61)'
+                        }
+                    }} onClick={() => navigate("/platform/platform=nintendo")}>
+                        <Box
+                            component="img"
+                            src={IconDevice.Nintendo}
+                            sx={{
+                                height: 15,
+                                width: 15,
+                                filter: 'invert(1)',
+                                marginRight: 1.5
+                            }}
+                        />
+                        <Typography sx={{
+                            fontFamily: 'barlow',
+                            fontWeight: 600,
+                            fontSize: 15
+                        }}>
+                            Nintendo
+                        </Typography>
+                    </Button>
                 </Box>
 
                 {/* Search Box */}
@@ -123,7 +257,7 @@ const Header = () => {
                         onClick={() => navigate("/cart")}
                     >
                         <Badge badgeContent={cart.buy.length} color="error">
-                            <ShoppingCartIcon sx={{ fontSize: 30}}/>
+                            <ShoppingCartIcon sx={{ fontSize: 30 }} />
                         </Badge>
                     </IconButton>
                     {/* <IconButton
@@ -166,7 +300,7 @@ const Header = () => {
                                         ":hover": {
                                             color: "#ff5400"
                                         }
-                                    }}/>
+                                    }} />
                                 </IconButton>
                             </Box>
                         ) : (
@@ -275,10 +409,129 @@ const Header = () => {
                         justifyContent: 'center'
                     }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", width: { xs: '100%', sm: '80%' } }}>
-                            <Button sx={{ color: "white" }}>PC</Button>
-                            <Button sx={{ color: "white" }}>PlayStation</Button>
-                            <Button sx={{ color: "white" }}>Xbox</Button>
-                            <Button sx={{ color: "white" }}>Nintendo</Button>
+                            <Button sx={{
+                                color: "white",
+                                textTransform: "none",
+                                borderRadius: 50,
+                                width: '18%',
+                                ':hover': {
+                                    bgcolor: '#6d6d6d'
+                                },
+                                ':focus': {
+                                    bgcolor: '#ff5400'
+                                }
+                            }} onClick={() => navigate("/platform/platform=pc")}>
+                                <Box
+                                    component="img"
+                                    src={IconDevice.PC}
+                                    sx={{
+                                        height: 15,
+                                        width: 15,
+                                        filter: 'invert(1)',
+                                        marginRight: 1.5
+                                    }}
+                                />
+                                <Typography sx={{
+                                    fontFamily: 'barlow',
+                                    fontWeight: 600,
+                                    fontSize: 15
+                                }}>
+                                    PC
+                                </Typography>
+                            </Button>
+
+                            <Button sx={{
+                                color: "white",
+                                textTransform: "none",
+                                borderRadius: 50,
+                                width: '30%',
+                                ':hover': {
+                                    bgcolor: '#6d6d6d'
+                                },
+                                ':focus': {
+                                    bgcolor: 'rgb(103, 165, 252)'
+                                }
+                            }} onClick={() => navigate("/platform/platform=playstation")}>
+                                <Box
+                                    component="img"
+                                    src={IconDevice.PlayStation}
+                                    sx={{
+                                        height: 15,
+                                        width: 15,
+                                        filter: 'invert(1)',
+                                        marginRight: 1.5
+                                    }}
+                                />
+                                <Typography sx={{
+                                    fontFamily: 'barlow',
+                                    fontWeight: 600,
+                                    fontSize: 15
+                                }}>
+                                    PlayStation
+                                </Typography>
+                            </Button>
+
+                            <Button sx={{
+                                color: "white",
+                                textTransform: "none",
+                                borderRadius: 50,
+                                width: '20%',
+                                ':hover': {
+                                    bgcolor: '#6d6d6d'
+                                },
+                                ':focus': {
+                                    bgcolor: 'rgb(74, 225, 89)'
+                                }
+                            }} onClick={() => navigate("/platform/platform=xbox")}>
+                                <Box
+                                    component="img"
+                                    src={IconDevice.Xbox}
+                                    sx={{
+                                        height: 15,
+                                        width: 15,
+                                        filter: 'invert(1)',
+                                        marginRight: 1.5
+                                    }}
+                                />
+                                <Typography sx={{
+                                    fontFamily: 'barlow',
+                                    fontWeight: 600,
+                                    fontSize: 15
+                                }}>
+                                    Xbox
+                                </Typography>
+                            </Button>
+
+                            <Button sx={{
+                                color: "white",
+                                textTransform: "none",
+                                borderRadius: 50,
+                                width: '28%',
+                                ':hover': {
+                                    bgcolor: '#6d6d6d'
+                                },
+                                ':focus': {
+                                    bgcolor: 'rgb(227, 61, 61)'
+                                }
+                            }} onClick={() => navigate("/platform/platform=nintendo")}>
+                                <Box
+                                    component="img"
+                                    src={IconDevice.Nintendo}
+                                    sx={{
+                                        height: 15,
+                                        width: 15,
+                                        filter: 'invert(1)',
+                                        marginRight: 1.5
+                                    }}
+                                />
+                                <Typography sx={{
+                                    fontFamily: 'barlow',
+                                    fontWeight: 600,
+                                    fontSize: 15
+                                }}>
+                                    Nintendo
+                                </Typography>
+                            </Button>
                         </Box>
                     </Toolbar>
                 </HideOnScroll>

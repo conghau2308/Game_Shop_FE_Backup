@@ -8,7 +8,7 @@ import { useState } from "react";
 
 function SelectMethod() {
     const navigate = useNavigate();
-    const { callWarningAlert } = useStoreAlert();
+    const { callWarningAlert, callErrorAlert } = useStoreAlert();
     const { totalFinalPrice } = useStoreCart();
     const [loading, setLoading] = useState(false);
 
@@ -28,11 +28,13 @@ function SelectMethod() {
                 const redirectUrl = match[1].trim();
                 window.location.href = redirectUrl;
             } else {
-                console.log("Redirect link not found in response");
+                // console.log("Redirect link not found in response");
+                callErrorAlert("Oops! Something went wrong with your payment. Please try again.")
             }
         }
         catch (error) {
             console.error("There was an error!", error);
+            callErrorAlert("Oops! Something went wrong with your payment. Please try again.")
         }
         finally {
             setLoading(false);
@@ -90,7 +92,13 @@ function SelectMethod() {
                     justifyContent: 'center'
                 }}>
                     {loading ? (
-                        <CircularProgress />
+                        <Box sx={{
+                            height: { xs: 40, sm: 50, md: 60 },
+                            display: 'flex',
+                            alignItems: 'center'
+                        }}>
+                            <CircularProgress />
+                        </Box>
                     ) : (
                         <Box
                             component="img"

@@ -1,5 +1,5 @@
 import { CheckOutlined, ClearOutlined, LocalOfferOutlined, ShoppingCartOutlined } from "@mui/icons-material";
-import { Typography, Box, Grid2, Button, CardMedia, Card, Container, TextField, Autocomplete, useMediaQuery } from "@mui/material";
+import { Typography, Box, Grid2, Button, CardMedia, Card, Container, TextField, Autocomplete, useMediaQuery, Skeleton } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getGamesWithPlatformByGameIdService } from "../../../../api/gameListService";
@@ -86,7 +86,8 @@ function TopProductDetail() {
         <Box>
             {isMobile ? (
                 <Box>
-                    <Box
+                    {product.background ? (
+                        <Box
                         component="img"
                         src={product.background}
                         style={{
@@ -96,6 +97,9 @@ function TopProductDetail() {
                             clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 89%)"
                         }}
                     />
+                    ) : (
+                        <Skeleton sx={{ width: '90%', height: 210, justifySelf: 'center', bgcolor: '#323232'}} animation='wave' />
+                    )}
 
                     <Box sx={{
                         paddingLeft: 2,
@@ -479,7 +483,8 @@ function TopProductDetail() {
                     height: { sm: "800px", md: "600px" },
                     bgcolor: "#272727"
                 }}>
-                    <Box
+                    {product.background ? (
+                        <Box
                         component="img"
                         src={product.background}
                         style={{
@@ -490,6 +495,9 @@ function TopProductDetail() {
                             display: "flex"
                         }}
                     />
+                    ) : (
+                        <Skeleton sx={{ width: "90%", height: 500, justifySelf: 'center', bgcolor: '#323232' }} animation="wave" />
+                    )}
                     <Grid2 container justifyContent="center" spacing={{ lg: 8, md: 4 }} sx={{
                         paddingLeft: { lg: 20, md: 4, sm: 2 },
                         paddingRight: { lg: 20, md: 4, sm: 2 },
@@ -507,15 +515,19 @@ function TopProductDetail() {
                                 height: { sm: "100%", md: "80%" },
                                 borderRadius: "10px",
                             }}>
-                                <CardMedia
-                                    component="img"
-                                    image={product.image}
-                                    sx={{
-                                        width: { sm: "100%", md: "auto" },
-                                        height: { sm: "auto", md: "100%" },
-                                        objectFit: "cover"
-                                    }}
-                                />
+                                {product.image ? (
+                                    <CardMedia
+                                        component="img"
+                                        image={product.image}
+                                        sx={{
+                                            width: { sm: "100%", md: "auto" },
+                                            height: { sm: "auto", md: "100%" },
+                                            objectFit: "cover"
+                                        }}
+                                    />
+                                ) : (
+                                    <Skeleton sx={{ width: "50vw", height: "100%" }} animation="wave" />
+                                )}
                             </Card>
                         </Grid2>
 
@@ -525,17 +537,21 @@ function TopProductDetail() {
                             borderRadius: "10px",
                             width: "100%"
                         }}>
-                            <Typography sx={{
-                                width: { xs: "100%", sm: "100%", md: "90%" },
-                                display: "flex",
-                                justifyContent: "center",
-                                color: "#fff",
-                                fontSize: { lg: 30, md: 23, sm: 25 },
-                                paddingBottom: { sm: 1, md: 3 },
-                                paddingTop: { sm: 0, md: 3 }
-                            }}>
-                                {product.name}
-                            </Typography>
+                            {product.name ? (
+                                <Typography sx={{
+                                    width: { xs: "100%", sm: "100%", md: "90%" },
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    color: "#fff",
+                                    fontSize: { lg: 30, md: 23, sm: 25 },
+                                    paddingBottom: { sm: 1, md: 3 },
+                                    paddingTop: { sm: 0, md: 3 }
+                                }}>
+                                    {product.name}
+                                </Typography>
+                            ) : (
+                                <Skeleton sx={{ width: "80%", height: "10%", paddingTop: 3 }} animation="wave" />
+                            )}
 
                             <Box sx={{
                                 display: "flex",
@@ -570,12 +586,16 @@ function TopProductDetail() {
                                         />
                                     </Box>
 
-                                    <Typography sx={{
-                                        fontSize: { lg: 13, md: 10, sm: 12 },
-                                        fontFamily: "barlow-regular"
-                                    }}>
-                                        {product.platformName}
-                                    </Typography>
+                                    {product.platformName ? (
+                                        <Typography sx={{
+                                            fontSize: { lg: 13, md: 10, sm: 12 },
+                                            fontFamily: "barlow-regular"
+                                        }}>
+                                            {product.platformName}
+                                        </Typography>
+                                    ) : (
+                                        <Skeleton sx={{ width: 50, height: 30 }} animation="wave" />
+                                    )}
                                 </Container>
 
                                 <Container sx={{

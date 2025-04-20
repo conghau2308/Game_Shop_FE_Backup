@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Skeleton } from "@mui/material";
 import { getLimitedGameService } from "../../../../api/gameListService";
 import { getLimitedGameWithPriceService } from "../../../../api/gameWithPriceService";
 
@@ -87,74 +87,85 @@ function TopBanner() {
     }
 
     return (
-        <Box sx={{
-            paddingBottom: 3
-        }}>
-            <Slider {...settings}>
-                {banner.map((item, index) => (
-                    <Box key={index} sx={{
-                        backgroundImage: `url(${item.background})`,
-                        height: {md: "500px", sm: "350px"},
-                        width: "auto",
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                        objectFit: "cover",
-                        backgroundSize: "cover",
-                        clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 89%)",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignContent: "center"
-                    }}>
-                        <Box sx={{
-                            paddingLeft: {lg: 20, sm: 3, xs: 2},
-                            background: "radial-gradient(ellipse, rgba(0, 0, 0, 0.9) 10%, rgba(255, 255, 255, 0) 90%)",
-                            width: {lg: 650, md: 550, sm: 400, xs: 100},
-                            height: 200,
-                            alignContent: "center",
-                        }}>
-                            <Typography sx={{
-                                color: "white",
-                                fontSize: {md: 35, sm: 30, xs: 18},
-                                fontFamily: "barlow-regular",
-                                width: {lg: 600, md: 500, sm: 400, xs: 200},
-                                wordWrap: "break-word"
-                            }}>
-                                {item.name}
-                            </Typography>
-
-                            <Box sx={{
+        <Box>
+            {banner.length > 0 ? (
+                <Box sx={{
+                    paddingBottom: 3
+                }}>
+                    <Slider {...settings}>
+                        {banner.map((item, index) => (
+                            <Box key={index} sx={{
+                                backgroundImage: `url(${item.background})`,
+                                height: { sm: "350px", md: "500px" },
+                                width: "auto",
+                                backgroundPosition: "center",
+                                backgroundRepeat: "no-repeat",
+                                objectFit: "cover",
+                                backgroundSize: "cover",
+                                clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 89%)",
                                 display: "flex",
-                                width: {lg: 250, sm: 220, xs: 130},
-                                justifyContent: "space-between",
-                                paddingTop: {sm: 2, xs: 1}
+                                flexDirection: "column",
+                                alignContent: "center"
                             }}>
-                                <Typography sx={{
-                                    bgcolor: "#ff5400",
-                                    clipPath: "polygon(0 0, 80% 0, 100% 100%, 0 100%, 0 100%)",
-                                    width: {sm: 60, xs: 30},
-                                    borderRadius: "5px",
-                                    fontSize: {md: 23, sm: 22, xs: 13},
-                                    fontFamily: "barlow-regular",
-                                    color: "white",
-                                    paddingLeft: 1.5,
-                                    paddingRight: 1.5,
-                                    alignContent: "center"
+                                <Box sx={{
+                                    paddingLeft: { lg: 20, sm: 3, xs: 2 },
+                                    background: "radial-gradient(ellipse, rgba(0, 0, 0, 0.9) 10%, rgba(255, 255, 255, 0) 90%)",
+                                    width: { lg: 650, md: 550, sm: 400, xs: 100 },
+                                    height: 200,
+                                    alignContent: "center",
                                 }}>
-                                    -{item.discount_percent}%
-                                </Typography>
+                                    <Typography sx={{
+                                        color: "white",
+                                        fontSize: { md: 35, sm: 30, xs: 18 },
+                                        fontFamily: "barlow-regular",
+                                        width: { lg: 600, md: 500, sm: 400, xs: 200 },
+                                        wordWrap: "break-word"
+                                    }}>
+                                        {item.name}
+                                    </Typography>
 
-                                <Typography sx={{
-                                    color: "white",
-                                    fontSize: {md: 30, sm: 25, xs: 15},
-                                    fontFamily: "barlow-regular"
-                                }}>
-                                    {item.final_price} $
-                                </Typography>
+                                    <Box sx={{
+                                        display: "flex",
+                                        width: { lg: 250, sm: 220, xs: 130 },
+                                        justifyContent: "space-between",
+                                        paddingTop: { sm: 2, xs: 1 }
+                                    }}>
+                                        <Typography sx={{
+                                            bgcolor: "#ff5400",
+                                            clipPath: "polygon(0 0, 80% 0, 100% 100%, 0 100%, 0 100%)",
+                                            width: { sm: 60, xs: 30 },
+                                            borderRadius: "5px",
+                                            fontSize: { md: 23, sm: 22, xs: 13 },
+                                            fontFamily: "barlow-regular",
+                                            color: "white",
+                                            paddingLeft: 1.5,
+                                            paddingRight: 1.5,
+                                            alignContent: "center"
+                                        }}>
+                                            -{item.discount_percent}%
+                                        </Typography>
+
+                                        <Typography sx={{
+                                            color: "white",
+                                            fontSize: { md: 30, sm: 25, xs: 15 },
+                                            fontFamily: "barlow-regular"
+                                        }}>
+                                            {item.final_price} $
+                                        </Typography>
+                                    </Box>
+                                </Box>
                             </Box>
-                        </Box>
-                    </Box>
-                ))}
-            </Slider>
+                        ))}
+                    </Slider>
+                </Box>
+            ) : (
+                <Skeleton variant="rectangular" sx={{
+                    width: "100%",
+                    height: { sm: '350px', md: '500px' },
+                    clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 89%)",
+                    bgcolor: "#323232"
+                }} animation='wave' />
+            )}
         </Box>
     )
 }
