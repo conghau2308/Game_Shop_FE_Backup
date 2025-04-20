@@ -13,6 +13,7 @@ export function GameProvider ({ children, gameId }) {
         const fetchGames = async () => {
             const res = await getGameWithDetailByGameIdService(gameId);
             if (res.statusCode === 200) {
+                console.log(res.data)
                 setProduct(res.data);
             }
             else {
