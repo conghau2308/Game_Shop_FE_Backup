@@ -3,6 +3,8 @@ import { Typography, Box, Grid2, Button, CardMedia, Card, Container, TextField, 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getGamesWithPlatformByGameIdService } from "../../../../api/gameListService";
+import { useStoreAlert } from "../../../../hooks/alert";
+import useStoreCart from "../../../../hooks/cart";
 
 
 function TopProductDetail() {
@@ -16,6 +18,9 @@ function TopProductDetail() {
     const [editionValue, setEditionValue] = useState(null);
 
     const isMobile = useMediaQuery("(max-width:600px)");
+
+    const { addCartBuy } = useStoreCart();
+    const { callAlert } = useStoreAlert();
 
     useEffect(() => {
         const fetchGameWithPlatform = async () => {
@@ -69,6 +74,11 @@ function TopProductDetail() {
         const releaseDateGame = new Date(releaseDate);
 
         return releaseDateGame >= today;
+    }
+
+    const handleAddToCart = (item) => {
+        addCartBuy(item);
+        callAlert("This game has been added to the cart successfully.")
     }
 
 
@@ -861,7 +871,9 @@ function TopProductDetail() {
                                 marginBottom: 5,
                                 borderRadius: "5px",
                                 height: '8vh'
-                            }} fullWidth disabled={isFutureRelease(product.releaseDate)}>
+                            }} fullWidth disabled={isFutureRelease(product.releaseDate)}
+                                onClick={() => handleAddToCart(product)}
+                            >
                                 {!isFutureRelease(product.releaseDate) && (<ShoppingCartOutlined />)}
 
                                 <Typography sx={{

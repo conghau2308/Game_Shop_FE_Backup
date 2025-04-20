@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import HideOnScroll from "../components/Customer/CartPage/ProductCart/HideOnScroll";
 import { useAuthStore } from "../hooks/User";
+import useStoreCart from "../hooks/cart";
 const Header = () => {
     const navigate = useNavigate();
 
@@ -41,6 +42,8 @@ const Header = () => {
     // const [avatar, setAvatar] = useState("https://gaming-cdn.com/themes/igv2/images/avatar2.svg");
 
     const { profile, isLogin, removeToken } = useAuthStore();
+
+    const { cart } = useStoreCart();
 
     return (
         <AppBar
@@ -119,8 +122,8 @@ const Header = () => {
                     <IconButton sx={{ color: "white" }}
                         onClick={() => navigate("/cart")}
                     >
-                        <Badge badgeContent={1} color="error">
-                            <ShoppingCartIcon />
+                        <Badge badgeContent={cart.buy.length} color="error">
+                            <ShoppingCartIcon sx={{ fontSize: 30}}/>
                         </Badge>
                     </IconButton>
                     {/* <IconButton

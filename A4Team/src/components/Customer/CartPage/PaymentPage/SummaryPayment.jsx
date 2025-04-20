@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import CartHeader from "../CartHeader";
 import { AddOutlined, RemoveOutlined } from "@mui/icons-material";
 import CartFooter from "../CartFooter";
+import useStoreCart from "../../../../hooks/cart";
 
 
 function SummaryPayment() {
@@ -14,47 +15,11 @@ function SummaryPayment() {
 
     const isMobile = useMediaQuery("(max-width:600px)");
 
-    useEffect(() => {
-        const fakedata = [
-            {
-                name: "Final Fantasy VII Rebirth",
-                "Game console": "PlayStation",
-                price: 37.99,
-                quantity: 2
-            },
-            {
-                name: "Split Fiction",
-                "Game console": "Xbox",
-                price: 37.99,
-                quantity: 1
-            },
-            {
-                name: "Tiny Tina's Wonderlands: Chaotic Great Edition - Europe",
-                "Game console": "Xbox",
-                price: 37.99,
-                quantity: 1
-            },
-            {
-                name: "Tiny Tina's Wonderlands: Chaotic Great Edition - Europe",
-                "Game console": "Xbox",
-                price: 37.99,
-                quantity: 1
-            }
-        ];
-        setProduct(fakedata);
-    }, [])
+    const { cart, totalFinalPrice } = useStoreCart();
 
-    useEffect(() => {
-        const fakedata = {
-            order_id: 123,
-            vat: 0,
-            total_usd: 103.99,
-            total_vnd: 2599750
-        }
-        setOrder(fakedata)
-    }, []);
+    const isGreater = cart.buy.length > 3;
 
-    const isGreater = product.length > 3;
+    const vndPrice = totalFinalPrice * 25000;
 
     return (
         <Box sx={{
@@ -175,7 +140,7 @@ function SummaryPayment() {
                             position: 'relative',
                             marginBottom: {xs: 15, sm: 0}
                         }}>
-                            {(isGreater && !showmore ? product.slice(0, 3) : product).map((item, index) => (
+                            {(isGreater && !showmore ? cart.buy.slice(0, 3) : cart.buy).map((item, index) => (
                                 <Box key={index} sx={{
                                     color: '#999',
                                     display: 'flex',
@@ -209,7 +174,7 @@ function SummaryPayment() {
                                             fontWeight: 600,
                                             lineHeight: '1rem'
                                         }}>
-                                            {item["Game console"]}
+                                            {item.gamePlatform}
                                         </Typography>
                                     </Box>
 
@@ -223,7 +188,8 @@ function SummaryPayment() {
                                             fontWeight: 600,
                                             fontSize: 15
                                         }}>
-                                            {item.quantity === 1 ? "" : item.quantity + "x"} {item.price} $
+                                            {/* {item.quantity === 1 ? "" : item.quantity + "x"}  */}
+                                            {item.finalPrice} $
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -343,7 +309,7 @@ function SummaryPayment() {
                                     </Typography>
                                 </Box>
 
-                                {/* <Box sx={{
+                                <Box sx={{
                                     width: '60%',
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -355,23 +321,23 @@ function SummaryPayment() {
                                         fontSize: 15,
                                         color: '#999'
                                     }}>
-                                        {order.order_id}
+                                        ###
                                     </Typography>
     
                                     <Typography sx={{
                                         fontFamily: 'barlow-regular',
                                         fontSize: {xs: 18, sm: 20},
                                     }}>
-                                        {order.total_usd} $
+                                        {totalFinalPrice} $
                                     </Typography>
     
                                     <Typography sx={{
                                         fontFamily: 'barlow-regular',
                                         fontSize: {xs: 18, sm: 20},
                                     }}>
-                                        {order.total_vnd.toLocaleString('vi-VN')} VND
+                                        {vndPrice.toLocaleString('vi-VN')} VND
                                     </Typography>
-                                </Box> */}
+                                </Box>
                             </Box>
                         )}
                     </Box>

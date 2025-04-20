@@ -30,10 +30,13 @@ import SettingsPage from './components/Customer/UserPage/SettingsPage/SettingsPa
 import SecurityPage from './pages/Customer/UserPage/SettingsPage/SecurityPage/SecurityPage'
 import AvatarPage from './pages/Customer/UserPage/SettingsPage/AvatarPage/AvatarPage'
 import GlobalAlert from './components/GlobalAlert'
+import CheckPayment from './pages/Customer/CartPage/PaymentPage/CheckPayment/CheckPayment'
+import PaymentFailure from './pages/Customer/CartPage/PaymentPage/PaymentStatus/PaymentFailure'
+import SelectMethod from './pages/Customer/CartPage/PaymentPage/PaymentMethod/SelectMethod'
 // import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
@@ -55,9 +58,10 @@ createRoot(document.getElementById('root')).render(
         <Route path="/cart" element={<ProductCartPage />} />
 
         <Route path="/make-payment" element={<SummaryPayment />}>
-          <Route path="select-bank" element={<SelectBankPage />}/>
+          {/* <Route path="select-bank" element={<SelectBankPage />}/>
           <Route path="fill-payment" element={<FillPayment />}/>
-          <Route path="confirm-payment" element={<ConfirmPayment />} />
+          <Route path="confirm-payment" element={<ConfirmPayment />} /> */}
+          <Route path="select-method" element={<SelectMethod />} />
         </Route>
 
         <Route path="/game-activation" element={<GameActivationPage />} />
@@ -70,9 +74,12 @@ createRoot(document.getElementById('root')).render(
             <Route path="user-profile-settings-avatar" element={<AvatarPage />} />
           </Route>
         </Route>
+
+        <Route path="/checkPayment" element={<CheckPayment />} />
+        <Route path="/payment-failed" element={<PaymentFailure />} />
       </Routes>
 
       <GlobalAlert />
     </BrowserRouter>
-  </StrictMode>,
+  // </StrictMode>,
 )
