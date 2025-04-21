@@ -10,7 +10,7 @@ function CheckPayment() {
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
-        console.log("params: ", params);
+        // console.log("params: ", params);
 
         const paymentParams = {
             vnp_Amount: params.get('vnp_Amount'),
@@ -18,7 +18,7 @@ function CheckPayment() {
             vnp_TransactionStatus: params.get('vnp_TransactionStatus')
         };
 
-        console.log("VNP Transaction: ", paymentParams.vnp_TransactionStatus);
+        // console.log("VNP Transaction: ", paymentParams.vnp_TransactionStatus);
 
         const handleCheckPayment = async () => {
             try {
