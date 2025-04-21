@@ -190,7 +190,7 @@ function Comment() {
                 cmt.length > 0 ? (
                     <Grid2 container justifyContent="space-evenly">
                     {(isSmallMedia ? cmt.slice(0, 4) : cmt.slice(0, 5)).map((com, index) => (
-                        <Grid2 key={index} size={{ lg: 2, md: 2, sm: 2.7 }}>
+                        <Grid2 key={index} size={{ sm: 2.7, md: 2  }}>
                             <Card sx={{
                                 bgcolor: "#3d3d3d",
                                 borderRadius: "10px",
@@ -303,7 +303,7 @@ function Comment() {
                     ))}
                 </Grid2>
                 ) : (
-                    <NotMobileSkeleton number={4} size={2.8} />
+                    <NotMobileSkeleton number={isSmallMedia ? 4 : 5} size={{ sm: 2.95, md: 2.3}} />
                 )
             )}
         </Box>
