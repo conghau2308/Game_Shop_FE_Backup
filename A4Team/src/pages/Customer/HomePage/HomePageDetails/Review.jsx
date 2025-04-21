@@ -255,7 +255,7 @@ function Review() {
                     ))}
                 </Grid2>
                 ) : (
-                    <NotMobileSkeleton number={5} size={{ sm: 3.5, lg: 2.7 }}/>
+                    <NotMobileSkeleton number={isMediumdDevice ? 3 : 4} size={{ sm: 3.5, lg: 2.7 }}/>
                 )
             )}
         </Box>
