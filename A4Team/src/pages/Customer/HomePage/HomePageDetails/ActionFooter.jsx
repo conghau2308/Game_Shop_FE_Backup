@@ -1,10 +1,12 @@
 import { Telegram } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
 import { useAuthStore } from "../../../../hooks/User";
+import { useNavigate } from "react-router-dom";
 
 
 function ActionFooter() {
     const { isLogin } = useAuthStore();
+    const navigate = useNavigate();
 
     return (
         <Box sx={{
@@ -53,7 +55,9 @@ function ActionFooter() {
                     fontSize: {xs: 15, sm: 18},
                     fontFamily: "barlow-regular",
                     height: 50
-                }}>
+                }}
+                    onClick={() => navigate("/create-an-account")}
+                >
                     Sign up!
                 </Button>
             </Box>
