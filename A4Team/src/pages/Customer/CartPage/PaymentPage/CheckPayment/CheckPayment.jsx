@@ -18,7 +18,7 @@ function CheckPayment() {
             vnp_TransactionStatus: params.get('vnp_TransactionStatus')
         };
 
-        console.log("VNP Transaction: ",vnp_TransactionNo);
+        console.log("VNP Transaction: ", paymentParams.vnp_TransactionStatus);
 
         const handleCheckPayment = async () => {
             try {
