@@ -38,6 +38,7 @@ const Header = () => {
     };
 
     const isTablet = useMediaQuery("(max-width:900px)");
+    const isSmallDevice = useMediaQuery("(max-width:380px)");
 
     // const [avatar, setAvatar] = useState("https://gaming-cdn.com/themes/igv2/images/avatar2.svg");
 
@@ -230,17 +231,17 @@ const Header = () => {
 
                 {/* Search Box */}
                 <Box
-                    sx={{ position: "relative", display: "flex", alignItems: "center" }}
+                    sx={{ position: "relative", display: "flex", alignItems: "center", width: {xs: '100px', sm: '200px'}, justifyItems: 'center' }}
                 >
                     <InputBase
                         sx={{
                             color: "white",
                             backgroundColor: "#2C2C2C",
                             borderRadius: "20px",
-                            paddingLeft: "10px",
-                            paddingRight: "10px",
-                            width: { xs: '100px', sm: "200px" },
-                            marginLeft: "30px",
+                            paddingLeft: {xs: 0, sm: '10px'},
+                            paddingRight: {xs: 0, sm: "10px"},
+                            width: '100%',
+                            marginLeft: {xs: 0, sm: "30px"},
                         }}
                         placeholder="Search"
                         startAdornment={

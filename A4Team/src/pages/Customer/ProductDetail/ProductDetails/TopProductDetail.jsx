@@ -463,7 +463,9 @@ function TopProductDetail() {
                                 color: "#fff",
                                 borderRadius: "5px",
                                 height: '6vh'
-                            }} fullWidth disabled={isFutureRelease(product.releaseDate)}>
+                            }} fullWidth disabled={isFutureRelease(product.releaseDate)}
+                                onClick={() => handleAddToCart(product)}
+                            >
                                 {!isFutureRelease(product.releaseDate) && (<ShoppingCartOutlined />)}
 
                                 <Typography sx={{

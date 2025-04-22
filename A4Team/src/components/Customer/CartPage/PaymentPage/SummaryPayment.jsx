@@ -97,7 +97,7 @@ function SummaryPayment() {
                                     </Typography>
                                 </Box>
 
-                                {/* <Box sx={{
+                                <Box sx={{
                                     width: '60%',
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -109,23 +109,25 @@ function SummaryPayment() {
                                         fontSize: 15,
                                         color: '#999'
                                     }}>
-                                        {order.order_id}
+                                        ###
                                     </Typography>
     
                                     <Typography sx={{
                                         fontFamily: 'barlow-regular',
-                                        fontSize: {xs: 18, sm: 20},
+                                        fontSize: 15,
+                                        paddingTop: 1,
+                                        paddingBottom: 1
                                     }}>
-                                        {order.total_usd} $
+                                        {totalFinalPrice} $
                                     </Typography>
     
                                     <Typography sx={{
                                         fontFamily: 'barlow-regular',
-                                        fontSize: {xs: 18, sm: 20},
+                                        fontSize: 15
                                     }}>
-                                        {order.total_vnd.toLocaleString('vi-VN')} VND
+                                        {vndPrice.toLocaleString('vi-VN')} VND
                                     </Typography>
-                                </Box> */}
+                                </Box>
                             </Box>
                         )}
                         <Box sx={{

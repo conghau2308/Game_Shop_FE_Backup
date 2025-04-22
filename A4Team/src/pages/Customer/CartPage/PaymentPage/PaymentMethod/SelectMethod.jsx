@@ -54,15 +54,16 @@ function SelectMethod() {
             justifyContent: 'center',
             backgroundColor: '#141414',
             paddingBottom: 4,
-            borderRadius: '10px'
+            borderRadius: '10px',
+            marginTop: {xs: 3, sm: 0}
         }}>
 
             <Typography sx={{
                 color: '#fff',
                 fontFamily: 'barlow-regular',
-                fontSize: { xs: 15, sm: 20 },
-                paddingBottom: { xs: 1, sm: 3 },
-                paddingTop: { xs: 1, sm: 3 },
+                fontSize: { xs: 18, sm: 20 },
+                paddingBottom: { xs: 2, sm: 3 },
+                paddingTop: { xs: 2, sm: 3 },
                 textAlign: 'center'
             }}>
                 Please select a payment method
@@ -93,7 +94,7 @@ function SelectMethod() {
                 }}>
                     {loading ? (
                         <Box sx={{
-                            height: { xs: 40, sm: 50, md: 60 },
+                            height: { xs: 30, sm: 50, md: 60 },
                             display: 'flex',
                             alignItems: 'center'
                         }}>
@@ -105,7 +106,7 @@ function SelectMethod() {
                             src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-1.png"
                             sx={{
                                 width: 'auto',
-                                height: { xs: 40, sm: 50, md: 60 },
+                                height: { xs: 30, sm: 50, md: 60 },
                                 objectFit: 'cover',
                             }}
                         />
@@ -153,7 +154,7 @@ function SelectMethod() {
                         src="https://pay2s.vn/wp-content/uploads/2024/11/momo_icon_circle_pinkbg_RGB-1024x1024.png"
                         sx={{
                             width: 'auto',
-                            height: { xs: 40, sm: 50, md: 60 },
+                            height: { xs: 30, sm: 50, md: 60 },
                             objectFit: 'cover',
                         }}
                     />

@@ -63,10 +63,11 @@ function Cart() {
                                 ':last-child': {
                                     borderBottom: "none"
                                 },
-                                paddingTop: { xs: 2, sm: 0 }
+                                paddingTop: { xs: 2, sm: 0 },
+                                paddingBottom: {xs: 2, sm: 0}
                             }}>
-                                <Grid2 container spacing={1.5}>
-                                    <Grid2 size={{ xs: 4, md: 3 }} justifyItems="center" alignItems="center" sx={{
+                                <Grid2 container spacing={{ xs: 1, sm: 1.5 }} >
+                                    <Grid2 size={{ xs: 4, md: 3 }} display="flex" justifyContent="center" alignItems="center" sx={{
                                         bgcolor: "#3d3d3d"
                                     }}>
                                         <Card sx={{
@@ -77,43 +78,42 @@ function Cart() {
                                                 component="img"
                                                 image={item.image}
                                                 sx={{
-                                                    width: { xs: "100px", sm: "160px", md: "150px", lg: "180px" },
-                                                    height: "auto",
+                                                    width: { xs: "90px", sm: "160px", md: "150px", lg: "180px" },
+                                                    height: "100%",
                                                     objectFit: "cover"
                                                 }}
                                             />
                                         </Card>
                                     </Grid2>
 
-                                    <Grid2 size={6.5} sx={{
+                                    <Grid2 size={{ xs: 5.5, sm: 6.5 }} sx={{
                                         color: "#999",
-                                        paddingLeft: { sm: 1, md: 3 },
+                                        paddingLeft: { xs: 0, sm: 1, md: 3 },
                                         alignContent: "center"
                                     }}>
                                         <Typography sx={{
                                             color: "#fff",
                                             fontFamily: "barlow-regular",
-                                            fontSize: { xs: 13, md: 14, lg: 16 },
+                                            fontSize: { xs: 11, md: 14, lg: 16 },
                                             display: "-webkit-box",
                                             overflow: "hidden",
                                             textOverflow: "ellipsis",
                                             WebkitBoxOrient: "vertical",
                                             WebkitLineClamp: 2,
-                                            lineHeight: "1.5rem",
-                                            height: "3rem"
+                                            lineHeight: { xs: '1rem', sm: "1.5rem" },
+                                            height: { xs: '2rem', sm: "3rem" }
                                         }}>
                                             {item.name}
                                         </Typography>
 
                                         <Box sx={{
                                             display: "flex",
-                                            justifyContent: "space-between"
+                                            justifyContent: "space-between",
+                                            height: '1.5rem'
                                         }}>
                                             <Box sx={{
                                                 display: "flex",
-                                                alignItems: "center",
-                                                paddingTop: 1,
-                                                paddingBottom: 2
+                                                alignItems: "center"
                                             }}>
                                                 <Box sx={{
                                                     bgcolor: `${ColorDevice[item.platformName]}`,
@@ -128,14 +128,14 @@ function Cart() {
                                                         component="img"
                                                         src={IconDevice[item.platformName]}
                                                         sx={{
-                                                            width: { xs: 12, sm: 10, md: 20 },
-                                                            height: { xs: 12, sm: 10, md: 20 }
+                                                            width: { xs: 10, sm: 10, md: 20 },
+                                                            height: { xs: 10, sm: 10, md: 20 }
                                                         }}
                                                     />
                                                 </Box>
 
                                                 <Typography sx={{
-                                                    fontSize: { xs: 12, lg: 13 },
+                                                    fontSize: { xs: 10, lg: 13 },
                                                     fontFamily: "barlow",
                                                     fontWeight: 600
                                                 }}>
@@ -151,7 +151,7 @@ function Cart() {
                                             >
                                                 <DeleteForeverOutlined sx={{
                                                     color: "#999",
-                                                    fontSize: { xs: 20, md: 23, lg: 28 },
+                                                    fontSize: { xs: 16, md: 23, lg: 28 },
                                                     ':hover': {
                                                         color: '#fff'
                                                     }
@@ -167,7 +167,7 @@ function Cart() {
                                         flexDirection: { xs: 'column', md: 'row' }
                                     }}>
                                         <Typography sx={{
-                                            fontSize: { xs: 18, sm: 15, md: 18, lg: 23 },
+                                            fontSize: { xs: 14, sm: 15, md: 18, lg: 23 },
                                             fontFamily: "barlow-regular",
                                             color: "#fff",
                                             paddingRight: 2,
