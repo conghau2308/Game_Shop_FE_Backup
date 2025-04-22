@@ -18,7 +18,7 @@ function AvatarPage() {
 
     const { token, profile, setToken } = useAuthStore();
 
-    const { callAlert, callErrorAlert } = useStoreAlert();
+    const { callAlert, callErrorAlert, callWarningAlert } = useStoreAlert();
 
     useEffect(() => {
         setNickname(profile.data.nickname);
@@ -67,6 +67,11 @@ function AvatarPage() {
             nickName: nickname
         }
 
+        if(nickname === profile.data.nickname) {
+            callWarningAlert("The new nickname you entered matches your current nickname. Please provide a different one to proceed with the update.");
+            return;
+        }
+
         try {
             const res = await updateUserProfile(token, formData);
             if (res.statusCode === 200) {
@@ -74,8 +79,9 @@ function AvatarPage() {
                 callAlert("Your nickname has been updated successfully.")
             }
             else {
-                callErrorAlert("Failed to update your nickname. Please try again.");
-                console.log("Fail to update: ", res.errors)
+                callErrorAlert("Your session has expired. Please log in again.");
+                navigate("/login");
+                return;
             }
         }
         catch (error) {

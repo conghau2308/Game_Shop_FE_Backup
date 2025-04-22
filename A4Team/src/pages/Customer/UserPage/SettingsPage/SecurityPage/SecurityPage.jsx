@@ -28,6 +28,11 @@ function SecurityPage() {
             return;
         }
 
+        if (newEmail === profile.data.email) {
+            callWarningAlert("The new email you entered matches your current email. Please provide a different one to proceed with the update.");
+            return;
+        }
+
         const formData = {
             currentPassword: currentPassforEmail,
             newEmail: newEmail
@@ -40,14 +45,9 @@ function SecurityPage() {
                 callAlert("Your email has been changed successfully.")
             }
             else {
-                if (res.errors && res.errors.some(err => err.message === "Token expired")) {
-                    callErrorAlert("Your session has expired. Please log in again.");
-                    navigate("/login")
-                }
-                else {
-                    callErrorAlert("Failed to change your email. Please try again.")
-                    console.log("Failed to change email: ", res.errors)
-                }
+                callErrorAlert("Your session has expired. Please log in again.");
+                navigate("/login");
+                return;
             }
         }
         catch (error) {
@@ -67,6 +67,11 @@ function SecurityPage() {
             return;
         }
 
+        if (newPassword === profile.data.password) {
+            callWarningAlert("The new password you entered matches your current password. Please provide a different one to proceed with the update.");
+            return;
+        }
+
         const formData = {
             currentPassword: currentPassforPass,
             newPassword: newPassword
@@ -79,14 +84,9 @@ function SecurityPage() {
                 callAlert("Your password has been changed successfully.")
             }
             else {
-                if (res.errors && res.errors.some(err => err.message === "Token expired")) {
-                    callErrorAlert("Your session has expired. Please log in again.");
-                    navigate("/login")
-                }
-                else {
-                    callErrorAlert("Failed to change your password. Please try again.")
-                    console.log("Failed to change password: ", res.errors)
-                }
+                callErrorAlert("Your session has expired. Please log in again.");
+                navigate("/login");
+                return;
             }
         }
         catch (error) {
@@ -228,7 +228,7 @@ function SecurityPage() {
                         <Grid2 size={{ xs: 12, sm: 11 }}>
                             <TextField
                                 variant="outlined"
-                                type="email"
+                                type="password"
                                 fullWidth
                                 placeholder="Your current password"
                                 value={currentPassforEmail}
