@@ -9,7 +9,7 @@ const handleFormSubmitService = async (formData) => {
       method: "POST",
       url: `${port}/api/auth/login-with-password`,
       headers: {
-        // ...headerAxios,
+        ...headerAxios,
         "Content-Type": "application/json",
       },
       data: formData

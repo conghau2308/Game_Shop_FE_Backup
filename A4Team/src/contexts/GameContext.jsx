@@ -4,9 +4,9 @@ import { getGameWithDetailByGameIdService } from "../api/gameListService";
 
 const GameContext = createContext();
 
-export const useGame = () => useContext(GameContext);
+const useGame = () => useContext(GameContext);
 
-export function GameProvider ({ children, gameId }) {
+const GameProvider = ({ children, gameId }) => {
     const [ product, setProduct ] = useState({});
 
     useEffect(() => {
@@ -29,3 +29,5 @@ export function GameProvider ({ children, gameId }) {
         </GameContext.Provider>
     )
 }
+
+export { GameProvider, useGame };

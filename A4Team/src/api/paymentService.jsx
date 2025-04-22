@@ -9,7 +9,7 @@ export const makePaymentService = async (params) => {
             method: "POST",
             url: `${port}/api/payment/submitOrder`,
             headers: {
-                // ...headerAxios,
+                ...headerAxios,
                 "Content-Type": "application/json",
                 // Authorization: `Bearer ${token}`
             },
@@ -32,7 +32,7 @@ export const checkPaymentStatus = async (params) => {
             method: "GET",
             url: `${port}/api/payment/vnpay-payment`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             },
             params: {
                 vnp_Amount: params.vnp_Amount,

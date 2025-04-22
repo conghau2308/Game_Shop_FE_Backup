@@ -11,7 +11,7 @@ export const getProfile = async (
         const response = await axios.request({
             url: `${port}/api/user/me`,
             headers: {
-                // ...headerAxios,
+                ...headerAxios,
                 Authorization: `Bearer ${token}`,
             },
         });
@@ -36,7 +36,8 @@ export const updateUserProfile = async (token, data) => {
             url: `${port}/api/user/update`,
             headers: {
                 Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                ...headerAxios
             },
             data: {
                 firstName: data.firstName,
@@ -61,7 +62,8 @@ export const changeEmailUser = async (token, data) => {
             url: `${port}/api/user/change-email`,
             headers: {
                 Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                ...headerAxios
             },
             data: {
                 currentPassword: data.currentPassword,
@@ -84,7 +86,8 @@ export const changePasswordUser = async (token, data) => {
             url: `${port}/api/user/change-password`,
             headers: {
                 Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                ...headerAxios
             },
             data: {
                 oldPassword: data.currentPassword,

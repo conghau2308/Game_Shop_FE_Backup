@@ -88,15 +88,15 @@ function TopBanner() {
 
     return (
         <Box>
-            {banner.length > 0 ? (
-                <Box sx={{
-                    paddingBottom: 3
-                }}>
-                    <Slider {...settings}>
-                        {banner.map((item, index) => (
+            <Box sx={{
+                paddingBottom: 3
+            }}>
+                <Slider {...settings}>
+                    {banner.length > 0 ? (
+                        banner.map((item, index) => (
                             <Box key={index} sx={{
                                 backgroundImage: `url(${item.background})`,
-                                height: { sm: "350px", md: "500px" },
+                                height: { xs: '210px', sm: "350px", md: "500px" },
                                 width: "auto",
                                 backgroundPosition: "center",
                                 backgroundRepeat: "no-repeat",
@@ -110,15 +110,15 @@ function TopBanner() {
                                 <Box sx={{
                                     paddingLeft: { lg: 20, sm: 3, xs: 2 },
                                     background: "radial-gradient(ellipse, rgba(0, 0, 0, 0.9) 10%, rgba(255, 255, 255, 0) 90%)",
-                                    width: { lg: 650, md: 550, sm: 400, xs: 100 },
-                                    height: 200,
+                                    width: { xs: 220, sm: 400, md: 550, lg: 650 },
+                                    height: { xs: 140, sm: 200 },
                                     alignContent: "center",
                                 }}>
                                     <Typography sx={{
                                         color: "white",
                                         fontSize: { md: 35, sm: 30, xs: 18 },
                                         fontFamily: "barlow-regular",
-                                        width: { lg: 600, md: 500, sm: 400, xs: 200 },
+                                        width: { lg: 600, md: 500, sm: 400, xs: 210 },
                                         wordWrap: "break-word"
                                     }}>
                                         {item.name}
@@ -155,17 +155,19 @@ function TopBanner() {
                                     </Box>
                                 </Box>
                             </Box>
-                        ))}
-                    </Slider>
-                </Box>
-            ) : (
-                <Skeleton variant="rectangular" sx={{
-                    width: "100%",
-                    height: { sm: '350px', md: '500px' },
-                    clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 89%)",
-                    bgcolor: "#323232"
-                }} animation='wave' />
-            )}
+                        ))
+                    ) : (
+                        [...Array(5)].map((_, i) => (
+                            <Skeleton variant="rectangular" key={i} sx={{
+                                width: "100%",
+                                height: { xs: '200px', sm: '350px', md: '500px' },
+                                clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 89%)",
+                                bgcolor: "#323232"
+                            }} animation='wave' />
+                        ))
+                    )}
+                </Slider>
+            </Box>
         </Box>
     )
 }

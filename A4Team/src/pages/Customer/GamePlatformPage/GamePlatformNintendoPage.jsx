@@ -7,14 +7,14 @@ import GamePlatFormComponent from "./GamePlatformPageDetails/GamePlatformPage.co
 function GamePlatformNintendoPage () {
     return (
         <Box sx={{
-            margin: "-8px",
+            // margin: "-8px",
             bgcolor: "#272727"
         }}>
-            <Header />
+            {/* <Header /> */}
 
             <GamePlatFormComponent plafformName={"Nintendo"}/>
 
-            <Footer />
+            {/* <Footer /> */}
         </Box>
     )
 }

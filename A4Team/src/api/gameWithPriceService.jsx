@@ -9,7 +9,7 @@ export const getAllGameWithPriceService = async () => {
             method: "GET",
             url: `${port}/api/games-prices/all`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             },
         });
 
@@ -26,7 +26,7 @@ export const getLimitedGameWithPriceService = async (limit) => {
             method: "GET",
             url: `${port}/api/games-prices/limit`,
             headers: {
-                // ... headerAxios
+                ...headerAxios
             },
             params: {
                 limit,

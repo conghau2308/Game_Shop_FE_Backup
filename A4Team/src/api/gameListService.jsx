@@ -9,7 +9,7 @@ export const getAllGameService = async () => {
             method: "GET",
             url: `${port}/api/games/all`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             },
         });
 
@@ -26,7 +26,7 @@ export const getLimitedGameService = async (limit) => {
             method: "GET",
             url: `${port}/api/games/limit`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             },
             params: {
                 limit,
@@ -46,7 +46,7 @@ export const getDetailGameService = async (id) => {
             method: "GET",
             url: `${port}/api/games/${id}`,
             headers: {
-                // ... headerAxios
+                ...headerAxios
             }
         });
 
@@ -64,7 +64,7 @@ export const getAllGamesWithPlatformService = async () => {
             method: "GET",
             url: `${port}/api/games/all/platforms`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             }
         });
 
@@ -82,7 +82,7 @@ export const getGamesWithPlatformByGameIdService = async (gameId) => {
             method: "GET",
             url: `${port}/api/games/${gameId}/platforms`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             },
             params: {
                 gameId,
@@ -103,7 +103,7 @@ export const getGameWithDetailByGameIdService = async (gameId) => {
             method: "GET",
             url: `${port}/api/games/${gameId}/detail`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             },
             params: {
                 gameId,
@@ -124,7 +124,7 @@ export const getLimitedGameWithPlatformService = async (platform, limit) => {
             method: "GET",
             url: `${port}/api/games/by-platform`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             },
             params: {
                 platform,

@@ -114,7 +114,7 @@ const Header = () => {
                         ':focus': {
                             bgcolor: '#ff5400'
                         }
-                    }} onClick={() => navigate("/platform/platform=pc")}>
+                    }} onClick={() => navigate("/filter/platform/platform=pc")}>
                         <Box
                             component="img"
                             src={IconDevice.PC}
@@ -145,7 +145,7 @@ const Header = () => {
                         ':focus': {
                             bgcolor: 'rgb(103, 165, 252)'
                         }
-                    }} onClick={() => navigate("/platform/platform=playstation")}>
+                    }} onClick={() => navigate("/filter/platform/platform=playstation")}>
                         <Box
                             component="img"
                             src={IconDevice.PlayStation}
@@ -176,7 +176,7 @@ const Header = () => {
                         ':focus': {
                             bgcolor: 'rgb(74, 225, 89)'
                         }
-                    }} onClick={() => navigate("/platform/platform=xbox")}>
+                    }} onClick={() => navigate("/filter/platform/platform=xbox")}>
                         <Box
                             component="img"
                             src={IconDevice.Xbox}
@@ -207,7 +207,7 @@ const Header = () => {
                         ':focus': {
                             bgcolor: 'rgb(227, 61, 61)'
                         }
-                    }} onClick={() => navigate("/platform/platform=nintendo")}>
+                    }} onClick={() => navigate("/filter/platform/platform=nintendo")}>
                         <Box
                             component="img"
                             src={IconDevice.Nintendo}
@@ -420,7 +420,7 @@ const Header = () => {
                                 ':focus': {
                                     bgcolor: '#ff5400'
                                 }
-                            }} onClick={() => navigate("/platform/platform=pc")}>
+                            }} onClick={() => navigate("/filter/platform/platform=pc")}>
                                 <Box
                                     component="img"
                                     src={IconDevice.PC}
@@ -451,7 +451,7 @@ const Header = () => {
                                 ':focus': {
                                     bgcolor: 'rgb(103, 165, 252)'
                                 }
-                            }} onClick={() => navigate("/platform/platform=playstation")}>
+                            }} onClick={() => navigate("/filter/platform/platform=playstation")}>
                                 <Box
                                     component="img"
                                     src={IconDevice.PlayStation}
@@ -482,7 +482,7 @@ const Header = () => {
                                 ':focus': {
                                     bgcolor: 'rgb(74, 225, 89)'
                                 }
-                            }} onClick={() => navigate("/platform/platform=xbox")}>
+                            }} onClick={() => navigate("/filter/platform/platform=xbox")}>
                                 <Box
                                     component="img"
                                     src={IconDevice.Xbox}
@@ -513,7 +513,7 @@ const Header = () => {
                                 ':focus': {
                                     bgcolor: 'rgb(227, 61, 61)'
                                 }
-                            }} onClick={() => navigate("/platform/platform=nintendo")}>
+                            }} onClick={() => navigate("/filter/platform/platform=nintendo")}>
                                 <Box
                                     component="img"
                                     src={IconDevice.Nintendo}

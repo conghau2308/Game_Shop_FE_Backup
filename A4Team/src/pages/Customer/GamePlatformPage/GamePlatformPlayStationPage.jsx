@@ -7,14 +7,14 @@ import GamePlatFormComponent from "./GamePlatformPageDetails/GamePlatformPage.co
 function GamePlatformPlayStationPage () {
     return (
         <Box sx={{
-            margin: "-8px",
+            // margin: "-8px",
             bgcolor: "#272727"
         }}>
-            <Header />
+            {/* <Header /> */}
 
             <GamePlatFormComponent plafformName={"PlayStation"}/>
 
-            <Footer />
+            {/* <Footer /> */}
         </Box>
     )
 }

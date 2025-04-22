@@ -9,9 +9,9 @@ export const getAllReviewsService = async () => {
             method: "GET",
             url: `${port}/api/reviews/all`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             }
-        })
+        });
 
         return response.data;
     }
@@ -26,7 +26,7 @@ export const getLimitedReviewsService = async (limit) => {
             method: "GET",
             url: `${port}/api/reviews/limit`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             },
             params: {
                 limit,
@@ -46,7 +46,7 @@ export const getListReviewsByGameIdService = async (gameId, useFul = null) => {
             method: "GET",
             url: `${port}/api/reviews/by-game`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             },
             params: {
                 gameId,
@@ -67,7 +67,7 @@ export const getListReviewsByUserIdService = async (userId) => {
             method: "GET",
             url: `${port}/api/reviews/by-user`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             },
             params: {
                 userId
