@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStoreAlert } from "../../../../../hooks/alert";
 import { checkPaymentStatus } from "../../../../../api/paymentService";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 
 function CheckPayment() {
@@ -34,13 +35,24 @@ function CheckPayment() {
             }
             catch (error) {
                 console.log("Error: ", error);
+                callErrorAlert("Some things went wrong. Please try again later.");
+                navigate("/homepage");
             }
         };
 
         handleCheckPayment();
     }, [navigate]);
 
-    return null;
+    return (
+        <Backdrop
+            open={true}
+            sx={{
+                bgcolor: '#fff'
+            }}
+        >
+            <CircularProgress />
+        </Backdrop>
+    )
 }
 
 export default CheckPayment;

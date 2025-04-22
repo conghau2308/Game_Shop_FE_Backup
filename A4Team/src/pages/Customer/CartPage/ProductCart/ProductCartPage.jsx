@@ -90,7 +90,7 @@ function ProductCartPage() {
                                         transition: "all 0.3s linear"
                                     }}
                                 >
-                                    <Summary />
+                                    <Summary activate={setActiveStep} />
                                 </Box>
                             </Grid2>
                         </Grid2>

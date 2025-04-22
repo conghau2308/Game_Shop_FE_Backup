@@ -79,7 +79,7 @@ function Recommend() {
                                 component="img"
                                 image={item.image}
                                 sx={{
-                                    width: { xs: "90px", sm: "130px", lg: "150px" },
+                                    width: { xs: "80px", sm: "130px", lg: "150px" },
                                     height: "auto",
                                     objectFit: "cover",
                                     borderRadius: '5px'
@@ -94,7 +94,7 @@ function Recommend() {
                     }}>
                         <Typography sx={{
                             fontFamily: "barlow-regular",
-                            fontSize: { xs: 13, sm: 14, md: 16 },
+                            fontSize: { xs: 10, sm: 14, md: 16 },
                             display: "-webkit-box",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
@@ -116,7 +116,7 @@ function Recommend() {
                         </Typography> */}
 
                         <Typography sx={{
-                            fontSize: { xs: 14, md: 16 },
+                            fontSize: { xs: 12, md: 16 },
                             fontFamily: "barlow-regular",
                             paddingTop: { xs: 0, sm: 1 }
                         }}>
@@ -143,7 +143,7 @@ function Recommend() {
                             onClick={() => handleMoveToCart(item.gameId)}
                         >
                             <Typography sx={{
-                                fontSize: { xs: 12, md: 13 },
+                                fontSize: { xs: 10, md: 13 },
                                 fontFamily: 'barlow',
                                 fontWeight: 600
                             }}>
@@ -151,7 +151,7 @@ function Recommend() {
                             </Typography>
 
                             <ArrowUpward sx={{
-                                fontSize: 16,
+                                fontSize: {xs: 12, sm: 16},
                                 paddingLeft: 0.7,
                                 transition: "transform 0.2s ease-in-out",
                                 transform: hoverArrow === index ? "translateY(-4px)" : "none"

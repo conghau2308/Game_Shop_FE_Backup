@@ -25,7 +25,7 @@ const Footer = () => {
                     fontFamily: "barlow-regular"
                 }}
             >
-                <Typography variant="h6" sx={{ marginBottom: "10px" }}>
+                <Typography variant="h6" sx={{ marginBottom: "10px", fontFamily: 'barlow-regular'}}>
                     Trustpilot
                 </Typography>
 
@@ -42,7 +42,7 @@ const Footer = () => {
                     {/* Move the rating text (4.7 / 745.402 reviews) to the left and new line */}
                     <Typography
                         variant="body2"
-                        sx={{ textAlign: "left", marginTop: "5px" }}
+                        sx={{ textAlign: "left", marginTop: "5px", fontSize: 'barlow-regular' }}
                     >
                         4.7 / 745.402 reviews
                     </Typography>
@@ -57,7 +57,8 @@ const Footer = () => {
                     gap: "30px",
                     marginBottom: "20px",
                     flexWrap: "wrap",
-                    fontFamily: "barlow-regular"
+                    fontFamily: "barlow-regular",
+                    fontSize: {xs: 13, sm: 16}
                 }}
             >
                 <Link href="#" color="inherit" sx={{ textDecoration: "none" }}>
@@ -166,7 +167,7 @@ const Footer = () => {
                         alignItems: "center",
                         flex: "1 1 100%", // Làm cho phần này chiếm hết chiều rộng có sẵn
                         justifyContent: "center",
-
+                        fontFamily: 'barlow-regular'
                     }}
                 >
                     <Typography variant="body2" sx={{ textAlign: "center", fontFamily: "barlow-regular" }}>
