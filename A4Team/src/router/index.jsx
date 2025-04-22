@@ -29,6 +29,7 @@ import GamePlatformPCPage from "../pages/Customer/GamePlatformPage/GamePlatformP
 import GamePlatformPlayStationPage from "../pages/Customer/GamePlatformPage/GamePlatformPlayStationPage"
 import GamePlatformXboxPage from "../pages/Customer/GamePlatformPage/GamePlatformXboxPage"
 import GamePlatformNintendoPage from "../pages/Customer/GamePlatformPage/GamePlatformNintendoPage"
+import GamePlatform from "../components/Customer/GamePlatform/GamePlatform"
 
 
 const RouteComponent = () => {
@@ -74,10 +75,13 @@ const RouteComponent = () => {
 
             <Route path="/checkPayment" element={<CheckPayment />} />
             <Route path="/payment-failed" element={<PaymentFailure />} />
-            <Route path="/platform/platform=pc" element={<GamePlatformPCPage />} />
-            <Route path="/platform/platform=playstation" element={<GamePlatformPlayStationPage />} />
-            <Route path="/platform/platform=xbox" element={<GamePlatformXboxPage />} />
-            <Route path="/platform/platform=nintendo" element={<GamePlatformNintendoPage />} />
+            <Route path="/filter" element={<GamePlatform />}>
+                <Route index element={<Navigate to="platform/platform=pc" replace />} />
+                <Route path="platform/platform=pc" element={<GamePlatformPCPage />} />
+                <Route path="platform/platform=playstation" element={<GamePlatformPlayStationPage />} />
+                <Route path="platform/platform=xbox" element={<GamePlatformXboxPage />} />
+                <Route path="platform/platform=nintendo" element={<GamePlatformNintendoPage />} />
+            </Route>
         </Routes>
     )
 }

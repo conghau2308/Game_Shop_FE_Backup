@@ -1,5 +1,5 @@
 import axios from "axios"
-import { port } from "../../ultils/env"
+import { headerAxios, port } from "../../ultils/env"
 import { handleError } from "../handleError";
 
 
@@ -9,6 +9,7 @@ const RegisterServiceSubmit = async (data) => {
             method: "POST",
             url: `${port}/api/auth/register`,
             headers: {
+                ...headerAxios,
                 "Content-Type": "application/json",
             },
             data: {

@@ -9,7 +9,7 @@ export const createPaymentService = async (data) => {
             method: "POST",
             url: `${port}/api/order-purchases/order`,
             headers: {
-                // ...headerAxios,
+                ...headerAxios,
                 "Content-Type": "application/json"
             },
             data: {
@@ -42,7 +42,7 @@ export const createPurchaseHistoryService = async (data) => {
             method: "POST",
             url: `${port}/api/order-purchases/order`,
             headers: {
-                // ...headerAxios,
+                ...headerAxios,
                 "Content-Type": "application/json"
             },
             data: {

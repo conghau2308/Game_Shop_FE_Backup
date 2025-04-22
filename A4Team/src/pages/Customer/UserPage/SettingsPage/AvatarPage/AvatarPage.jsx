@@ -1,9 +1,10 @@
 import { AddAPhotoOutlined } from "@mui/icons-material";
-import { Avatar, Box, Button, Grid2, TextField, Tooltip, Typography } from "@mui/material";
+import { Avatar, Box, Button, CircularProgress, Grid2, TextField, Tooltip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../../../../../hooks/User";
 import { getProfile, updateUserProfile } from "../../../../../api/profile";
 import { useStoreAlert } from "../../../../../hooks/alert";
+import { useNavigate } from "react-router-dom";
 
 
 function AvatarPage() {
@@ -15,6 +16,9 @@ function AvatarPage() {
     const [birthdate, setBirthdate] = useState("");
     const [resgistration, setRegistration] = useState("");
     const [openTooltip, setOpenTooltip] = useState(false);
+
+    const navigate = useNavigate();
+    const [loadding, setLoading] = useState(false);
 
     const { token, profile, setToken } = useAuthStore();
 
@@ -38,15 +42,23 @@ function AvatarPage() {
             nickName: profile.data.nickname
         }
 
+        if (firstname === profile.data.firstName && lastname === profile.data.lastName && birthdate === profile.data.birthDate) {
+            callWarningAlert("The new profile you entered matches your current profile. Please provide a different one to proceed with the update.");
+            return;
+        }
+
         try {
+            setLoading(true);
             const res = await updateUserProfile(token, formData);
             if (res.statusCode === 200) {
                 const updatedProfile = await getProfile(res.token, setToken);
-                callAlert("Your information has been updated successfully.")
+                callAlert("Your information has been updated successfully.");
+                setLoading(false);
             }
             else {
-                callErrorAlert("Failed to update your information. Please try again.");
-                console.log("Fail to update: ", res.errors)
+                callErrorAlert("Your session has expired. Please log in again.");
+                navigate("/login");
+                return;
             }
         }
         catch (error) {
@@ -67,16 +79,18 @@ function AvatarPage() {
             nickName: nickname
         }
 
-        if(nickname === profile.data.nickname) {
+        if (nickname === profile.data.nickname) {
             callWarningAlert("The new nickname you entered matches your current nickname. Please provide a different one to proceed with the update.");
             return;
         }
 
         try {
+            setLoading(true);
             const res = await updateUserProfile(token, formData);
             if (res.statusCode === 200) {
                 const updatedProfile = await getProfile(res.token, setToken);
-                callAlert("Your nickname has been updated successfully.")
+                callAlert("Your nickname has been updated successfully.");
+                setLoading(false);
             }
             else {
                 callErrorAlert("Your session has expired. Please log in again.");
@@ -86,7 +100,7 @@ function AvatarPage() {
         }
         catch (error) {
             if (error?.response?.status === 401 || error?.message?.includes("expired")) {
-                callErrorAlert("Your session has expired. Please log in again.")
+                callErrorAlert("Your session has expired. Please log in again.");
                 return
             }
             console.log("Errors: ", error);
@@ -101,15 +115,15 @@ function AvatarPage() {
                 width: '90%',
                 display: 'flex',
                 justifySelf: 'center',
-                flexDirection: {xs: 'column', md: 'row'}
+                flexDirection: { xs: 'column', md: 'row' }
             }}>
                 <Box sx={{
-                    width: {xs: '100%', md: '30%'}
+                    width: { xs: '100%', md: '30%' }
                 }}>
                     <Typography sx={{
                         fontFamily: 'barlow-regular',
-                        fontSize: {xs: 16, md: 19},
-                        marginBottom: {xs: 1, sm: 2}
+                        fontSize: { xs: 16, md: 19 },
+                        marginBottom: { xs: 1, sm: 2 }
                     }}>
                         Profile picture
                     </Typography>
@@ -122,8 +136,8 @@ function AvatarPage() {
                         <Avatar
                             src={avatar}
                             sx={{
-                                width: {xs: 40, sm: 60},
-                                height: {xs: 40, sm: 60},
+                                width: { xs: 40, sm: 60 },
+                                height: { xs: 40, sm: 60 },
                                 ':hover': {
                                     boxShadow: '0 0 0 2px #ff5400',
                                     transition: 'all 0.3s ease'
@@ -134,12 +148,12 @@ function AvatarPage() {
                         <AddAPhotoOutlined sx={{
                             marginLeft: 2,
                             marginRight: 1,
-                            fontSize: {xs: 20, sm: 30}
+                            fontSize: { xs: 20, sm: 30 }
                         }} />
 
                         <Typography sx={{
                             fontFamily: 'barlow',
-                            fontSize: {xs: 13, sm: 16},
+                            fontSize: { xs: 13, sm: 16 },
                             fontWeight: 600,
                             color: '#999'
                         }}>
@@ -149,13 +163,13 @@ function AvatarPage() {
                 </Box>
 
                 <Box sx={{
-                    width: {xs: '100%', md: '70%'},
-                    marginTop: {xs: 1, md: 0}
+                    width: { xs: '100%', md: '70%' },
+                    marginTop: { xs: 1, md: 0 }
                 }}>
                     <Typography sx={{
                         fontFamily: 'barlow-regular',
-                        fontSize: {sm: 16, md: 19},
-                        marginBottom: {xs: 1, sm: 2}
+                        fontSize: { sm: 16, md: 19 },
+                        marginBottom: { xs: 1, sm: 2 }
                     }}>
                         Nickname
                     </Typography>
@@ -201,13 +215,17 @@ function AvatarPage() {
                         }}
                             onClick={() => handleUpdateNickName()}
                         >
-                            <Typography sx={{
-                                fontFamily: 'barlow-regular',
-                                fontSize: {xs: 15, md: 17},
-                                color: '#fff'
-                            }}>
-                                Submit
-                            </Typography>
+                            {loadding ? (
+                                <CircularProgress size={30} />
+                            ) : (
+                                <Typography sx={{
+                                    fontFamily: 'barlow-regular',
+                                    fontSize: { xs: 15, md: 17 },
+                                    color: '#fff'
+                                }}>
+                                    Submit
+                                </Typography>
+                            )}
                         </Button>
                     </Box>
                 </Box>
@@ -219,16 +237,16 @@ function AvatarPage() {
             }}>
                 <Typography sx={{
                     fontFamily: 'barlow-regular',
-                    fontSize: {xs: 16, md: 19},
+                    fontSize: { xs: 16, md: 19 },
                     marginBottom: 3,
                     color: '#fff',
-                    marginTop: {xs: 3, sm: 5}
+                    marginTop: { xs: 3, sm: 5 }
                 }}>
                     Manage my personal information
                 </Typography>
 
-                <Grid2 container spacing={{xs: 2, md: 3}} justifyContent="center">
-                    <Grid2 size={{xs: 12, sm: 6}}>
+                <Grid2 container spacing={{ xs: 2, md: 3 }} justifyContent="center">
+                    <Grid2 size={{ xs: 12, sm: 6 }}>
                         <TextField
                             variant="outlined"
                             type="text"
@@ -272,7 +290,7 @@ function AvatarPage() {
                         />
                     </Grid2>
 
-                    <Grid2 size={{xs: 12, sm: 6}}>
+                    <Grid2 size={{ xs: 12, sm: 6 }}>
                         <TextField
                             variant="outlined"
                             type="text"
@@ -316,7 +334,7 @@ function AvatarPage() {
                         />
                     </Grid2>
 
-                    <Grid2 size={{xs: 12, sm: 6}}>
+                    <Grid2 size={{ xs: 12, sm: 6 }}>
                         <Tooltip
                             title="If you want to change your country, please contact your customer support"
                             open={openTooltip}
@@ -384,7 +402,7 @@ function AvatarPage() {
                         </Tooltip>
                     </Grid2>
 
-                    <Grid2 size={{xs: 12, sm: 6}}>
+                    <Grid2 size={{ xs: 12, sm: 6 }}>
                         <TextField
                             variant="outlined"
                             type="date"
@@ -392,6 +410,7 @@ function AvatarPage() {
                             label="Birthdate"
                             value={birthdate}
                             placeholder={`${birthdate}`}
+                            helperText="Format: MM/DD/YYYY"
                             onChange={(e) => setBirthdate(e.target.value)}
                             slotProps={{
                                 inputLabel: {
@@ -424,6 +443,10 @@ function AvatarPage() {
                                 "& .MuiInputLabel-root.Mui-focused": {
                                     color: "white",
                                     fontFamily: "barlow-regular"
+                                },
+                                "& .MuiFormHelperText-root": {
+                                    color: "#fff",
+                                    fontFamily: "barlow-regular"
                                 }
                             }}
                         />
@@ -433,14 +456,14 @@ function AvatarPage() {
                         <Typography sx={{
                             fontFamily: 'barlow',
                             fontWeight: 600,
-                            fontSize: {xs: 13, md: 15},
+                            fontSize: { xs: 13, md: 15 },
                             color: '#999'
                         }}>
                             Registration date: {resgistration}
                         </Typography>
                     </Grid2>
 
-                    <Grid2 size={{xs: 8, sm: 5, lg: 4}}>
+                    <Grid2 size={{ xs: 8, sm: 5, lg: 4 }}>
                         <Button sx={{
                             textTransform: 'none',
                             background: 'linear-gradient(10deg, #ff8000, transparent) #ff4020',
@@ -450,13 +473,17 @@ function AvatarPage() {
                         }}
                             onClick={() => handleUpdate()}
                         >
-                            <Typography sx={{
-                                fontFamily: 'barlow-regular',
-                                fontSize: {xs: 15, md: 17},
-                                color: '#fff'
-                            }}>
-                                Change information
-                            </Typography>
+                            {loadding ? (
+                                <CircularProgress size={30} />
+                            ) : (
+                                <Typography sx={{
+                                    fontFamily: 'barlow-regular',
+                                    fontSize: { xs: 15, md: 17 },
+                                    color: '#fff'
+                                }}>
+                                    Change information
+                                </Typography>
+                            )}
                         </Button>
                     </Grid2>
                 </Grid2>

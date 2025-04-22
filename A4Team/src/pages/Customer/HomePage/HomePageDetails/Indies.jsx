@@ -24,15 +24,15 @@ function Indies() {
             },
             {
                 id: 3,
-                name: "Metal Slug Tactics",
-                description: "Metal Slug Tactics offers a fresh perspective on the iconic battles of the METAL SLUG series. Lead your squad to victory through strategic guile and superior firepower in a perfect blend of classic action and tactical depth. Unleash powerful special attacks and shape the outcome of each encounter! Accumulate experience after each battle to unlock new weapons or bonus perks to upgrade your team's firepower and tactical skills. Assemble your team and rewrite the rules in this modern tribute to a cult classic!",
-                image: "https://gaming-cdn.com/img/products/9050/pcover/1400x500/9050.jpg?v=1730910392"
+                name: "The Elder Scrolls Online: 2025 Content Pass (PC & Mac)",
+                description: "Purchase before May 7, 2025 to get immediate access to the new Mages Guild Recall customized action in addition to a new mount, pet and emote pack. The Worm Cult is back, seeking revenge for its defeat during the Planemeld. Discover the nature of the soul reapers—weapons of fearsome necrotic power—and how they factor into the cult's nefarious plans for Nirn. Help unite the Three Alliances against an old foe once thought defeated but mysteriously returned. The Elder Scrolls Online: 2025 Content Pass requires The Elder Scrolls Online Standard Edition (base game) to play. A DIRECT SEQUEL TO ESO'S MAIN STORY - Travel to the mysterious island of Solstice and begin your new adventure right where The Elder Scrolls Online main story left off. Though Molag Bal and Mannimarco were defeated in the Oblivion plane of Coldharbour, the Worm Cult has returned. Unravel their dire plans for Tamriel and uncover the secrets of the Writhing Wall, a colossal arcane barrier that divides the island. Tamriel hangs in the balance!",
+                image: "https://gaming-cdn.com/images/products/19158/616x353/the-elder-scrolls-online-2025-content-pass-pc-mac-game-cover.jpg?v=1744712406"
             },
             {
                 id: 4,
-                name: "Metal Slug Tactics",
-                description: "Metal Slug Tactics offers a fresh perspective on the iconic battles of the METAL SLUG series. Lead your squad to victory through strategic guile and superior firepower in a perfect blend of classic action and tactical depth. Unleash powerful special attacks and shape the outcome of each encounter! Accumulate experience after each battle to unlock new weapons or bonus perks to upgrade your team's firepower and tactical skills. Assemble your team and rewrite the rules in this modern tribute to a cult classic!",
-                image: "https://gaming-cdn.com/images/products/17940/616x353/the-jackbox-survey-scramble-pc-mac-game-steam-cover.jpg?v=1730307058"
+                name: "Cult of the Lamb: Pilgrim Pack (PC & Mac)",
+                description: "Deep in the Lands of the Old Faith lies paradise, for any pilgrims brave enough to seek it… Join Jalala and Rinor as they journey across the Lands of the Old Faith, searching for a place to call home - as long as they can survive the dangerous Cultists looking for new sacrifices, the terrifying creatures hunting for a meal, and the strange mushroom-peddlars… not to mention rumors of a wicked beast who stalks the land, searching for their next victim… This interactive adventure will show the world of Cult of the Lamb as you’ve never seen it before, with characters new and old to meet and mysteries to uncover.",
+                image: "https://gaming-cdn.com/images/products/17366/616x353/cult-of-the-lamb-pilgrim-pack-pc-mac-game-steam-cover.jpg?v=1729697635"
             }
         ];
         setIndie(fakedata);

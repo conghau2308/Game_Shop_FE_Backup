@@ -9,7 +9,7 @@ export const getAllOrdersService = async () => {
             method: "GET",
             url: `${port}/api/orders/all`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             }
         })
 
@@ -27,7 +27,7 @@ export const getOrdersByUserId = async (userId) => {
             method: "GET",
             url: `${port}/api/orders/user/${userId}`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             },
             params: {
                 userId,

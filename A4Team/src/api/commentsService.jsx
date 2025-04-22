@@ -9,7 +9,7 @@ export const getAllCommentsService = async () => {
             method: "GET",
             url: `${port}/api/comments/all`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             }
         })
 
@@ -26,7 +26,7 @@ export const getLimitedCommentsService = async (limit) => {
             method: "GET",
             url: `${port}/api/comments/limit`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             },
             params: {
                 limit,
@@ -46,7 +46,7 @@ export const getListCommentsByGameIdService = async (gameId) => {
             method: "GET",
             url: `${port}/api/comments/by-game`,
             headers: {
-                // ...headerAxios
+                ...headerAxios
             },
             params: {
                 gameId
