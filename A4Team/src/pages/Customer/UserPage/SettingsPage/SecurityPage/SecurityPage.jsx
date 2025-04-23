@@ -1,4 +1,4 @@
-import { Box, Grid2, Typography, TextField, Button } from "@mui/material";
+import { Box, Grid2, Typography, TextField, Button, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../../../../../hooks/User";
 import { changeEmailUser, changePasswordUser, getProfile } from "../../../../../api/profile";
@@ -21,6 +21,8 @@ function SecurityPage() {
     const { token, profile, setToken } = useAuthStore();
 
     const { callAlert, callErrorAlert, callWarningAlert } = useStoreAlert();
+    const [loadingPass, setLoadingPass] = useState(false);
+    const [loaddingEmail, setLoadingEmail] = useState(false);
 
     const handleChangeEmail = async () => {
         if (newEmail !== confirmEmail) {
@@ -38,6 +40,7 @@ function SecurityPage() {
             newEmail: newEmail
         }
 
+        setLoadingEmail(true);
         try {
             const res = await changeEmailUser(token, formData);
             if (res.statusCode === 200) {
@@ -58,6 +61,9 @@ function SecurityPage() {
             console.log("Errors: ", error);
             callErrorAlert("An unexpected error occurred. Please try again later.")
         }
+        finally {
+            setLoadingEmail(false);
+        }
     }
 
 
@@ -77,6 +83,7 @@ function SecurityPage() {
             newPassword: newPassword
         }
 
+        setLoadingPass(true);
         try {
             const res = await changePasswordUser(token, formData);
             if (res.statusCode === 200) {
@@ -96,6 +103,9 @@ function SecurityPage() {
             }
             console.log("Errors: ", error);
             callErrorAlert("An unexpected error occurred. Please try again later.")
+        }
+        finally {
+            setLoadingPass(false);
         }
     }
 
@@ -281,14 +291,19 @@ function SecurityPage() {
                                 borderRadius: '5px'
                             }}
                                 onClick={() => handleChangeEmail()}
+                                disabled={loaddingEmail}
                             >
-                                <Typography sx={{
-                                    fontFamily: 'barlow-regular',
-                                    fontSize: { xs: 15, md: 17 },
-                                    color: '#fff'
-                                }}>
-                                    Submit
-                                </Typography>
+                                {loaddingEmail ? (
+                                    <CircularProgress sx={{ color: '#fff' }} size={25} />
+                                ) : (
+                                    <Typography sx={{
+                                        fontFamily: 'barlow-regular',
+                                        fontSize: { xs: 15, md: 17 },
+                                        color: '#fff'
+                                    }}>
+                                        Submit
+                                    </Typography>
+                                )}
                             </Button>
                         </Grid2>
                     </Grid2>
@@ -450,14 +465,19 @@ function SecurityPage() {
                                 borderRadius: '5px'
                             }}
                                 onClick={() => handleChangePassword()}
+                                disabled={loadingPass}
                             >
-                                <Typography sx={{
-                                    fontFamily: 'barlow-regular',
-                                    fontSize: { xs: 15, md: 17 },
-                                    color: '#fff'
-                                }}>
-                                    Submit
-                                </Typography>
+                                {loadingPass ? (
+                                    <CircularProgress sx={{ color: "#fff" }} size={25} />
+                                ) : (
+                                    <Typography sx={{
+                                        fontFamily: 'barlow-regular',
+                                        fontSize: { xs: 15, md: 17 },
+                                        color: '#fff'
+                                    }}>
+                                        Submit
+                                    </Typography>
+                                )}
                             </Button>
                         </Grid2>
                     </Grid2>
