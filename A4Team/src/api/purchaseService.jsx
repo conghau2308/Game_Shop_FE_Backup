@@ -49,7 +49,9 @@ export const createPurchaseHistoryService = async (data) => {
                 // paymentId: data.paymentId,
                 activated: data.activated
             }
-        })
+        });
+
+        return response.data;
     }
     catch (error) {
         return handleError(error);

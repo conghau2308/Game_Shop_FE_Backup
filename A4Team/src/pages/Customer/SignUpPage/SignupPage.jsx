@@ -1,5 +1,5 @@
 import { Block, CancelOutlined } from "@mui/icons-material";
-import { Alert, Autocomplete, Box, Grid2, TextField, Typography, Snackbar, AlertTitle, IconButton, Checkbox, Button } from "@mui/material";
+import { Alert, Autocomplete, Box, Grid2, TextField, Typography, Snackbar, AlertTitle, IconButton, Checkbox, Button, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
@@ -23,8 +23,9 @@ function SignUpPage() {
     const [lastname, setLastname] = useState("");
     const [birthdate, setBirthdate] = useState("");
     const [country, setCountry] = useState(0);
+    const [loading, setLoading] = useState(false);
 
-    const { callWarningAlert } = useStoreAlert();
+    const { callWarningAlert, callAlert, callErrorAlert } = useStoreAlert();
 
     useEffect(() => {
         const data = [
@@ -89,22 +90,29 @@ function SignUpPage() {
             country_id: country
         };
 
-        console.log("Form data: ", formData);
+        // console.log("Form data: ", formData);
 
+        setLoading(true);
         try {
             const response = await RegisterServiceSubmit(formData);
 
             console.log("Response: ", response);
 
             if (response.statusCode === 200) {
+                callAlert("Signup successful.");
                 navigate("/login");
             }
             else {
+                callErrorAlert("Something went wrong. Please try signup again.")
                 console.log("Failed: ", response.message);
             }
         }
         catch (error) {
+            callErrorAlert("Something went wrong. Please try signup again.")
             console.log("Error: ", error)
+        }
+        finally {
+            setLoading(false);
         }
     }
 
@@ -514,16 +522,24 @@ function SignUpPage() {
                         <Button sx={{
                             textTransform: "none",
                             color: "white",
-                            fontFamily: "barlow-regular",
                             background: "linear-gradient(10deg, #ff8000, transparent) #ff4020",
-                            fontSize: { xs: 15, sm: 20 },
                             width: "70%",
                             // opacity: isfullinfor === true ? 1 : 0.3
                         }}
                             // disabled={isfullinfor}
                             onClick={handleRegister}
+                            disabled={loading}
                         >
-                            Submit
+                            {loading ? (
+                                <CircularProgress color="#fff" size={25} sx={{ padding: 0.5}} />
+                            ) : (
+                                <Typography sx={{
+                                    fontSize: { xs: 15, sm: 20 },
+                                    fontFamily: "barlow-regular"
+                                }}>
+                                    Submit
+                                </Typography>
+                            )}
                         </Button>
                     </Box>
                 </Grid2>

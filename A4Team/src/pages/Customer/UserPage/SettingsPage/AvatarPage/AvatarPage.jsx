@@ -214,6 +214,7 @@ function AvatarPage() {
                             borderRadius: '5px'
                         }}
                             onClick={() => handleUpdateNickName()}
+                            disabled={loadding}
                         >
                             {loadding ? (
                                 <CircularProgress size={30} />
@@ -472,6 +473,7 @@ function AvatarPage() {
                             padding: 2
                         }}
                             onClick={() => handleUpdate()}
+                            disabled={loadding}
                         >
                             {loadding ? (
                                 <CircularProgress size={30} />

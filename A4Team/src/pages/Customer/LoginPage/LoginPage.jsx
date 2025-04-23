@@ -1,4 +1,4 @@
-import { Box, Button, Container, IconButton, TextField, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Container, IconButton, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
@@ -13,9 +13,15 @@ function LoginPage() {
     const [password, setPassword] = useState("");
 
     const { setToken } = useAuthStore();
-    const {callAlert, callErrorAlert} = useStoreAlert();
+    const {callAlert, callErrorAlert, callWarningAlert} = useStoreAlert();
+    const [loading, setLoading] = useState(false);
 
     const handleFormSubmit = async () => {
+        if(email === "" || password === "") {
+            callWarningAlert("Please fill out both email and password to login.");
+            return;
+        }
+        setLoading(true);
         try {
             const data = await handleFormSubmitService({ email, password });
             // console.log("Form gửi đi: ", { email, password })
@@ -34,11 +40,14 @@ function LoginPage() {
                 callAlert("Login successfully.")
             }
             else {
-                callErrorAlert("Something went wrong. Please try again.")
+                callErrorAlert("Something went wrong. Please try again.");
             }
         }
         catch (error) {
             console.log("Error: ", error)
+        }
+        finally {
+            setLoading(false)
         }
     };
 
@@ -242,8 +251,15 @@ function LoginPage() {
                             }
                         }}
                             onClick={handleFormSubmit}
+                            disabled={loading}
                         >
-                            Log in
+                            {loading ? (
+                                <CircularProgress color="#fff" size={25} />
+                            ) : (
+                                <Typography>
+                                    Log in
+                                </Typography>
+                            )}
                         </Button>
                     </Box>
 
