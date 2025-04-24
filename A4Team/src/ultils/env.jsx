@@ -1,4 +1,4 @@
-export const SITE_NAME = ""
+export const SITE_NAME = "Games Shop"
 
 export const port = import.meta.env.VITE_API_PUBLIC_URL || "http://localhost:8080";
 
