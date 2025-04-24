@@ -26,7 +26,8 @@ function SelectMethod() {
             const match = response.data.match(redirectUrlRegex);
             if (match && match.length > 1) {
                 const redirectUrl = match[1].trim();
-                window.location.href = redirectUrl;
+                // window.location.href = redirectUrl;
+                console.log(redirectUrl);
             } else {
                 // console.log("Redirect link not found in response");
                 callErrorAlert("Oops! Something went wrong with your payment. Please try again.")
