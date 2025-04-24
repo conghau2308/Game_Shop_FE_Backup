@@ -97,6 +97,11 @@ function SignUpPage() {
             const response = await RegisterServiceSubmit(formData);
 
             console.log("Response: ", response);
+            
+            if (response.message === "Email already exists") {
+                callErrorAlert("Email is already in use. Please use an other email to create an account.");
+                return;
+            }
 
             if (response.statusCode === 200) {
                 callAlert("Signup successful.");
