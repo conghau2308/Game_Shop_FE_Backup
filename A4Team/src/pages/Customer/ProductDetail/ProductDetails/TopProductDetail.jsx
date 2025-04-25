@@ -574,13 +574,15 @@ function TopProductDetail() {
                                 marginBottom: { sm: 2, md: 3 },
                             }}>
                                 <Container sx={{
-                                    display: "flex",
                                     borderRight: "1px solid #999",
                                     alignItems: "center"
                                 }}>
 
                                     {product.platformName ? (
-                                        <Box>
+                                        <Box sx={{
+                                            display: "flex",
+                                            alignItems: 'center'
+                                        }}>
                                             <Box sx={{
                                                 bgcolor: `${ColorDevice[product.platformName]}`,
                                                 display: "flex",

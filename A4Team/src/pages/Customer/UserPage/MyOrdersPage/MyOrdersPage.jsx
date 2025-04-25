@@ -6,6 +6,7 @@ import { getOrdersByUserId } from "../../../../api/orderService";
 import { ReviewGameServiceSubmit } from "../../../../api/reviewsService";
 import { useStoreAlert } from "../../../../hooks/alert";
 import ReviewTheGame from "../../../../components/Customer/Review/ReviewGame";
+import { formattedDateDetail } from "../../../../ultils/time";
 
 
 function MyOrdersPage() {
@@ -171,7 +172,7 @@ function MyOrdersPage() {
                         <Box sx={{
                             display: 'flex',
                             color: '#999',
-                            width: { xs: '75%', sm: '45%', md: '35%', lg: "25%" },
+                            width: { xs: '85%', sm: '50%', md: '35%', lg: "30%" },
                             justifyContent: 'space-between',
                             marginTop: 1,
                             marginBottom: 1
@@ -189,7 +190,7 @@ function MyOrdersPage() {
                                 fontWeight: 600,
                                 fontSize: { xs: 13, sm: 15 }
                             }}>
-                                Paypal: {item.purchaseDate}
+                                Paypal: {formattedDateDetail(item.purchaseDate)}
                             </Typography>
                         </Box>
 

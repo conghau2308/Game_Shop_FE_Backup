@@ -3,12 +3,11 @@ import { Avatar, Card, CardHeader, IconButton, Box, Rating, Typography, CardCont
 import { useEffect, useState } from "react";
 import StarIcon from '@mui/icons-material/Star';
 import { getLimitedCommentsService } from "../../../../api/commentsService";
-import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import MobileSkeleton from "../../../../components/Customer/Skeleton/mobile";
 import NotMobileSkeleton from "../../../../components/Customer/Skeleton/notMobile";
 import { useStoreAlert } from "../../../../hooks/alert";
-dayjs.extend(relativeTime);
+import { timeAgo } from "../../../../ultils/time";
 
 function Comment() {
     const [menuClick, setMenuClick] = useState(null);
@@ -46,10 +45,7 @@ function Comment() {
         }
         fetchComments();
     }, [])
-
-    const timeAgo = (date) => {
-        return dayjs(date).fromNow();
-    }
+    
 
     return (
         <Box sx={{
