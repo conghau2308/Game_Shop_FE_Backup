@@ -68,7 +68,7 @@ function Review() {
                         }} gap={20}>
                             {reviews.map((rev, index) => (
                                 <ImageListItem sx={{
-                                    minWidth: "70%",
+                                    minWidth: "290px",
                                     flex: "0 0 70%"
                                 }} key={index}>
                                     <Card sx={{
