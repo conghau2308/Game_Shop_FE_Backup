@@ -71,13 +71,12 @@ function Comment() {
                             flexDirection: "row"
                         }} gap={20}>
                             {cmt.map((com, index) => (
-                                <ImageListItem sx={{
-                                    width: "60%"
-                                }} key={index}>
+                                <ImageListItem key={index}>
                                     <Card sx={{
                                         bgcolor: "#3d3d3d",
                                         borderRadius: "10px",
-                                        position: "relative"
+                                        position: "relative",
+                                        width: '230px'
                                     }}>
                                         <CardHeader
                                             action={
