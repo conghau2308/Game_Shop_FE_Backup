@@ -88,11 +88,11 @@ function AboutProduct() {
                             </Box>
                         ) : (
                             <Box>
-                                <Skeleton height={15} width="100%" animation='wave' sx={{ bgcolor: '#323232' }} />
-                                <Skeleton height={15} width="100%" animation='wave' sx={{ bgcolor: '#323232' }} />
-                                <Skeleton height={15} width="90%" animation='wave' sx={{ bgcolor: '#323232' }} />
-                                <Skeleton height={15} width="80%" animation='wave' sx={{ bgcolor: '#323232' }} />
-                                <Skeleton height={15} width="100%" animation='wave' sx={{ bgcolor: '#323232' }} />
+                                <Skeleton height={{ xs: 13, sm: 15}} width="100%" animation='wave' sx={{ bgcolor: '#323232' }} />
+                                <Skeleton height={{ xs: 13, sm: 15}} width="100%" animation='wave' sx={{ bgcolor: '#323232' }} />
+                                <Skeleton height={{ xs: 13, sm: 15}} width="90%" animation='wave' sx={{ bgcolor: '#323232' }} />
+                                <Skeleton height={{ xs: 13, sm: 15}} width="80%" animation='wave' sx={{ bgcolor: '#323232' }} />
+                                <Skeleton height={{ xs: 13, sm: 15}} width="100%" animation='wave' sx={{ bgcolor: '#323232' }} />
                             </Box>
                         )}
                     </Grid2>
@@ -174,14 +174,17 @@ function AboutProduct() {
                             </Grid2>
 
                             <Grid2 size={{ xs: 7, sm: 8 }} sx={{
-                                color: "#fff"
+                                color: "#fff",
+                                justifyContent: 'space-between',
+                                display: 'flex',
+                                flexDirection: 'column'
                             }}>
                                 {product.developerName ? (
                                     <Typography sx={{ fontSize: { xs: 13, sm: 15 }, fontFamily: "barlow-regular" }}>
                                         {product.developerName}
                                     </Typography>
                                 ) : (
-                                    <Skeleton height={23} width='30%' sx={{ bgcolor: '#323232' }} />
+                                    <Skeleton width='30%' sx={{ bgcolor: '#323232', height: 18 }} />
                                 )}
 
                                 {product.publisherName ? (
@@ -189,7 +192,7 @@ function AboutProduct() {
                                         {product.publisherName}
                                     </Typography>
                                 ) : (
-                                    <Skeleton height={23} width='30%' sx={{ bgcolor: '#323232' }} />
+                                    <Skeleton width='30%' sx={{ bgcolor: '#323232', height: 18 }} />
                                 )}
 
                                 {product.releaseDate ? (
@@ -201,7 +204,7 @@ function AboutProduct() {
                                         {product.releaseDate}
                                     </Typography>
                                 ) : (
-                                    <Skeleton height={23} width='30%' sx={{ bgcolor: '#323232' }} />
+                                    <Skeleton width='30%' sx={{ bgcolor: '#323232', height: 18 }} />
                                 )}
 
                                 {product.genreNames ? (
@@ -209,7 +212,7 @@ function AboutProduct() {
                                         {product.genreNames}
                                     </Typography>
                                 ) : (
-                                    <Skeleton height={23} width='40%' sx={{ bgcolor: '#323232' }} />
+                                    <Skeleton width='40%' sx={{ bgcolor: '#323232', height: 18 }} />
                                 )}
 
                             </Grid2>

@@ -98,22 +98,36 @@ function TopProductDetail() {
                             }}
                         />
                     ) : (
-                        <Skeleton sx={{ width: '90%', height: 210, justifySelf: 'center', bgcolor: '#323232' }} animation='wave' />
+                        <Skeleton sx={{
+                            width: '90%', height: 210,
+                            justifySelf: 'center',
+                            bgcolor: '#323232',
+                            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 89%)"
+                        }} animation='wave' />
                     )}
 
                     <Box sx={{
                         paddingLeft: 2,
                         paddingRight: 2
                     }}>
-                        <Box sx={{
-                            color: "#fff",
-                            fontSize: 20,
-                            fontFamily: "barlow-regular",
-                            paddingTop: 1,
-                            paddingBottom: 2
-                        }}>
-                            {product.name}
-                        </Box>
+                        {product.name ? (
+                            <Box sx={{
+                                color: "#fff",
+                                fontSize: 20,
+                                fontFamily: "barlow-regular",
+                                paddingTop: 1,
+                                paddingBottom: 2
+                            }}>
+                                {product.name}
+                            </Box>
+                        ) : (
+                            <Box sx={{
+                                width: '80%', height: '10%', paddingBottom: 2
+                            }}>
+                                <Skeleton sx={{ width: "70%", height: 6, bgcolor: '#fff', borderRadius: 2, marginBottom: 1 }} animation="wave" />
+                                <Skeleton sx={{ width: "100%", height: 6, bgcolor: '#fff', borderRadius: 2 }} animation="wave" />
+                            </Box>
+                        )}
 
                         <Box sx={{
                             display: "flex",
@@ -131,30 +145,42 @@ function TopProductDetail() {
                                 alignItems: "center",
                                 justifyContent: "center"
                             }}>
-                                <Box sx={{
-                                    bgcolor: `${ColorDevice[product.platformName]}`,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    borderRadius: "50px",
-                                    marginRight: "8px"
-                                }}>
-                                    <Box
-                                        component="img"
-                                        src={IconDevice[product.platformName]}
-                                        sx={{
-                                            width: 15,
-                                            height: 15,
-                                            padding: "5px"
-                                        }}
-                                    />
-                                </Box>
+                                {product.platformName ? (
+                                    <Box sx={{
+                                        display: 'flex',
+                                        alignItems: 'center'
+                                    }}>
+                                        <Box sx={{
+                                            bgcolor: `${ColorDevice[product.platformName]}`,
+                                            display: "flex",
+                                            alignItems: "center",
+                                            borderRadius: "50px",
+                                            marginRight: "8px"
+                                        }}>
+                                            <Box
+                                                component="img"
+                                                src={IconDevice[product.platformName]}
+                                                sx={{
+                                                    width: 15,
+                                                    height: 15,
+                                                    padding: "5px"
+                                                }}
+                                            />
+                                        </Box>
 
-                                <Typography sx={{
-                                    fontSize: 10,
-                                    fontFamily: "barlow-regular"
-                                }}>
-                                    {product.platformName}
-                                </Typography>
+                                        <Typography sx={{
+                                            fontSize: 10,
+                                            fontFamily: "barlow-regular"
+                                        }}>
+                                            {product.platformName}
+                                        </Typography>
+                                    </Box>
+                                ) : (
+                                    <Box>
+                                        <Skeleton sx={{ width: 40, height: 5, bgcolor: '#fff' }} animation="wave" />
+                                        <Skeleton sx={{ width: 60, height: 5, bgcolor: '#fff' }} animation="wave" />
+                                    </Box>
+                                )}
                             </Container>
 
                             <Container sx={{
@@ -416,38 +442,71 @@ function TopProductDetail() {
                                 marginBottom: "5px"
                             }} />
 
-                            <Typography sx={{
-                                textDecoration: "line-through",
-                                fontSize: 15,
-                                padding: "0 10px 0 3px",
-                                fontFamily: "barlow",
-                                fontWeight: 600,
-                                alignContent: "flex-end"
-                            }}>
-                                {product.original_price}$
-                            </Typography>
+                            {product.original_price ? (
+                                <Typography sx={{
+                                    textDecoration: "line-through",
+                                    fontSize: 15,
+                                    padding: "0 10px 0 3px",
+                                    fontFamily: "barlow",
+                                    fontWeight: 600,
+                                    alignContent: "flex-end"
+                                }}>
+                                    {product.original_price}$
+                                </Typography>
+                            ) : (
+                                <Box sx={{ height: 15, width: 40 }}>
+                                    <Skeleton sx={{ width: 20, bgcolor: '#fff', height: 5 }} animation='wave' />
+                                    <Skeleton sx={{ width: 15, bgcolor: '#fff', height: 5 }} animation='wave' />
+                                </Box>
+                            )}
 
-                            <Typography sx={{
-                                fontSize: 20,
-                                color: "#ff5400",
-                                fontFamily: "barlow",
-                                fontWeight: 600,
-                                alignContent: "flex-end",
-                                marginBottom: "-3px"
-                            }}>
-                                {product.discount_percent}%
-                            </Typography>
+                            {product.discount_percent ? (
+                                <Typography sx={{
+                                    fontSize: 20,
+                                    color: "#ff5400",
+                                    fontFamily: "barlow",
+                                    fontWeight: 600,
+                                    alignContent: "flex-end",
+                                    marginBottom: "-3px"
+                                }}>
+                                    {product.discount_percent}%
+                                </Typography>
+                            ) : (
+                                <Box sx={{ height: 20, display: 'flex', alignItems: 'center' }}>
+                                    <Box sx={{ width: '80%' }}>
+                                        <Skeleton sx={{ width: 20, bgcolor: '#ff5400', height: 5 }} animation='wave' />
+                                        <Skeleton sx={{ width: 15, bgcolor: '#ff5400', height: 5 }} animation='wave' />
+                                    </Box>
+                                    <Typography sx={{ color: '#ff5400', fontSize: 20, fontFamily: 'barlow-regular' }}> % </Typography>
+                                </Box>
+                            )}
 
-                            <Typography sx={{
-                                fontSize: 30,
-                                fontFamily: "barlow",
-                                padding: "0 20px",
-                                fontWeight: 700,
-                                alignSelf: "flex-end",
-                                margin: "-8px"
-                            }}>
-                                {product.finalPrice}$
-                            </Typography>
+                            {product.finalPrice ? (
+                                <Typography sx={{
+                                    fontSize: 30,
+                                    fontFamily: "barlow",
+                                    padding: "0 20px",
+                                    fontWeight: 700,
+                                    alignSelf: "flex-end",
+                                    margin: "-8px"
+                                }}>
+                                    {product.finalPrice}$
+                                </Typography>
+                            ) : (
+                                <Box sx={{ height: 30, width: 40, display: 'flex', padding: "0 20px", alignItems: 'center' }}>
+                                    <Box sx={{ width: '80%' }}>
+                                        <Skeleton sx={{ width: 25, bgcolor: '#fff', height: 4 }} animation='wave' />
+                                        <Skeleton sx={{ width: 15, bgcolor: '#fff', height: 4 }} animation='wave' />
+                                        <Skeleton sx={{ width: 20, bgcolor: '#fff', height: 4 }} animation='wave' />
+                                    </Box>
+                                    <Typography sx={{
+                                        color: '#fff',
+                                        fontSize: 30,
+                                        fontFamily: "barlow",
+                                        fontWeight: 700,
+                                    }}> $ </Typography>
+                                </Box>
+                            )}
                         </Box>
 
                         <Box sx={{
@@ -935,8 +994,8 @@ function TopProductDetail() {
                             <Button sx={{
                                 textTransform: "none",
                                 background: "linear-gradient(10deg, #ff8000, transparent) #ff4020",
-                                padding: {sm: 1, md: 1.5},
-                                width: {sm: '40vw', md: '30vw'},
+                                padding: { sm: 1, md: 1.5 },
+                                width: { sm: '40vw', md: '30vw' },
                                 color: "#fff",
                                 marginBottom: 5,
                                 borderRadius: "5px",
@@ -947,7 +1006,7 @@ function TopProductDetail() {
                                 {!isFutureRelease(product.releaseDate) && (<ShoppingCartOutlined />)}
 
                                 <Typography sx={{
-                                    fontSize: isFutureRelease(product.releaseDate) ? 17 : {sm: 25, md: 20},
+                                    fontSize: isFutureRelease(product.releaseDate) ? 17 : { sm: 25, md: 20 },
                                     paddingLeft: 1,
                                     color: '#fff'
                                 }}>
