@@ -256,7 +256,9 @@ function LoginPage() {
                             {loading ? (
                                 <CircularProgress color="#fff" size={25} />
                             ) : (
-                                <Typography>
+                                <Typography sx={{
+                                    fontFamily: 'barlow-regular'
+                                }}>
                                     Log in
                                 </Typography>
                             )}

@@ -25,6 +25,11 @@ function SecurityPage() {
     const [loaddingEmail, setLoadingEmail] = useState(false);
 
     const handleChangeEmail = async () => {
+        if (!newEmail || !confirmEmail || !currentPassforEmail) {
+            callWarningAlert("Please fill in all the fields to change your email.");
+            return;
+        }
+        
         if (newEmail !== confirmEmail) {
             callWarningAlert("The confirmation email must be identical to the email you entered. Please try again.");
             return;
@@ -68,6 +73,11 @@ function SecurityPage() {
 
 
     const handleChangePassword = async () => {
+        if (!newPassword || !confirmPass || !currentPassforPass) {
+            callWarningAlert("Please fill in all the fields to change your password.");
+            return;
+        }
+
         if (newPassword !== confirmPass) {
             callWarningAlert("The confirmation password must be identical to the password you entered. Please try again.");
             return;
