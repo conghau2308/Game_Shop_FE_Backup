@@ -10,6 +10,10 @@ This is a [React.js](https://react.dev/) project bootstrapped and deployed succe
 
 **Lưu ý:** Do hệ thống được deploy trên nền tảng Railway (backend) và Vercel (frontend), nên trong trường hợp lâu không có người truy cập, backend có thể tự động sleep để tiết kiệm tài nguyên. Vì vậy, lần đầu tiên truy cập sau thời gian dài có thể xảy ra lỗi tải dữ liệu (ví dụ: danh sách sản phẩm không load được). Vui lòng tải lại trang nếu gặp sự cố này. Các lần truy cập sau sẽ diễn ra bình thường.
 
+- QR để truy cập trang web dễ dàng hơn trên nhiều thiết bị:
+
+![QR Code](https://i.postimg.cc/MXkfpWML/frame-2.png)
+
 ## Getting Started Locally
 
 Install:
