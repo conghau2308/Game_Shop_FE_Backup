@@ -12,7 +12,9 @@ This is a [React.js](https://react.dev/) project bootstrapped and deployed succe
 
 - QR để truy cập trang web dễ dàng hơn trên nhiều thiết bị:
 
-![QR Code](https://i.postimg.cc/MXkfpWML/frame-2.png)
+<p align="center">
+  <img src="https://i.postimg.cc/MXkfpWML/frame-2.png" alt="QR Code" width="150"/>
+</p>
 
 ## Getting Started Locally
 
