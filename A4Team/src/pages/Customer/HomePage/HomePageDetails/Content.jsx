@@ -24,7 +24,7 @@ function Content() {
                     alignItems: "flex-end",
                 }}>
                     <img
-                        src="https://www.instant-gaming.com/themes/igv2/modules/streamerBanner/images/partners-avatar2-en.png"
+                        src="https://www.instant-gaming.com/themes/igv2/modules/feedbackBox/images/partners-avatar2-en.png"
                         alt="Partner Avatar"
                         style={{
                             height: "100%",
