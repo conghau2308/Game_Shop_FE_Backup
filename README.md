@@ -25,7 +25,7 @@ npm install
 
 Then, run the development server:
 ```bash
-npm dev
+npm run dev
 ```
 
 ## Phương án dự phòng khi server (backend) gặp sự cố:
